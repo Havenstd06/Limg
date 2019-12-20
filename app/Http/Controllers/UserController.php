@@ -33,8 +33,11 @@ class UserController extends Controller
       $avatarName = strtolower($user->username) . '.' . $request->file('avatar')->getClientOriginalExtension();
       $location = storage_path('app/public/avatars/' . $avatarName);
 
-      if (file_exists($location)) {
-        File::delete($location);
+      $oldExt = pathinfo($user->avatar, PATHINFO_EXTENSION);
+      $oldAvatar = storage_path('app/public/avatars/' . strtolower($user->username) . '.' . $oldExt);
+
+      if (file_exists($oldAvatar)) {
+        File::delete($oldAvatar);
       }
 
       if ($avatar->getClientOriginalExtension() == 'gif') {
