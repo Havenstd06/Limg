@@ -19,6 +19,11 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+// Profile Route
 Route::get('p/{user}', 'UserController@index')->name('profile');
 
-Route::post('/upload', 'HomeController@upload')->name('upload');
+
+// Image Route
+Route::post('/upload', 'ImageController@upload')->name('upload');
+Route::get('/i/{image}', 'ImageController@getImage')->where('image', '^[^/]+$');
