@@ -21,7 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 // Profile Route
-Route::get('p/{user}', 'UserController@index')->name('profile');
+Route::get('/p/{user}', 'UserController@profile')->name('profile');
+Route::post('/p/update_avatar', 'UserController@update_avatar')->name('update_avatar');
 
 
 // Image Route
