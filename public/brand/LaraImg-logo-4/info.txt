@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: Comfortaa-Light
+font link: https://fonts.google.com/specimen/Comfortaa
+font author: Johan Aakerlund
+font author site: https://aajohan.deviantart.com/
+
+
+icon designer: Patrick Torres
+icon designer link: /patrick.torres.94
+        
+{"bg":"transparent","icon-gradient-0":"#E90DDA","icon-gradient-1":"#15CFF1","font":"#000000","slogan":"#141414"}
+      

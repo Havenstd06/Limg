@@ -1,24 +1,13 @@
-<span align="center">
-  <h1>
-    LaraImg
-  </h1>
-  <p>
-    An image hosting service powered by Laravel
-  </p>
+# LaraImg
+## An image hosting service powered by Laravel
   
-</span>
-  
-<p align="center">
-  <img src="https://papang-production.fr/storage/app/uploads/public/5b8/e14/52e/5b8e1452e8dfa638246726.png" width=500>
-</p>
+<img src="https://i.imgur.com/8jAfnaz.png" width=500 align="center">
   
 
-<p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
 
 ### Requirement
 - [**PHP**](https://php.net) 5.6.4+ (**7.0** preferred)
@@ -29,12 +18,8 @@
 - [Node.js](https://nodejs.org/) with npm
 
 ### Installation
-* clone the repository: `git clone https://github.com/Havenstd06/LaraImg LaraImg`
+* clone the repository: `git clone https://git.latable.dev/Havens/LaraImg LaraImg`
 * create a database
 * create configuration env file `.env` refer to `.env.example`
 * install: `composer install --no-dev`
 * setup database tables: `php artisan migrate`
-
-
-### License
-LaraImg is open source software licensed under the [MIT license](http://opensource.org/licenses/MIT).
