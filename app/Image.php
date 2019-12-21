@@ -12,4 +12,14 @@ class Image extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function getFullNameAttribute() 
+    {
+        return $this->name . '.' . $this->extension;
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 }

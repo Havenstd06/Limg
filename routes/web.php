@@ -11,20 +11,22 @@
 |
 */
 
+use App\Http\Controllers\ImageController;
+
 Auth::routes(['verify' => true]);
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 
 // Profile Route
-Route::get('/p/{user}', 'UserController@profile')->name('profile');
-Route::post('/p/update_avatar', 'UserController@update_avatar')->name('update_avatar');
+Route::prefix('p')->group(function () {
+    Route::get('{user}', 'UserController@profile')->name('profile');
+    Route::post('update_avatar', 'UserController@update_avatar')->name('update_avatar');
+});
 
 
 // Image Route
 Route::post('/upload', 'ImageController@upload')->name('upload');
-Route::get('/i/{image}', 'ImageController@getImage')->where('image', '^[^/]+$');
+Route::get('/i/{image}', 'ImageController@getImage')->name('image.show');
+
+

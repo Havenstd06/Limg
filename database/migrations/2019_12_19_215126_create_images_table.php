@@ -17,6 +17,7 @@ class CreateImagesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('path');
+            $table->string('extension');
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
 

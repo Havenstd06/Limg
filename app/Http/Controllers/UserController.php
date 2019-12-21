@@ -23,8 +23,6 @@ class UserController extends Controller
 
     $user = auth()->user();
 
-    abort_unless($request->user()->id == $user->id, 403);
-
     $max = config('image.max_size');
     
     $avatar = $request->file('avatar');
@@ -45,6 +43,7 @@ class UserController extends Controller
       } else {
         InterImage::make($avatar)->resize(150, 150)->save($location);
       }
+
     }
     else {
       return back()->withErrors('Your avatar is too large, max file size: ' . ($max / 1000000) . ' MB');
