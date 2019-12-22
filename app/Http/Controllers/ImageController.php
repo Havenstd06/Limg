@@ -25,7 +25,7 @@ class ImageController extends Controller
     $image->user_id = $user->id;
     $image->save();
 
-    return redirect(route('home'))->with('image_id', $image->id);
+    return redirect(route('image.show', ['image' => $image->name]));
   }
   
   public function getImage($image)

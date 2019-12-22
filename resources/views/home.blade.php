@@ -20,19 +20,10 @@
             {{-- <span> or drag it here</span>. Nah --}}
         </span>
 
-        @if ($image->path == null)
         <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type='file' class="hidden" id="image" name="image" onchange="form.submit()"/>
+            <input type='file' class="hidden" name="image" onchange="form.submit()"/>
         </form>
-        @else 
-            <script type="text/javascript">
-                function redir(){
-                    self.location.href="{{ route('image.show', ['image' => $image->name]) }}"
-                }
-                setTimeout(redir,1)
-            </script>
-        @endif
     </label>
 </div>
 @endsection
