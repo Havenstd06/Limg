@@ -163,15 +163,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
-         * Package Service Providers...
-         */
-        Intervention\Image\ImageServiceProvider::class,
-
-        /*
-         * Package Service Providers...
-         */
-
-        /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
@@ -180,6 +171,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\NovaServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
 
     ],
 

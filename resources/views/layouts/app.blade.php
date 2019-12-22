@@ -18,15 +18,13 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
-    
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link href="https://cdn.jsdelivr.net/npm/firacode@2.0.0/distr/fira_code.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@2.0.0/distr/fira_code.min.css">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    @notifyCss
 </head>
 <body>
 <div id="app">
@@ -36,7 +34,7 @@
                 <div class="flex items-center justify-between py-4">
                     <div>
                         <a href="{{ route('home') }}" class="class">
-                            <img src="{{ url('images/logo-text-min.png') }}" alt="{{ config('app.name') }} Logo" class="rounded h-8">
+                            <img src="{{ url('images/logo-text-min.png') }}" alt="{{ config('app.name') }} Logo" class="rounded-lg h-8">
                         </a> 
                     </div>
 
@@ -126,6 +124,12 @@
             @yield('content')
         </div>
     </div>
-</div>
+</div> 
+
+<!-- Scripts -->
+@include('notify::messages')
+<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+@notifyJs 
+
 </body>
 </html>
