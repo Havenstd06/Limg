@@ -7,21 +7,21 @@
         @csrf
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                    {{ __('Username') }}
+                    {{ __('Username or Email') }}
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 @error('username') border-red-600 @enderror" 
-                    id="username" type="text" name="username" value="{{ old('username') }}" placeholder="Username" required autocomplete="username" autofocus>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 @if ($errors->has('username') || $errors->has('email')) border-red-600 @endif" 
+                    id="username" type="text" name="login" value="{{ old('username') ?: old('email') }}" required autocomplete="username" autofocus>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
                     {{ __('Password') }}
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 @error('username') border-red-600 @enderror" 
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 @if ($errors->has('username') || $errors->has('email')) border-red-600 @endif" 
                     id="password" type="password" name="password" placeholder="******************" required autocomplete="current-password">
-   
-                @error('username')
-                <p class="text-red-600 text-xs italic">{{ $message }}</p>
-                @enderror
+
+                @if ($errors->has('username') || $errors->has('email'))
+                    <p class="text-red-600 text-xs italic">{{ $errors->first('username') ?: $errors->first('email') }}</p>
+                @endif
             </div>
             <div class="mb-6">
                 <label class="custom-label flex">
