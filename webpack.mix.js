@@ -14,8 +14,8 @@ const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
 
 mix.js('resources/js/app.js', 'public/js')
-    // .babel(['resources/js/laraimg/toastr.min.js'], 'public/js/laraimg.js')
     .copy('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/css/webfonts')
+    .copy('public/vendor/mckenziearts/laravel-notify/fonts', 'public/css/webfonts')
     .sass('resources/sass/app.scss', 'public/css')
     .options({
         processCssUrls: false,

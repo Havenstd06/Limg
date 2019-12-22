@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use App\Rules\MatchOldPassword;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image as InterImage;
 
 class UserController extends Controller
@@ -17,9 +20,32 @@ class UserController extends Controller
     ]);
   }
 
-
-  public function update_avatar(Request $request)
+  public function settings(Request $request, User $user)
   {
+    abort_unless($user == $request->user(), 403);
+
+    return view('user.settings', [
+        'user' => $user,
+    ]);
+  }
+
+  public function update_password(Request $request)
+  {
+    $request->validate([
+      'current_password' => ['required', new MatchOldPassword],
+      'new_password' => ['required', 'string', 'min:8'],
+      'new_confirm_password' => ['same:new_password'],
+    ]);
+
+    User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);
+
+    notify()->success('You have successfully update your passsword.');
+    return back();
+  }
+
+  public function update_avatar(Request $request, User $user)
+  {
+    abort_unless($user == $request->user(), 403);
 
     $user = auth()->user();
 
@@ -47,12 +73,15 @@ class UserController extends Controller
 
     }
     else {
-      return back()->withErrors('Your avatar is too large, max file size: ' . ($max / 1000000) . ' MB');
+
+      notify()->error('Your avatar is too large, max file size: ' . ($max / 1000000) . ' MB');
+      return back();
     }
 
     $user->avatar = 'avatars/' . $avatarName;
     $user->save();
 
-    return back()->with('success', 'You have successfully upload image. ');
+    notify()->success('You have successfully upload avatar.');
+    return back();
   }
 }

@@ -19,9 +19,15 @@ Route::get('/', 'HomeController@index')->name('home');
 
 
 // Profile Route
-Route::prefix('p')->group(function () {
-    Route::get('{user}', 'UserController@profile')->name('profile');
-    Route::post('update_avatar', 'UserController@update_avatar')->name('update_avatar');
+Route::prefix('p/{user}')->group(function () {
+    Route::get('/', 'UserController@profile')->name('profile');
+
+        Route::name('settings.')->prefix('settings')->group(function () {
+            Route::get('/', 'UserController@settings')->name('index');
+            Route::post('update/password', 'UserController@update_password')->name('password.update');
+            Route::post('update/avatar', 'UserController@update_avatar')->name('avatar.update');
+        });
+        
 });
 
 

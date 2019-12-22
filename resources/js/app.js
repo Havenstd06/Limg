@@ -1,2 +1,4 @@
 require('./bootstrap');
 
+require('./notify');
+

@@ -172,7 +172,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\NovaServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
 
     ],
 

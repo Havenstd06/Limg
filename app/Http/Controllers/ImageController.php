@@ -25,6 +25,8 @@ class ImageController extends Controller
     $image->user_id = $user->id;
     $image->save();
 
+    notify()->success('You have successfully upload image.');
+
     return redirect(route('image.show', ['image' => $image->name]));
   }
   

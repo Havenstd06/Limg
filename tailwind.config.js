@@ -1,5 +1,8 @@
 module.exports = {
   theme: {
+    fontFamily: {
+      'firacode': ["Fira Code"],
+    },
     extend: {
       width: {
         '36': '8.75rem',

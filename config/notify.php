@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'theme' => env('NOTIFY_THEME', 'dark'),
+    'theme' => env('NOTIFY_THEME', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -38,7 +38,7 @@ return [
     */
 
     'animate' => [
-        'in_class'  => 'bounceInRight', // The class to use to animate the notice in.
+        'in_class'  => 'bounceInDown', // The class to use to animate the notice in.
         'out_class' => 'bounceOutRight', // The class to use to animate the notice out.
         'timeout'   => 5000, // Number of seconds before the notice disappears
     ],

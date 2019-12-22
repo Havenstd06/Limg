@@ -3,7 +3,7 @@
 /public/storage
 /public/css/app.css
 /public/js/app.js
-/public/vendor/nova
+/public/vendor
 /resources/views/vendor/nova
 /resources/lang/vendor/nova
 /config/nova.php
