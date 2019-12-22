@@ -22,4 +22,5 @@ class Image extends Model
     {
         return 'name';
     }
+    
 }

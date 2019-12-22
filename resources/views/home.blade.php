@@ -1,74 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">LaraImg</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in {{ $user->username }} !
-                    
-                    <br><br>
-
-                    
-                    <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                        <input type="file" id="image" name="image">
-                        <input type="submit" value="ok">
-                    </form>
-                    <br>
-
-                    @if ($image->path != null)
-                        <a href="{{ route('image.show', ['image' => $image->name]) }}" target="_nofollow">
-                            {{ route('image.show', ['image' => $image->name]) }}
-                        </a>
-                        <br>
-                        preview : <br>
-
-                        <img src="{{ route('image.show', ['image' => $image->fullname]) }}" height="200">
-                    @endif
-
-
-                    {{-- <ul>
-                        @if ($images->count() != 0)
-                            @foreach ($images as $image)
-                                <li>{{ $image->name }}</li>
-                                <img src="{{ $image->path }}" alt="{{ $image->user->username }}" height="200">
-                            @endforeach
-                        @endif
-                    </ul> --}}
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="md:w-1/2 w-full mx-auto text-center">
+    <h2 class="leading-none font-bold text-3xl xs:text-2x1 md:text-5xl lg:6x1 uppercase">
+        <span class="text-blue-700">Lara</span><span class="text-purple-600">Img</span>
+    </h2>
+    <p class="mt-12 mb-12 sm:text-2xl px-10 sm:px-0 text-base"> An 
+        <a href="http://" class="text-gray-800 font-bold">Open-Source</a> 
+        image hosting service powered by 
+        <a href="http://laravel.com" class="text-gray-800 font-bold">Laravel</a>
+    </p>
 </div>
 
+@if ($image->path == null)
+    <div class="flex w-full items-center justify-center">
+        <label class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue-600 cursor-pointer hover:bg-blue-400 hover:text-white">
+            <i class="far fa-file-image fa-2x"></i>
+            <span class="mt-2 text-base leading-normal text-center">
+                <strong>Choose a file</strong>
+                {{-- <span> or drag it here</span>. Nah --}}
+            </span>
 
-<div class="md:flex container border p-4">
-    <div class="md:flex-shrink-0">
-        <img class="rounded-lg md:w-56" src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=448&q=80" alt="Woman paying for a purchase">
+            <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+                <input type='file' class="hidden" id="image" name="image" onchange="form.submit()"/>
+            </form>
+        </label>
     </div>
-    <div class="mt-4 md:mt-0 md:ml-6">
-        <div class="uppercase tracking-wide text-sm text-indigo-600 font-bold">Marketing</div>
-        <a href="#" class="block mt-1 text-lg leading-tight font-semibold text-gray-900 hover:underline">Finding customers for your new business</a>
-        <p class="mt-2 text-gray-600">Getting a new business off the ground is a lot of hard work. Here are five ideas you can use to find your first customers.</p>
-    </div>
-</div>
+@else
 
-
-@if ($image->path != null)
-<script>
-    window.onbeforeunload = function() {
-        return "Do you really want to leave our brilliant application?";
-    };
+<p class="mt-12 mb-12 sm:text-2xl px-10 sm:px-0 text-base text-center">You will be redirected to your image page in 2 seconds ! :happy-face:</p>
+<script type="text/javascript">
+    function redir(){
+        self.location.href="{{ route('image.show', ['image' => $image->name]) }}"
+    }
+    setTimeout(redir,2000)
 </script>
 @endif
 @endsection

@@ -1,3 +1,16 @@
-// Tailwind
-
+// Tailwind CSS
 @import 'tailwind';
+
+// Custom CSS
+@import 'custom';
+
+// Dropzone
+@import 'dropzone';
+
+// Font-Awesome
+$fa-font-path: "webfonts" !default;
+
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';

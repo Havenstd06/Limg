@@ -38,7 +38,7 @@
             <div class="profile-header-container">
                 <div class="profile-header-img">
                     <h3>Avatar :</h3>
-                    <img class="rounded-circle" src="{{ url('storage/avatars/' . $user->avatar) }}"/>
+                    <img class="rounded-circle" src="{{ Storage::url($user->avatar) }}"/>
                     <!-- badge -->
                     <div class="rank-label-container">
                         <span class="label label-default rank-label">{{ $user->username }}</span>

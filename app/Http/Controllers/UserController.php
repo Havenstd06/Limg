@@ -40,7 +40,8 @@ class UserController extends Controller
 
       if ($avatar->getClientOriginalExtension() == 'gif') {
         copy($avatar->getRealPath(), $location);
-      } else {
+      } 
+      else {
         InterImage::make($avatar)->resize(150, 150)->save($location);
       }
 
@@ -49,7 +50,7 @@ class UserController extends Controller
       return back()->withErrors('Your avatar is too large, max file size: ' . ($max / 1000000) . ' MB');
     }
 
-    $user->avatar = $avatarName;
+    $user->avatar = 'avatars/' . $avatarName;
     $user->save();
 
     return back()->with('success', 'You have successfully upload image. ');

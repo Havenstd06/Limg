@@ -1,0 +1,7 @@
+.navbar .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.custom-label input:checked + svg {
+    display: block !important;
+}

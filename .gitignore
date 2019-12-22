@@ -3,6 +3,11 @@
 /public/storage
 /public/css/app.css
 /public/js/app.js
+/public/vendor/nova
+/resources/views/vendor/nova
+/resources/lang/vendor/nova
+/config/nova.php
+/app/nova
 /storage/*.key
 /vendor
 .env

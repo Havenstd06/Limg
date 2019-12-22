@@ -26,7 +26,6 @@ class ImageController extends Controller
     $image->save();
 
     return redirect(route('home'))->with('image_id', $image->id);
-    // return view('home', compact('user', 'image'));
   }
   
   public function getImage($image)
@@ -45,7 +44,5 @@ class ImageController extends Controller
         'image' => $pageImage,
       ]);
     }
-
-
   }
 }
