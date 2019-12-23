@@ -19,8 +19,10 @@
         "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
         "laravel/nova": "~2.0",
+        "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
-        "mckenziearts/laravel-notify": "^1.1"
+        "mckenziearts/laravel-notify": "^1.1",
+        "socialiteproviders/discord": "^2.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.3",

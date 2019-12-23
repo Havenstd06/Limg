@@ -9,7 +9,7 @@
   </h3>
   <hr class="mb-6">
   <div class="flex items-center justify-center mb-8">
-    <img class="rounded-lg sm:ml-14 ml-12" src="{{ Storage::url($user->avatar) }}" alt="{{ $user->username }}">
+    <img class="rounded-lg shadow-md sm:ml-14 ml-12" src="{{ Storage::url($user->avatar) }}" alt="{{ $user->username }}">
     <form action="{{ route('settings.avatar.update', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="overflow-hidden relative w-32 my-4 ml-12 mx-10">
@@ -23,6 +23,7 @@
     </form>
   </div>
   <hr class="pb-4">
+  @if(auth()->user()->password != null)
   <form method="POST" action="{{ route('settings.password.update', ['user' => $user]) }}">
     @csrf
     <div class="flex flex-wrap -mx-3 mb-6">
@@ -66,6 +67,11 @@
       <div class="md:w-2/3"></div>
     </div>
   </form>
+  @else 
+  <div class="flex">
+    <i class="text-gray-600 text-center">Because you signed in with Discord you have no password options.</i>
+  </div>
+  @endif
 </div>
 @endif
 @endsection

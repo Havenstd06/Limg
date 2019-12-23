@@ -15,6 +15,9 @@ use App\Http\Controllers\ImageController;
 
 Auth::routes(['verify' => true]);
 
+Route::get('login/discord', 'Auth\LoginController@redirectToProvider')->name('login.discord');
+Route::get('login/discord/callback', 'Auth\LoginController@handleProviderCallback');
+
 Route::get('/', 'HomeController@index')->name('home');
 
 
