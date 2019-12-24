@@ -9,7 +9,7 @@
     <form action="{{ route('settings.avatar.update', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="overflow-hidden relative w-32 my-4 sm:ml-12 ml-6 sm:mx-10 mx-2">
-        <label class="cursor-pointer bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 sm:px-4 pr-2 sm:w-full w-24 inline-flex items-center rounded-lg" for="avatar-upload">
+        <label id="image-drop" class="cursor-pointer bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 sm:px-4 pr-2 sm:w-full w-24 inline-flex items-center rounded-lg" for="avatar-upload">
           <div class="ml-2">
             <i class="fas fa-file-import"></i> Upload
           </div>

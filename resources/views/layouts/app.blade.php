@@ -122,7 +122,7 @@
 <!-- Scripts -->
 @include('notify::messages')
 <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
-
+@yield('javascripts')
 
 </body>
 </html>

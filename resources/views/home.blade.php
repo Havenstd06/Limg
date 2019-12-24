@@ -19,7 +19,7 @@
 <div class="flex w-full items-center justify-center">
     <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <label class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue-600 cursor-pointer hover:bg-blue-400 hover:text-white" for="image-upload">
+        <label id="image-drop" class="w-64 flex flex-col items-center px-4 py-6 rounded-lg shadow-lg tracking-wide uppercase border border-blue-600 cursor-pointer bg-white text-blue-500 hover:bg-blue-400 hover:text-white" for="image-upload">
             <i class="far fa-file-image fa-2x"></i>
             <span class="mt-2 text-base leading-normal text-center">
                 <strong>Click or drop a image</strong>
@@ -28,4 +28,21 @@
         </label>
     </form>
 </div>
+@endsection
+
+@section('javascripts')
+<script>
+    var fileInput = document.querySelector('input[type=file]');
+    var dropzone = document.querySelector('label#image-drop');
+
+    fileInput.addEventListener('dragenter', function () {
+    dropzone.classList.remove('text-blue-500', 'bg-white');
+    dropzone.classList.add('text-white', 'bg-blue-400');
+    });
+
+    fileInput.addEventListener('dragleave', function () {
+    dropzone.classList.remove('text-white', 'bg-blue-400');
+    dropzone.classList.add('text-blue-500', 'bg-white');
+    });
+</script>
 @endsection
