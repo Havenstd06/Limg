@@ -28,6 +28,15 @@ class ConfirmPasswordController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+
+    public function redirectTo()
+    {
+
+        connectify('error', 'Error!', 'Password Reset Link Incorrect!');
+
+        return $redirectTo = RouteServiceProvider::HOME;
+    }
+
     /**
      * Create a new controller instance.
      *
