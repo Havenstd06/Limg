@@ -51,4 +51,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany('App\Image');
     }
+
+    public function isSocialite()
+    {
+        return (!$this->password) ? true : false;
+    }
 }

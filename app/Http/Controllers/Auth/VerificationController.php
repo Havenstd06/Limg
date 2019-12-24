@@ -28,6 +28,14 @@ class VerificationController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    public function redirectTo()
+    {
+
+        connectify('success', 'Success!', 'E-Mail Verification Successfully!');
+
+        return $redirectTo = RouteServiceProvider::HOME;
+    }
+
     /**
      * Create a new controller instance.
      *

@@ -3,27 +3,23 @@
 @section('content')
 
 @if (auth()->user() == $user)
-<div class="container mx-auto bg-white shadow-md rounded-lg w-full max-w-lg px-8 pt-6 pb-8">
-  <h3 class="sm:text-4xl text-4xl text-center mb-2">
-    Settings
-  </h3>
-  <hr class="mb-6">
+<div class="sm:container sm:mx-auto bg-white shadow-md rounded-lg sm:w-full max-w-lg px-8 pt-6 pb-8 mx-4">
   <div class="flex items-center justify-center mb-8">
-    <img class="rounded-lg shadow-md sm:ml-14 ml-12" src="{{ Storage::url($user->avatar) }}" alt="{{ $user->username }}">
+    <img class="rounded-lg shadow-md sm:ml-14 ml-12 w-38" src="{{ Storage::url($user->avatar) }}" alt="{{ $user->username }}">
     <form action="{{ route('settings.avatar.update', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
       @csrf
-      <div class="overflow-hidden relative w-32 my-4 ml-12 mx-10">
-        <button class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 sm:px-4 pr-2 w-full inline-flex items-center rounded-lg">
-          <span class="ml-2">
+      <div class="overflow-hidden relative w-32 my-4 sm:ml-12 ml-6 sm:mx-10 mx-2">
+        <label class="cursor-pointer bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 sm:px-4 pr-2 sm:w-full w-24 inline-flex items-center rounded-lg" for="avatar-upload">
+          <div class="ml-2">
             <i class="fas fa-file-import"></i> Upload
-          </span>
-          <input class="cursor-pointer absolute block opacity-0 pin-r pin-t" type="file" name="avatar" aria-describedby="fileHelp" onChange="form.submit()">
-        </button>
+          </div>
+          <input class="sm:absolute sm:-ml-4 sm:h-10 sm:w-32 sm:block hidden opacity-0" id="avatar-upload" type="file" name="avatar" aria-describedby="avatar" onChange="form.submit()">
+        </label>
       </div>
     </form>
   </div>
   <hr class="pb-4">
-  @if(auth()->user()->password != null)
+  @if(!auth()->user()->isSocialite())
   <form method="POST" action="{{ route('settings.password.update', ['user' => $user]) }}">
     @csrf
     <div class="flex flex-wrap -mx-3 mb-6">
@@ -32,7 +28,7 @@
           {{ __('Current Password') }}
         </label>
         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-        id="password" type="password" name="current_password" autocomplete="current-password" @if($errors->all())value="{{ old('current_password') }}" @endif>
+        placeholder="******************" id="password" type="password" name="current_password" autocomplete="current-password" @if($errors->all())value="{{ old('current_password') }}" @endif>
       </div>
     </div>
     <div class="flex flex-wrap -mx-3 @if(!$errors->all())mb-4 @endif">

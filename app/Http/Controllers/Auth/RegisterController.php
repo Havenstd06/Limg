@@ -64,6 +64,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        connectify('success', 'Success!', 'Thanks for signing up! Please check your email to Validate your account!');
+        
         return User::create([
             'username' => $data['username'],
             'email' => $data['email'],

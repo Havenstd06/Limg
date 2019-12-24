@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
@@ -20,11 +21,18 @@ class ResetPasswordController extends Controller
     */
 
     use ResetsPasswords;
-
+    
     /**
-     * Where to redirect users after resetting their password.
+     * Where to redirect users after verification.
      *
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function redirectTo() {
+
+        connectify('success', 'Success!', 'Password Reset Successfully!');
+
+        return $redirectTo = RouteServiceProvider::HOME;
+    }
 }
