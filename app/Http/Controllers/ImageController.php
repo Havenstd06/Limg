@@ -6,6 +6,7 @@ use App\User;
 use App\Image;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image as InterImage;
 
@@ -44,12 +45,12 @@ class ImageController extends Controller
   
   public function getImage($image)
   {
-    if (strpos($image, '.') !== false) {
+    if (strpos($image, '.') !== false) { // Afficher la page avec l'extension
       $imageLink = Image::where('path', '/i/' . $image)->firstOrFail();
 
       return response()->download(storage_path('app/public/images/' . $imageLink->fullname), null, [], null);
-    } else 
-    {
+    } else { // Afficher le view image
+      
       $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
       $pageImage = Image::where('name', pathinfo($image, PATHINFO_FILENAME))->firstOrFail();
 
@@ -58,5 +59,34 @@ class ImageController extends Controller
         'image' => $pageImage,
       ]);
     }
+  }
+
+  public function imageInfos(Request $request, Image $image) 
+  {
+    $user = $request->user();
+    abort_unless($user == $request->user(), 403);
+
+    $rules = array(
+      'title' => 'max:50',
+    );
+
+    $validator = Validator::make($request->all(), $rules);
+
+    if ($validator->fails()) {
+      notify()->error('The title must contain maximum 50 characters!');
+      return back();
+    }
+
+    $image->title = $request->input('title');
+    $image->save();
+
+    notify()->success('You have successfully update your image info!');
+
+    return redirect(route('image.show', ['image' => $image->name]));
+  }
+
+  public function download(Image $image)
+  {
+    return ($image->title) ? response()->download($image->fullpath, Str::slug($image->title, '-') . '.' . $image->extension) : response()->download($image->fullpath);
   }
 }

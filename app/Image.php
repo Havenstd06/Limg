@@ -22,5 +22,10 @@ class Image extends Model
     {
         return 'name';
     }
+
+    public function getFullPathAttribute()
+    {
+        return storage_path('app/public/images/' . $this->fullname);
+    }
     
 }

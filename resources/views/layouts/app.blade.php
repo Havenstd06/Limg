@@ -42,6 +42,7 @@
 @include('notify::messages')
 @yield('javascripts')
 <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+<script type="module" src="{{ mix('js/instantpage.js') }}" defer></script>
 
 </body>
 </html>
