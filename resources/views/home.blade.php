@@ -24,7 +24,7 @@
             <span class="mt-2 text-base leading-normal text-center">
                 <strong>Click or drop a image</strong>
             </span>
-            <input class="sm:absolute sm:-ml-0 sm:-mt-6 sm:h-30 sm:w-64 sm:block hidden opacity-0" id="image-upload" type="file" name="image" aria-describedby="image" onChange="form.submit()"/>
+            <input class="sm:absolute sm:-ml-0 sm:-mt-6 sm:h-30 sm:w-64 sm:block hidden opacity-0" id="image-upload" type="file" accept="image/*" name="image" aria-describedby="image" onChange="form.submit()"/>
         </label>
     </form>
 </div>

@@ -6,12 +6,24 @@ use App\User;
 use App\Image;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image as InterImage;
 
 class ImageController extends Controller
 {
   public function upload(Request $request)
   {
+    $rules = array(
+      'image' => 'required | mimes:jpeg,jpg,png,gif,bmp,tiff',
+    );
+
+    $validator = Validator::make($request->all(), $rules);
+
+    if ($validator->fails()) {
+      notify()->error('Image must be filled!');
+      return back();
+    }
+
     $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
 
     $newName = Str::random(7);
@@ -25,7 +37,7 @@ class ImageController extends Controller
     $image->user_id = $user->id;
     $image->save();
 
-    notify()->success('You have successfully upload image !');
+    notify()->success('You have successfully upload image!');
 
     return redirect(route('image.show', ['image' => $image->name]));
   }

@@ -8,6 +8,7 @@ use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image as InterImage;
 
 class UserController extends Controller
@@ -47,13 +48,24 @@ class UserController extends Controller
   {
     abort_unless($user == $request->user(), 403);
 
-    $user = auth()->user();
+    $rules = array(
+      'avatar' => 'required | mimes:jpeg,jpg,png,gif,bmp,tiff',
+    );
 
-    $max = config('image.max_size');
+    $validator = Validator::make($request->all(), $rules);
+
+    if ($validator->fails()) {
+      notify()->error('Image must be filled!');
+      return back();
+    }
+
+    $user = auth()->user();
     
     $avatar = $request->file('avatar');
+    
+    $maxSize = 2000000; // 2 MB
 
-    if ($max >= $avatar->getSize()) {
+    if ($maxSize >= $avatar->getSize()) {
       $avatarName = strtolower($user->username) . '.' . $request->file('avatar')->getClientOriginalExtension();
       $location = storage_path('app/public/avatars/' . $avatarName);
 
@@ -74,7 +86,7 @@ class UserController extends Controller
     }
     else {
 
-      notify()->error('Your avatar is too large, max file size: ' . ($max / 1000000) . ' MB');
+      notify()->error('Your avatar is too large, max file size: 2 MB');
       return back();
     }
 
