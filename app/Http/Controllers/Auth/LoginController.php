@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
@@ -59,23 +60,33 @@ class LoginController extends Controller
         $foundUser = User::where('email', '=', $user->email)->first();
 
         if (!$foundUser) {
-            $url = $user->avatar . "?size=256";
-            $extension = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
-            $contents = file_get_contents($url);
-            $name = 'avatars/' . strtolower($user->name . $user->user['discriminator']) . ".${extension}";
-            Storage::disk('public')->put($name, $contents);
-            $avatar = $name;
+            if ($user->avatar != null) {
+                $url = $user->avatar . "?size=256";
+                $extension = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
+                $contents = file_get_contents($url);
+                $name = 'avatars/' . strtolower($user->name . $user->user['discriminator']) . ".${extension}";
+                Storage::disk('public')->put($name, $contents);
+                $avatar = $name;
+            } else {
+                $avatar = 'avatars/default.png';
+            }
+
+            
+            $user->verified = ($user->user['verified']) ? Date::now() : null;
 
             $foundUser = User::create([
                 'username' => $user->name . $user->user['discriminator'],
                 'email' => $user->email,
+                'email_verified_at' => $user->verified,
                 'avatar' => $avatar,
             ]);
-            
-            $location = storage_path('app/public/avatars/' . strtolower($user->name . $user->user['discriminator']) . ".${extension}");
-            InterImage::make($location)->resize(150, 150)->save($location);
-            $foundUser->avatar = $avatar;
-            $foundUser->save();
+
+            if ($user->avatar != null) {
+                $location = storage_path('app/public/avatars/' . strtolower($user->name . $user->user['discriminator']) . ".${extension}");
+                InterImage::make($location)->resize(150, 150)->save($location);
+                $foundUser->avatar = $avatar;
+                $foundUser->save();
+            }
         }
 
         Auth::login($foundUser, true);
