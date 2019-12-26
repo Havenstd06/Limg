@@ -1,3 +1,4 @@
 *
 !.gitignore
-!avatars/default.png
+!avatars/
+!images/
