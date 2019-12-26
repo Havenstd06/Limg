@@ -8,6 +8,8 @@ class Image extends Model
 {
     protected $guarded = [];
 
+    protected $fillable = ['title', 'is_public'];
+
     public function user()
     {
         return $this->belongsTo('App\User');

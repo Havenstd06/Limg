@@ -82,10 +82,8 @@ class UserController extends Controller
       else {
         InterImage::make($avatar)->resize(150, 150)->save($location);
       }
-
     }
     else {
-
       notify()->error('Your avatar is too large, max file size: 2 MB');
       return back();
     }

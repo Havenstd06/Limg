@@ -6,6 +6,7 @@ use App\User;
 use App\Image;
 use App\Observers\UserObserver;
 use App\Observers\ImageObserver;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -33,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::if('ownsImage', function ($image) {
             return (auth()->user() && auth()->user()->id == $image->user->id);
+        });
+
+        Blade::if('isNotPublic', function ($image) {
+            return ($image->is_public == 0 && (!Auth::check() || auth()->user()->id != $image->user->id));
         });
     }
 }

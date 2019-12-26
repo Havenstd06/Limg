@@ -19,6 +19,7 @@ class CreateImagesTable extends Migration
             $table->string('name');
             $table->string('path');
             $table->string('extension');
+            $table->boolean('is_public')->default(0);
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
 
