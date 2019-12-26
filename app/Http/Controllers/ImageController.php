@@ -7,7 +7,7 @@ use App\Image;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image as InterImage;
 
@@ -56,11 +56,23 @@ class ImageController extends Controller
       $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
       $pageImage = Image::where('name', pathinfo($image, PATHINFO_FILENAME))->firstOrFail();
 
-      return view('image', [
+      return view('image.image', [
         'user' => $user,
         'image' => $pageImage,
       ]);
     }
+  }
+
+  public function buildImage($image, $width, $height)
+  {
+    $imageLink = Image::where('path', '/i/' . $image)->firstOrFail();
+
+    $width = ($width > 2000 ? 2000 : $width);
+    $height = ($height > 2000 ? 2000 : $height);
+
+    $smaller = InterImage::make(storage_path('app/public/images/' . $imageLink->fullname))->fit($width, $height);
+
+    return $smaller->response($imageLink->extension, '80');
   }
 
   public function imageInfos(Request $request, Image $image) 
@@ -86,6 +98,16 @@ class ImageController extends Controller
     notify()->success('You have successfully update your image info!');
 
     return redirect(route('image.show', ['image' => $image->name]));
+  }
+
+  public function delete(Image $image)
+  {
+    File::delete($image->fullpath);
+    $image->delete();
+    
+    notify()->success('You have successfully delete your image !');
+
+    return redirect(route('home'));
   }
 
   public function download(Image $image)

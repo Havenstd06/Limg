@@ -16,7 +16,7 @@
             <div class="dropdown inline-block relative">
                 <button class="text-gray-700 font-semibold py-1 px-4 rounded inline-flex items-center">
                     <span class="mr-1">
-                        <img src="{{ Storage::url(auth()->user()->avatar) }}" class="inline-block rounded-lg shadow-md border-solid border-white -mt-1 w-10 mr-1 -mb-1 -ml-1">		
+                        <img src="{{ Storage::url(auth()->user()->avatar) }}" class="inline-block rounded shadow-md border-solid border-white -mt-1 w-10 mr-1 -mb-1 -ml-1">		
                         {{ auth()->user()->username }}
                     </span>
                     <svg class="fill-current h-4 w-4 -mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>

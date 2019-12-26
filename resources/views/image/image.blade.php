@@ -44,8 +44,8 @@
       </div>
     </form>
     <div class="sm:flex sm:items-center my-6">
-    <a href="{{ route('image.delete', ['image' => $image->name]) }}">
-      <button class="shadow bg-indigo-700 hover:bg-indigo-800 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 sm:mx-4 sm:mt-0 mt-4 rounded" type="submit">
+    <a href="#">
+      <button class="shadow bg-indigo-700 hover:bg-indigo-800 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 sm:mx-4 sm:mt-0 mt-4 rounded" onclick="deleteImage()" type="submit">
         <i class="fas fa-trash-alt"></i> Delete
       </button>
     </a>
@@ -78,4 +78,25 @@
 </div>
 @include('image.modal')
 @endisNotPublic
+@endsection
+
+@section('javascripts')
+<script>
+function deleteImage() {
+  swal({
+    title: "Are you sure?",
+    text: "Once deleted, you will not be able to recover this imaginary file!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      window.location = "{{ route('image.delete', ['image' => $image->name]) }}";
+    } else {
+      swal("Your imaginary file is safe!");
+    }
+  });
+}
+</script>
 @endsection

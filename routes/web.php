@@ -35,13 +35,11 @@ Route::post('/upload', 'ImageController@upload')->name('upload');
 
 Route::prefix('/i/{image}')->group(function () {
     Route::get('/', 'ImageController@getImage')->name('image.show');
+    Route::get('/{width}/{height}', 'ImageController@buildImage');
 
-
+    Route::post('/updates', 'ImageController@imageInfos')->name('image.infos');
+    Route::get('/delete', 'ImageController@delete')->name('image.delete');
     Route::get('/download', 'ImageController@download')->name('image.download');
-    Route::prefix('/update')->group(function () {
-        Route::post('/infos', 'ImageController@imageInfos')->name('image.infos');
-    });
-
 });
 
 

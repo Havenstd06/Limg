@@ -22,6 +22,7 @@
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
         "mckenziearts/laravel-notify": "^1.1",
+        "realrashid/sweet-alert": "^3.0",
         "socialiteproviders/discord": "^2.0"
     },
     "require-dev": {
