@@ -47,13 +47,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function images() 
+    public function images()
     {
         return $this->hasMany('App\Image');
     }
 
     public function isSocialite()
     {
-        return (!$this->password) ? true : false;
+        return (! $this->password) ? true : false;
     }
 }

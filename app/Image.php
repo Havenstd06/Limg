@@ -15,9 +15,9 @@ class Image extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function getFullNameAttribute() 
+    public function getFullNameAttribute()
     {
-        return $this->name . '.' . $this->extension;
+        return $this->name.'.'.$this->extension;
     }
 
     public function getRouteKeyName()
@@ -27,7 +27,6 @@ class Image extends Model
 
     public function getFullPathAttribute()
     {
-        return storage_path('app/public/images/' . $this->fullname);
+        return storage_path('app/public/images/'.$this->fullname);
     }
-    
 }

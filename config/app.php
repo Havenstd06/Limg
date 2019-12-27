@@ -173,7 +173,7 @@ return [
         App\Providers\NovaServiceProvider::class,
         \SocialiteProviders\Manager\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-    
+
     ],
 
     /*

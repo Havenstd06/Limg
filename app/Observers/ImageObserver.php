@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Image;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ImageObserver
@@ -38,7 +37,7 @@ class ImageObserver
      */
     public function deleted(Image $image)
     {
-        Storage::disk('public')->delete('images/' . $image->fullname);
+        Storage::disk('public')->delete('images/'.$image->fullname);
     }
 
     /**
