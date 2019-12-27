@@ -9,7 +9,7 @@
         </h2>
     </div>
     <p class="px-10 mt-12 mb-12 text-base sm:text-2xl sm:px-0"> An 
-        <a href="http://" class="font-bold text-gray-800">Open-Source</a> 
+        <a href="http://" class="font-bold text-gray-800">Open Source</a>
         image hosting service powered by 
         <a href="http://laravel.com" class="font-bold text-gray-800">Laravel</a>
     </p>
