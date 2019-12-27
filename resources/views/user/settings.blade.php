@@ -3,17 +3,17 @@
 @section('content')
 
 @if (auth()->user() == $user)
-<div class="sm:container sm:mx-auto bg-white shadow-md rounded-lg sm:w-full max-w-lg px-8 pt-6 pb-8 mx-4">
+<div class="max-w-lg px-8 pt-6 pb-8 mx-4 bg-white rounded-lg shadow-md sm:container sm:mx-auto sm:w-full">
   <div class="flex items-center justify-center mb-8">
-    <img class="rounded-lg shadow-md sm:ml-14 ml-12 w-38" src="{{ Storage::url($user->avatar) }}" alt="{{ $user->username }}">
+    <img class="ml-12 rounded-lg shadow-md sm:ml-14 w-38" src="{{ Storage::url($user->avatar) }}" alt="{{ $user->username }}">
     <form action="{{ route('settings.avatar.update', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
       @csrf
-      <div class="overflow-hidden relative w-32 my-4 sm:ml-12 ml-6 sm:mx-10 mx-2">
-        <label id="image-drop" class="cursor-pointer bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 sm:px-4 pr-2 sm:w-full w-24 inline-flex items-center rounded-lg" for="avatar-upload">
+      <div class="relative w-32 mx-2 my-4 ml-6 overflow-hidden sm:ml-12 sm:mx-10">
+        <label id="image-drop" class="inline-flex items-center w-24 py-2 pr-2 font-bold text-white bg-indigo-700 rounded-lg cursor-pointer hover:bg-indigo-800 sm:px-4 sm:w-full" for="avatar-upload">
           <div class="ml-2">
             <i class="fas fa-file-import"></i> Upload
           </div>
-          <input class="sm:absolute sm:-ml-4 sm:h-10 sm:w-32 sm:block hidden opacity-0" id="avatar-upload" type="file" name="avatar" aria-describedby="avatar" onChange="form.submit()">
+          <input class="hidden opacity-0 sm:absolute sm:-ml-4 sm:h-10 sm:w-32 sm:block" id="avatar-upload" type="file" name="avatar" aria-describedby="avatar" onChange="form.submit()">
         </label>
       </div>
     </form>
@@ -22,42 +22,42 @@
   @if(!auth()->user()->isSocialite())
   <form method="POST" action="{{ route('settings.password.update', ['user' => $user]) }}">
     @csrf
-    <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="flex flex-wrap mb-6 -mx-3">
       <div class="w-full px-3">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="password">
+        <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="password">
           {{ __('Current Password') }}
         </label>
-        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+        <input class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" 
         placeholder="******************" id="password" type="password" name="current_password" autocomplete="current-password" @if($errors->all())value="{{ old('current_password') }}" @endif>
       </div>
     </div>
     <div class="flex flex-wrap -mx-3 @if(!$errors->all())mb-4 @endif">
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="password">
+      <div class="w-full px-3 mb-6 md:w-1/2 md:mb-0">
+        <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="password">
           {{ __('New Password') }}
         </label>
         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border @if($errors->all()) border-red-500 @endif rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" 
         placeholder="******************" id="new_password" type="password" name="new_password" autocomplete="current-password">
       </div>
-      <div class="w-full md:w-1/2 px-3">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="password">
+      <div class="w-full px-3 md:w-1/2">
+        <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="password">
           {{ __('New Confirm Password') }}
         </label>
-        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+        <input class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" 
         placeholder="******************" id="new_confirm_password" type="password" name="new_confirm_password" autocomplete="current-password">
       </div>
     </div>
     @if ($errors->all())
       <div class="flex items-center mb-4">
         @foreach ($errors->all() as $error)
-          <p class="text-red-500 text-xs italic">{{ $error }}</p>
+          <p class="text-xs italic text-red-500">{{ $error }}</p>
         @endforeach 
       </div>
     @endif
     <div class="md:flex md:items-center">
       <div class="md:w-1/3">
-      <button class="text-white font-bold rounded border-b-2 border-indigo-500 hover:border-indigo-600 bg-indigo-700 hover:bg-indigo-800 hover:text-white shadow-md py-2 px-5 inline-flex items-center">
-        <i class="fas fa-save mr-2"></i> Save
+      <button class="inline-flex items-center px-5 py-2 font-bold text-white bg-indigo-700 border-b-2 border-indigo-500 rounded shadow-md hover:border-indigo-600 hover:bg-indigo-800 hover:text-white">
+        <i class="mr-2 fas fa-save"></i> Save
       </button>
       </div>
       <div class="md:w-2/3"></div>
@@ -65,7 +65,7 @@
   </form>
   @else 
   <div class="flex">
-    <i class="text-gray-600 text-center">Because you signed in with Discord you have no password options.</i>
+    <i class="text-center text-gray-600">Because you signed in with Discord you have no password options.</i>
   </div>
   @endif
 </div>

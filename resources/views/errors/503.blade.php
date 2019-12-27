@@ -451,18 +451,18 @@
       }
     </style>
   </head>
-  <body class="antialiased font-sans">
-    <div class="md:flex min-h-screen">
-      <div class="w-full md:w-1/2 bg-white flex items-center justify-center ">
+  <body class="font-sans antialiased">
+    <div class="min-h-screen md:flex">
+      <div class="flex items-center justify-center w-full bg-white md:w-1/2 ">
         <div class="max-w-sm m-8">
-          <div class="text-black text-5xl md:text-15xl font-black">503</div>
-          <div class="w-16 h-1 bg-indigo-light my-3 md:my-6"></div>
-          <p class="text-grey-darker text-2xl md:text-3xl font-light mb-8 leading-normal">Sorry, we are doing some maintenance. Please check back soon.</p>
-          <a href="{{ url('/') }}"><button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">Go Home</button></a>
+          <div class="text-5xl font-black text-black md:text-15xl">503</div>
+          <div class="w-16 h-1 my-3 bg-indigo-light md:my-6"></div>
+          <p class="mb-8 text-2xl font-light leading-normal text-grey-darker md:text-3xl">Sorry, we are doing some maintenance. Please check back soon.</p>
+          <a href="{{ url('/') }}"><button class="px-6 py-3 font-bold tracking-wide uppercase bg-transparent border-2 rounded-lg text-grey-darkest border-grey-light hover:border-grey">Go Home</button></a>
         </div>
       </div>
-      <div class="relative pb-full md:flex md:pb-0 md:min-h-screen w-full md:w-1/2">
-        <img src="{{ url('images/errors/503-illustration.svg') }}" alt="503" class="absolute pin bg-cover bg-no-repeat md:bg-right lg:bg-center">
+      <div class="relative w-full pb-full md:flex md:pb-0 md:min-h-screen md:w-1/2">
+        <img src="{{ url('images/errors/503-illustration.svg') }}" alt="503" class="absolute bg-no-repeat bg-cover pin md:bg-right lg:bg-center">
         </div>
       </div>
     </div>

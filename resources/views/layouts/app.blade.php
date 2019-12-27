@@ -31,7 +31,7 @@
 <header class="navbar">
     @include('layouts.navbar')
 </header>
-<div id="content" class="bg-gray-100 w-full sm:p-8 p-3 flex-1">
+<div id="content" class="flex-1 w-full p-3 bg-gray-100 sm:p-8">
     <div class="container mx-auto mt-10">
         @yield('content')
     </div>
