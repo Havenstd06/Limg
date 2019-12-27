@@ -18,17 +18,15 @@ Route::get('login/discord/callback', 'Auth\LoginController@handleProviderCallbac
 
 Route::get('/', 'HomeController@index')->name('home');
 
-
 // Profile Route
 Route::prefix('p/{user}')->group(function () {
     Route::get('/', 'UserController@profile')->name('profile');
-        Route::name('settings.')->prefix('settings')->group(function () {
-            Route::get('/', 'UserController@settings')->name('index');
-            Route::post('update/password', 'UserController@update_password')->name('password.update');
-            Route::post('update/avatar', 'UserController@update_avatar')->name('avatar.update');
-        });
+    Route::name('settings.')->prefix('settings')->group(function () {
+        Route::get('/', 'UserController@settings')->name('index');
+        Route::post('update/password', 'UserController@update_password')->name('password.update');
+        Route::post('update/avatar', 'UserController@update_avatar')->name('avatar.update');
+    });
 });
-
 
 // Image Route
 Route::post('/upload', 'ImageController@upload')->name('upload');
@@ -41,6 +39,3 @@ Route::prefix('/i/{image}')->group(function () {
     Route::get('/delete', 'ImageController@delete')->name('image.delete');
     Route::get('/download', 'ImageController@download')->name('image.download');
 });
-
-
-

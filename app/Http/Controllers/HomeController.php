@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Image;
-use Illuminate\Support\Facades\URL;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -25,10 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
         $images = $user->images;
-        
+
         if (session('image_id')) {
             $image = Image::where('id', session('image_id'))->firstOrFail();
         } else {

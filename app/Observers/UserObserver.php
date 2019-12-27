@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\User;
-use Intervention\Image\Image;
 use Illuminate\Support\Facades\Storage;
 
 class UserObserver
@@ -27,7 +26,7 @@ class UserObserver
      * @return void
      */
     public function updated(User $user)
-    {        
+    {
         if (strpos($user->avatar, 'avatars/') !== false) {
             $user->avatar = basename($user->avatar);
         }
@@ -43,7 +42,7 @@ class UserObserver
     {
         $oldExt = pathinfo($this->avatar, PATHINFO_EXTENSION);
 
-        Storage::disk('public')->delete('avatars/' . strtolower($user->username) . '.' . $oldExt);
+        Storage::disk('public')->delete('avatars/'.strtolower($user->username).'.'.$oldExt);
     }
 
     /**

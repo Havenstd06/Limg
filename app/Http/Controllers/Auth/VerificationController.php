@@ -30,7 +30,6 @@ class VerificationController extends Controller
 
     public function redirectTo()
     {
-
         connectify('success', 'Success!', 'E-Mail Verification Successfully!');
 
         return $redirectTo = RouteServiceProvider::HOME;
