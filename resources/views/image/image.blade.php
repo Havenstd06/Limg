@@ -41,21 +41,17 @@
         <button class="shadow bg-indigo-700 hover:bg-indigo-800 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 sm:mx-4 sm:mt-0 mt-4 rounded" type="submit">
           <i class="fas fa-save"></i> Save
         </button>
+        <a href="#" class="shadow bg-red-700 hover:bg-red-800 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 sm:mx-4 sm:mt-0 mt-4 rounded" onclick="deleteImage()">
+          <i class="fas fa-trash-alt"></i> Delete
+        </a>
       </div>
     </form>
-    <div class="sm:flex sm:items-center my-6">
-    <a href="#">
-      <button class="shadow bg-indigo-700 hover:bg-indigo-800 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 sm:mx-4 sm:mt-0 mt-4 rounded" onclick="deleteImage()" type="submit">
-        <i class="fas fa-trash-alt"></i> Delete
-      </button>
-    </a>
-    </div>
 
   @endownsImage
 
   <div class="sm:flex sm:flex-row">
     <div class="sm:w-3/4">
-      <div class="relative sm:min-h-12 max-w-full overflow-hidden bg-gray-700 rounded shadow-2xl">
+      <div class="relative flex items-center justify-center sm:min-h-12 max-w-full overflow-hidden bg-gray-100 rounded shadow">
         <img src="{{ route('image.show', ['image' => $image->fullname]) }}">
       </div>
     </div>
@@ -93,8 +89,6 @@ function deleteImage() {
   .then((willDelete) => {
     if (willDelete) {
       window.location = "{{ route('image.delete', ['image' => $image->name]) }}";
-    } else {
-      swal("Your imaginary file is safe!");
     }
   });
 }
