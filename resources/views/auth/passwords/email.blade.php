@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="flex items-center justify-center">
-    <div class="flex flex-col px-8 pt-6 pb-8 mx-4 bg-white rounded shadow-md md:w-1/4">
+    <div class="flex flex-col px-8 pt-6 pb-8 mx-4 bg-white rounded shadow-md dark:bg-midnight md:w-1/4">
         <form method="POST" action="{{ route('password.email') }}">
         @csrf
             <div class="mb-4">
-                <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="email">
+                <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-400" for="email">
                     {{ __('E-Mail Address') }}
                 </label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 @error('email') border-red-600 @enderror" 

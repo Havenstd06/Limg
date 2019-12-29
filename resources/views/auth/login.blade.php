@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="flex items-center justify-center">
-    <div class="flex flex-col px-8 pt-6 pb-8 mx-4 bg-white rounded shadow-md md:w-1/4">
+    <div class="flex flex-col px-8 pt-6 pb-8 mx-4 bg-white rounded shadow-md dark:bg-midnight md:w-1/4">
         <a href="{{ route('login.discord') }}">
             <div class="mx-4 mb-2">
                 <button class="flex items-center justify-center w-full px-5 py-2 text-xs font-bold text-white uppercase bg-indigo-600 rounded shadow-md hover:bg-indigo-700 hover:text-white">
@@ -17,14 +17,14 @@
         <form method="POST" action="{{ route('login') }}">
         @csrf
             <div class="mb-4">
-                <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="username">
+                <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-400" for="username">
                     {{ __('Username or E-mail') }}
                 </label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 @if ($errors->has('username') || $errors->has('email')) border-red-600 @endif" 
                     id="username" type="text" name="login" value="{{ old('username') ?: old('email') }}" required autocomplete="username" autofocus>
             </div>
             <div class="mb-4">
-                <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="password">
+                <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-400" for="password">
                     {{ __('Password') }}
                 </label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 @if ($errors->has('username') || $errors->has('email')) border-red-600 @endif" 
@@ -40,7 +40,7 @@
                         <input type="checkbox" class="hidden" name="remember" id="remember" {{ old('remember') ? 'checked' : 'checked' }}>
                         <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                     </div>
-                    <span class="text-gray-700"> {{ __('Remember Me') }}</span>
+                    <span class="text-gray-700 dark:text-gray-400"> {{ __('Remember Me') }}</span>
                 </label>
             </div>
             <div class="flex items-center justify-between">

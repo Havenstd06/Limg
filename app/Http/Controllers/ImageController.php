@@ -85,7 +85,7 @@ class ImageController extends Controller
         $image->is_public = $request->has('is_public');
         $image->save();
 
-        notify()->success('You have successfully update your image!');
+        notify()->success('You have successfully updated your image!');
 
         return redirect(route('image.show', ['image' => $image->name]));
     }
@@ -111,8 +111,6 @@ class ImageController extends Controller
 
         $w = InterImage::make($imageLink->fullpath)->width();
         $h = InterImage::make($imageLink->fullpath)->height();
-
-        // dd($w, $h);
 
         if ($w > $h) {
             $imageSize = InterImage::make($imageLink->fullpath)->resize($size, null, function ($constraint) {

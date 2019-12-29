@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full @if ($user->style == 1) mode-dark @endif">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full @guest mode-dark @endguest @auth @if ($user->style == 1) mode-dark @endif @endauth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,7 +28,7 @@
 
 <body class="flex flex-col h-full">
 
-<header class="border-b border-white border-solid navbar dark:bg-midnight">
+<header class="dark:shadow-lg navbar dark:bg-midnight">
     @include('layouts.navbar')
 </header>
 <div id="content" class="flex-1 w-full p-3 bg-gray-100 dark:bg-asphalt sm:p-8">

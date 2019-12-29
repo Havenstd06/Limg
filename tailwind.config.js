@@ -16,9 +16,9 @@ module.exports = {
         '12': '12rem'
       },
       colors: {
-        asphalt: '#34495e',
-        midnight: '#38546b',
-        forest: '#0a3d62',
+        asphalt: '#23272A',
+        midnight: '#2C2F33',
+        forest: '#99AAB5',
       },
     },
   },

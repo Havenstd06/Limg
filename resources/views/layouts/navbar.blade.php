@@ -2,7 +2,7 @@
     <div class="flex items-center justify-center py-6 sm:justify-between sm:py-4">
         <div>
             <a href="{{ route('home') }}">
-                <img src="@if ($user->style == 1) {{ url('images/logo-text-min-w.png') }} @else {{ url('images/logo-text-min.png') }}@endif" alt="{{ config('app.name') }} Logo" class="h-8 rounded-lg">
+                <img src="{{ url('images/logo-text-min-p.png') }}" alt="{{ config('app.name') }} Logo" class="h-8 rounded-lg">
             </a>
         </div>
 
@@ -13,6 +13,16 @@
         </div>
         @else
         <div class="hidden sm:flex sm:items-right">
+            <form action="{{ route('settings.update.style', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <label for="style" class="flex items-center justify-center pt-3 pr-3 cursor-pointer">
+                <div class="relative">
+                    <input name="style" id="style" type="checkbox" class="hidden" value="{{ $user->style ? '1' : '0' }}" {{ $user->style ? 'checked' : '' }} onChange="form.submit()"/>
+                    <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner toggle__line"></div>
+                    <div class="absolute inset-y-0 left-0 w-6 h-6 bg-white rounded-full shadow toggle__dot"></div>
+                </div>
+                </label>
+            </form>
             <div class="relative inline-block dropdown">
                 <button class="inline-flex items-center px-4 py-1 font-semibold text-gray-700 rounded dark:text-white">
                     <span class="mr-1">
