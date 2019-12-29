@@ -8,10 +8,10 @@
             <span class="text-blue-700">Lara</span><span class="text-purple-600">Img</span>
         </h2>
     </div>
-    <p class="px-10 mt-12 mb-12 text-base sm:text-2xl sm:px-0"> An 
-        <a href="http://" class="font-bold text-gray-800">Open Source</a>
+    <p class="px-10 mt-12 mb-12 text-base sm:text-2xl sm:px-0 dark:text-white"> An 
+        <a href="https://github.com/havenstd06/laraimg" class="font-bold text-gray-800 dark:text-gray-400">Open Source</a>
         image hosting service powered by 
-        <a href="http://laravel.com" class="font-bold text-gray-800">Laravel</a>
+        <a href="http://laravel.com" class="font-bold text-gray-800 dark:text-gray-400">Laravel</a>
     </p>
 
 </div>
@@ -19,7 +19,8 @@
 <div class="flex items-center justify-center w-full">
     <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <label id="image-drop" class="flex flex-col items-center w-64 px-4 py-6 tracking-wide text-blue-500 uppercase bg-white border border-blue-600 rounded-lg shadow-lg cursor-pointer hover:bg-blue-400 hover:text-white" for="image-upload">
+        <label id="image-drop" 
+        class="flex flex-col items-center w-64 px-4 py-6 tracking-wide text-blue-500 uppercase bg-white border border-blue-600 rounded-lg shadow-lg cursor-pointer hover:bg-blue-400 hover:text-white dark-hover:bg-blue-400 dark-hover:text-white" for="image-upload">
             <i class="far fa-file-image fa-2x"></i>
             <span class="mt-2 text-base leading-normal text-center">
                 <strong>Click or drop a image</strong>

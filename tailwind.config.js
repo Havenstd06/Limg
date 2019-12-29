@@ -15,8 +15,19 @@ module.exports = {
       minHeight: {
         '12': '12rem'
       },
-    }
+      colors: {
+        asphalt: '#34495e',
+        midnight: '#38546b',
+        forest: '#0a3d62',
+      },
+    },
   },
-  variants: {},
-  plugins: []
+  variants: {
+    backgroundColor: ['dark', 'dark-hover', 'dark-group-hover'],
+    borderColor: ['dark', 'dark-focus', 'dark-focus-within'],
+    textColor: ['dark', 'dark-hover', 'dark-active']
+  },
+  plugins: [
+    require('tailwindcss-dark-mode')()
+  ]
 }

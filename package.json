@@ -22,6 +22,7 @@
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
         "tailwindcss": "^1.1.4",
+        "tailwindcss-dark-mode": "^1.1.1",
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {}

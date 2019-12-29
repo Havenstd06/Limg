@@ -46,12 +46,12 @@ class ImageController extends Controller
         return redirect(route('image.show', ['image' => $image->name]));
     }
 
-    public function getImage($image)
+    public function get($image)
     {
         if (strpos($image, '.') !== false) { // Afficher la page avec l'extension
             $imageLink = Image::where('path', '/i/'.$image)->firstOrFail();
 
-            return response()->download(storage_path('app/public/images/'.$imageLink->fullname), null, [], null);
+            return response()->download($imageLink->fullpath, null, [], null);
         } else { // Afficher le view image
 
             $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
@@ -64,19 +64,7 @@ class ImageController extends Controller
         }
     }
 
-    public function buildImage($image, $width, $height)
-    {
-        $imageLink = Image::where('path', '/i/'.$image)->firstOrFail();
-
-        $width = ($width > 2000 ? 2000 : $width);
-        $height = ($height > 2000 ? 2000 : $height);
-
-        $smaller = InterImage::make(storage_path('app/public/images/'.$imageLink->fullname))->fit($width, $height);
-
-        return $smaller->response($imageLink->extension, '80');
-    }
-
-    public function imageInfos(Request $request, Image $image)
+    public function infos(Request $request, Image $image)
     {
         $user = $request->user();
         abort_unless($user == $request->user(), 403);
@@ -97,7 +85,7 @@ class ImageController extends Controller
         $image->is_public = $request->has('is_public');
         $image->save();
 
-        notify()->success('You have successfully update your image info!');
+        notify()->success('You have successfully update your image!');
 
         return redirect(route('image.show', ['image' => $image->name]));
     }
@@ -114,6 +102,28 @@ class ImageController extends Controller
 
     public function download(Image $image)
     {
-        return ($image->title) ? response()->download($image->fullpath, Str::slug($image->title, '-').'.'.$image->extension) : response()->download($image->fullpath);
+        return ($image->title) ? response()->download($image->fullpath, Str::slug($image->title, '-') . '.' . $image->extension) : response()->download($image->fullpath);
+    }
+
+    public function build($image, $size)
+    {
+        $imageLink = Image::where('path', '/i/' . $image)->firstOrFail();
+
+        $w = InterImage::make($imageLink->fullpath)->width();
+        $h = InterImage::make($imageLink->fullpath)->height();
+
+        // dd($w, $h);
+
+        if ($w > $h) {
+            $imageSize = InterImage::make($imageLink->fullpath)->resize($size, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        } else {
+            $imageSize = InterImage::make($imageLink->fullpath)->resize(null, $size, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+
+        return $imageSize->response($imageLink->extension, '80');
     }
 }

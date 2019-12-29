@@ -6,7 +6,7 @@
 <div class="max-w-lg px-8 pt-6 pb-8 mx-4 bg-white rounded-lg shadow-md sm:container sm:mx-auto sm:w-full">
   <div class="flex items-center justify-center mb-8">
     <img class="ml-12 rounded-lg shadow-md sm:ml-14 w-38" src="{{ Storage::url($user->avatar) }}" alt="{{ $user->username }}">
-    <form action="{{ route('settings.avatar.update', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('settings.update.avatar', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="relative w-32 mx-2 my-4 ml-6 overflow-hidden sm:ml-12 sm:mx-10">
         <label id="image-drop" class="inline-flex items-center w-24 py-2 pr-2 font-bold text-white bg-indigo-700 rounded-lg cursor-pointer hover:bg-indigo-800 sm:px-4 sm:w-full" for="avatar-upload">
@@ -18,9 +18,25 @@
       </div>
     </form>
   </div>
+  <hr>
+  <form action="{{ route('settings.update.style', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <label for="style" class="flex items-center justify-center p-4 cursor-pointer">
+      <div class="relative">
+        <input name="style" id="style" type="checkbox" class="hidden" value="{{ $user->style ? '1' : '0' }}" {{ $user->style ? 'checked' : '' }}/>
+        <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner toggle__line"></div>
+        <div class="absolute inset-y-0 left-0 w-6 h-6 bg-white rounded-full shadow toggle__dot"></div>
+      </div>
+      <div class="ml-3 font-medium text-gray-700">
+        <button class="inline-flex items-center px-5 py-2 font-bold text-white bg-indigo-700 border-b-2 border-indigo-500 rounded shadow-md hover:border-indigo-600 hover:bg-indigo-800 hover:text-white">
+          <i class="mr-2 fas fa-toggle-off"></i> Change style
+        </button>
+      </div>
+    </label>
+  </form>
   <hr class="pb-4">
   @if(!auth()->user()->isSocialite())
-  <form method="POST" action="{{ route('settings.password.update', ['user' => $user]) }}">
+  <form method="POST" action="{{ route('settings.update.password', ['user' => $user]) }}">
     @csrf
     <div class="flex flex-wrap mb-6 -mx-3">
       <div class="w-full px-3">

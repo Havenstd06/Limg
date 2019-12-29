@@ -29,6 +29,18 @@ class UserController extends Controller
     ]);
     }
 
+    public function update_style(Request $request, User $user)
+    {
+        abort_unless($user == $request->user(), 403);
+
+        $user->style = $request->has('style');
+        $user->save();
+
+        notify()->success('You have successfully update your style!');
+
+        return back();
+    }
+
     public function update_password(Request $request)
     {
         $request->validate([

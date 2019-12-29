@@ -23,8 +23,9 @@ Route::prefix('p/{user}')->group(function () {
     Route::get('/', 'UserController@profile')->name('profile');
     Route::name('settings.')->prefix('settings')->group(function () {
         Route::get('/', 'UserController@settings')->name('index');
-        Route::post('update/password', 'UserController@update_password')->name('password.update');
-        Route::post('update/avatar', 'UserController@update_avatar')->name('avatar.update');
+        Route::post('update/style', 'UserController@update_style')->name('update.style');
+        Route::post('update/password', 'UserController@update_password')->name('update.password');
+        Route::post('update/avatar', 'UserController@update_avatar')->name('update.avatar');
     });
 });
 
@@ -32,10 +33,10 @@ Route::prefix('p/{user}')->group(function () {
 Route::post('/upload', 'ImageController@upload')->name('upload');
 
 Route::prefix('/i/{image}')->group(function () {
-    Route::get('/', 'ImageController@getImage')->name('image.show');
-    Route::get('/{width}/{height}', 'ImageController@buildImage');
+    Route::get('/', 'ImageController@get')->name('image.show');
 
-    Route::post('/updates', 'ImageController@imageInfos')->name('image.infos');
+    Route::post('/updates', 'ImageController@infos')->name('image.infos');
     Route::get('/delete', 'ImageController@delete')->name('image.delete');
     Route::get('/download', 'ImageController@download')->name('image.download');
+    Route::get('/{size}', 'ImageController@build');
 });
