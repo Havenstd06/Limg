@@ -102,12 +102,12 @@ class ImageController extends Controller
 
     public function download(Image $image)
     {
-        return ($image->title) ? response()->download($image->fullpath, Str::slug($image->title, '-') . '.' . $image->extension) : response()->download($image->fullpath);
+        return ($image->title) ? response()->download($image->fullpath, Str::slug($image->title, '-').'.'.$image->extension) : response()->download($image->fullpath);
     }
 
     public function build($image, $size)
     {
-        $imageLink = Image::where('path', '/i/' . $image)->firstOrFail();
+        $imageLink = Image::where('path', '/i/'.$image)->firstOrFail();
 
         $w = InterImage::make($imageLink->fullpath)->width();
         $h = InterImage::make($imageLink->fullpath)->height();
