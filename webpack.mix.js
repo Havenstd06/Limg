@@ -12,6 +12,7 @@ const mix = require('laravel-mix');
  */
 
 const tailwindcss = require('tailwindcss');
+require('laravel-mix-purgecss');
 
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/instantpage-3.0.0.js', 'public/js/instantpage.js')
@@ -22,3 +23,9 @@ mix.js('resources/js/app.js', 'public/js')
         processCssUrls: false,
         postCss: [tailwindcss('./tailwind.config.js')],
     });
+
+if (mix.inProduction()) {
+    mix
+        .version()
+        .purgeCss();
+}

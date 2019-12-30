@@ -38,7 +38,7 @@ class ImageController extends Controller
         $image->extension = pathinfo($newFullName, PATHINFO_EXTENSION);
         $image->path = '/i/'.$newFullName;
         $image->user_id = $user->id;
-        $image->is_public = (Auth::check()) ? 0 : 1;
+        $image->is_public = (!$user->always_public) ? false || (!Auth::check() || $user->always_public) : 1;
         $image->save();
 
         notify()->success('You have successfully upload image!');

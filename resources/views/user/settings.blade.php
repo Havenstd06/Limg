@@ -18,7 +18,7 @@
         </div>
       </form>
     </div>
-    <div class="lg-hidden">
+    <div class="sm:hidden">
     <hr>
       <form action="{{ route('settings.update.style', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
           @csrf

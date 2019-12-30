@@ -26,13 +26,14 @@ class UserController extends Controller
 
         return view('user.settings', [
         'user' => $user,
-    ]);
+        ]);
     }
 
     public function update_profile(Request $request, User $user)
     {
         abort_unless($user == $request->user(), 403);
 
+        $user->always_public = $request->has('always_public');
         $user->description = $request->input('description');
         $user->save();
 
