@@ -29,6 +29,18 @@ class UserController extends Controller
     ]);
     }
 
+    public function update_profile(Request $request, User $user)
+    {
+        abort_unless($user == $request->user(), 403);
+
+        $user->description = $request->input('description');
+        $user->save();
+
+        notify()->success('You have successfully update your profile!');
+
+        return back();
+    }
+
     public function update_style(Request $request, User $user)
     {
         abort_unless($user == $request->user(), 403);

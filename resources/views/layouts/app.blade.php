@@ -32,9 +32,7 @@
     @include('layouts.navbar')
 </header>
 <div id="content" class="flex-1 w-full p-3 bg-gray-100 dark:bg-asphalt sm:p-8">
-    <div class="container mx-auto mt-10">
-        @yield('content')
-    </div>
+    @yield('content')
 </div> 
 @include('layouts.footer')
 

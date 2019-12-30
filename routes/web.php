@@ -24,6 +24,7 @@ Route::prefix('p/{user}')->group(function () {
     Route::name('settings.')->prefix('settings')->group(function () {
         Route::get('/', 'UserController@settings')->name('index');
         Route::post('update/style', 'UserController@update_style')->name('update.style');
+        Route::post('update/profile', 'UserController@update_profile')->name('update.profile');
         Route::post('update/password', 'UserController@update_password')->name('update.password');
         Route::post('update/avatar', 'UserController@update_avatar')->name('update.avatar');
     });

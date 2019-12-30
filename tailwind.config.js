@@ -18,7 +18,7 @@ module.exports = {
       colors: {
         asphalt: '#23272A',
         midnight: '#2C2F33',
-        forest: '#99AAB5',
+        forest: '#2f3640',
       },
     },
   },

@@ -64,16 +64,16 @@
                 <a href="{{ route('register') }}" class="px-4 py-1 mr-3 text-sm font-semibold text-gray-800 border rounded-lg hover:text-purple-600 hover:border-purple-600 dark:text-gray-200 dark-hover:text-purple-600">{{ __('Register') }}</a>
             </div>
             @else 
-            <div class="block py-2 bg-white sm:hidden">
+            <div class="block py-2 bg-white rounded dark:bg-asphalt sm:hidden">
                 <div class="flex items-center justify-center">
                     <img src="{{ Storage::url($user->avatar) }}" class="inline-block w-10 mr-4 border-white border-solid rounded-lg">
-                    <a href="{{ route('profile', auth()->user()->username) }}" class="mr-4 text-sm font-semibold text-gray-800 hover:text-purple-600">
+                    <a href="{{ route('profile', auth()->user()->username) }}" class="mr-4 text-sm font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600">
                         <i class="fas fa-user"></i> {{ __('Profile') }}
                     </a>
-                    <a href="{{ route('settings.index', ['user' => $user]) }}" class="mr-4 text-sm font-semibold text-gray-800 hover:text-purple-600">
+                    <a href="{{ route('settings.index', ['user' => $user]) }}" class="mr-4 text-sm font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600">
                         <i class="fas fa-cogs"></i> {{ __('Settings') }}
                     </a>
-                    <a href="{{ route('logout') }}" class="mr-4 text-sm font-semibold text-gray-800 hover:text-purple-600"
+                    <a href="{{ route('logout') }}" class="mr-4 text-sm font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600"
                     onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
                     </a>

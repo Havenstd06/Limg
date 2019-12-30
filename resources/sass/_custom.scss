@@ -18,3 +18,29 @@ input:checked ~ .toggle__dot {
   transform: translateX(100%);
   background-color: #292A2F;
 }
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+//Pretty annoying
+.grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+//Absolutely delightful
+.grid {
+    grid-template-columns: repeat(12, 1fr);
+}
