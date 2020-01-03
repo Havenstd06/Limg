@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'LaraImg'),
+    'name' => env('APP_NAME', 'Laravel'),
+
+    'title' => "Image Hosting Made In Laravel",
 
     /*
     |--------------------------------------------------------------------------

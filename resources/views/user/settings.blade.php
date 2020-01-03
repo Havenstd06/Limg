@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+<title>{{ $user->username }}'s settings — {{ config('app.name', 'Laravel') }} — {{ config('app.title') }}</title>
+@endsection
+
 @section('content')
 <div class="container mx-auto mt-10">
   @if (auth()->user() == $user)

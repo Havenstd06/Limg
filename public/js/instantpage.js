@@ -187,7 +187,7 @@ function h(t) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Gitea\LaraImg\resources\js\instantpage-3.0.0.js */"./resources/js/instantpage-3.0.0.js");
+module.exports = __webpack_require__(/*! C:\Gitea\Limg\resources\js\instantpage-3.0.0.js */"./resources/js/instantpage-3.0.0.js");
 
 
 /***/ })

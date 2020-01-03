@@ -1,4 +1,4 @@
-# LaraImg
+# Limg
 ## An image hosting service powered by Laravel
   
 <img src="https://i.imgur.com/8jAfnaz.png" width=500 align="center">
@@ -18,7 +18,7 @@
 - [Node.js](https://nodejs.org/) with npm
 
 ### Installation
-* clone the repository: `git clone https://git.latable.dev/Havens/LaraImg LaraImg`
+* clone the repository: `git clone https://git.latable.dev/Havens/Limg Limg`
 * create a database
 * create configuration env file `.env` refer to `.env.example`
 * install: `composer install --no-dev`

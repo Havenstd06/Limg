@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    <title>{{ $user->username }}'s profile — {{ config('app.name', 'Laravel') }} — {{ config('app.title') }}</title>
+@endsection
+
 @section('content')
 
 <div class="px-8 pt-6 pb-8 mx-4 bg-white rounded-lg shadow-md dark:bg-midnight sm:container sm:mx-auto sm:w-full">

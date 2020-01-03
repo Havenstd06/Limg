@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    <title>@if($image->title) {{ $image->title }} — @endif {{ config('app.name', 'Laravel') }} — {{ config('app.title') }}</title>
+@endsection
+
 @section('content')
 <div class="container mx-auto mt-10">
   @isNotPublic($image)

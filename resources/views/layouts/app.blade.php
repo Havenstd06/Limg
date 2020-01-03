@@ -8,7 +8,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Title -->
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    @section('title')
+        <title>{{ config('app.name', 'Laravel') }} — {{ config('app.title') }}</title>
+    @show
+
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
