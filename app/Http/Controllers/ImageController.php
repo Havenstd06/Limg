@@ -16,8 +16,8 @@ class ImageController extends Controller
     public function upload(Request $request)
     {
         $rules = [
-      'image' => 'required | mimes:jpeg,jpg,png,gif,bmp,tiff',
-    ];
+            'image' => 'required | mimes:jpeg,jpg,png,gif,bmp,tiff',
+        ];
 
         $validator = Validator::make($request->all(), $rules);
 
@@ -38,7 +38,7 @@ class ImageController extends Controller
         $image->extension = pathinfo($newFullName, PATHINFO_EXTENSION);
         $image->path = '/i/'.$newFullName;
         $image->user_id = $user->id;
-        $image->is_public = (!$user->always_public) ? 0 || (!Auth::check() || $user->always_public) : 1;
+        $image->is_public = (! $user->always_public) ? 0 || (! Auth::check() || $user->always_public) : 1;
         $image->save();
 
         notify()->success('You have successfully upload image!');
@@ -58,9 +58,9 @@ class ImageController extends Controller
             $pageImage = Image::where('name', pathinfo($image, PATHINFO_FILENAME))->firstOrFail();
 
             return view('image.image', [
-        'user' => $user,
-        'image' => $pageImage,
-      ]);
+                'user' => $user,
+                'image' => $pageImage,
+            ]);
         }
     }
 
@@ -70,8 +70,8 @@ class ImageController extends Controller
         abort_unless($user == $request->user(), 403);
 
         $rules = [
-      'title'      => 'max:50',
-    ];
+            'title'      => 'max:50',
+        ];
 
         $validator = Validator::make($request->all(), $rules);
 

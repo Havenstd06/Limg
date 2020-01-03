@@ -16,8 +16,8 @@ class UserController extends Controller
     public function profile(User $user)
     {
         return view('user.profile', [
-      'user' => $user,
-    ]);
+            'user' => $user,
+        ]);
     }
 
     public function settings(Request $request, User $user)
@@ -25,7 +25,7 @@ class UserController extends Controller
         abort_unless($user == $request->user(), 403);
 
         return view('user.settings', [
-        'user' => $user,
+            'user' => $user,
         ]);
     }
 
@@ -57,10 +57,10 @@ class UserController extends Controller
     public function update_password(Request $request)
     {
         $request->validate([
-      'current_password' => ['required', new MatchOldPassword],
-      'new_password' => ['required', 'string', 'min:8'],
-      'new_confirm_password' => ['same:new_password'],
-    ]);
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => ['required', 'string', 'min:8'],
+            'new_confirm_password' => ['same:new_password'],
+        ]);
 
         User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);
 
@@ -74,8 +74,8 @@ class UserController extends Controller
         abort_unless($user == $request->user(), 403);
 
         $rules = [
-      'avatar' => 'required | mimes:jpeg,jpg,png,gif,bmp,tiff',
-    ];
+            'avatar' => 'required | mimes:jpeg,jpg,png,gif,bmp,tiff',
+        ];
 
         $validator = Validator::make($request->all(), $rules);
 
