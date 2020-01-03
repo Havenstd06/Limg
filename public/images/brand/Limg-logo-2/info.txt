@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: TruenoLt
+font link: https://fontlibrary.org/en/font/trueno
+font author: Julieta Ulanovsky
+font author site: http://www.zkysky.com.ar/
+
+
+icon designer: Eugen Belyakoff
+icon designer link: /eugen.belyakoff
+        
+{"bg":"#4A1A37","icon":"#D4406E","font":"#ffffff","slogan":"#ffffff"}
+      

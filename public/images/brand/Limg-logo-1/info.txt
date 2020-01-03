@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: ArimaKoshi-Thin
+font link: https://fonts.google.com/specimen/Arima+Madurai
+font author: NDISCOVER
+font author site: http://www.ndiscovered.com/
+
+
+icon designer: Eugen Belyakoff
+icon designer link: /eugen.belyakoff
+        
+{"bg":"#5B54DD","icon":"#14E2B2","font":"#FFFFFF","slogan":"#ffffff"}
+      

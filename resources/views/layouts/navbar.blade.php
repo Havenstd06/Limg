@@ -2,7 +2,7 @@
     <div class="flex items-center justify-center py-6 sm:justify-between sm:py-4">
         <div class="flex">
             <a href="{{ route('home') }}">
-                <img src="{{ url('images/logo-text-min-p.png') }}" alt="{{ config('app.name') }} Logo" class="h-8 rounded-lg">
+                <img src="{{ url('images/logo-text-min-p.png') }}" alt="{{ config('app.name') }} Logo" class="h-10 rounded-lg">
             </a>
             <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
                 @csrf

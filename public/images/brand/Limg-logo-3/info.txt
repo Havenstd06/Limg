@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: Quicksand-Light
+font link: https://www.fontsquirrel.com/fonts/quicksand
+font author: Andrew Paglinawan
+font author site: http://andrewpaglinawan.com/
+
+
+icon designer: Eugen Belyakoff
+icon designer link: /eugen.belyakoff
+        
+{"bg":"#6743FF","icon":"#FAABFF","font":"#FAABFF","slogan":"#ffbfff"}
+      
