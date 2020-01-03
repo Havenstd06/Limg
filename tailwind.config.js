@@ -30,11 +30,11 @@ module.exports = {
       linkBeforeLast: 'rounded-r',
       linkDisabled: 'bg-forest',
       linkFirst: {
-        '@apply mr-3 pl-5': {},
+        '@apply mr-1 pl-3 text-gray-300': {},
         'border-top-left-radius': '999px',
       },
       linkLast: {
-        '@apply ml-3 pr-5': {},
+        '@apply ml-1 pr-3 text-gray-300': {},
         'border-top-right-radius': '999px',
       },
     }),

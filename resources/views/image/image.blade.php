@@ -52,31 +52,50 @@
         <img src="{{ route('image.show', ['image' => $image->fullname]) }}">
       </div>
     </div>
-    <div class="my-6 sm:ml-16 sm:my-0">
-      <h3 class="pb-3 text-2xl font-medium text-gray-900 dark:text-gray-100 font-firacode">Image Tools</h3>
-      <div class="h-10 mt-3 mb-4 w-36 sm:mt-0 sm:mr-3 custom-number-input">
-        <div class="relative flex flex-row w-full h-10 bg-transparent rounded-lg">
-          <input type="number" id="userInput" placeholder="Size" class="flex items-center w-full max-w-full font-semibold text-center text-gray-700 bg-gray-300 outline-none focus:outline-none text-md hover:text-black focus:text-black md:text-basecursor-default">
-          <a href="#" onclick="javascript:changeText();location.reload();" target="_nofollow" id=lnk class="p-2 pr-4 font-semibold text-center text-gray-700 bg-gray-300">Go</a>
+    <div class="my-6 ml-6 sm:my-0">
+      <div class="ml-16">
+        <h3 class="pb-3 -ml-2 text-2xl font-medium text-gray-900 dark:text-gray-100 font-firacode">Image Tools</h3>
+        <div class="h-10 mt-3 mb-4 w-36 sm:mt-0 sm:mr-3 custom-number-input">
+          <div class="relative flex flex-row w-full h-10 bg-transparent rounded-lg">
+            <input type="number" id="userInput" placeholder="Size" class="flex items-center w-full max-w-full font-semibold text-center text-gray-700 bg-gray-300 outline-none focus:outline-none text-md hover:text-black focus:text-black md:text-basecursor-default">
+            <a href="#" onclick="javascript:changeText();location.reload();" target="_nofollow" id=lnk class="p-2 pr-4 font-semibold text-center text-gray-700 bg-gray-300">Go</a>
+          </div>
+        </div>
+        <a href="{{ route('image.download', ['image' => $image->name]) }}">
+          <button class="block px-4 py-2 mb-4 font-semibold text-gray-900 bg-transparent border rounded hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent">
+            <i class="fa fa-download"></i> {{ __('Download') }}
+          </button>
+        </a>
+        <div data-controller="modal" data-action="keydown@window->modal#closeWithKeyboard">
+          <button class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded modal-open-tools hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent" data-action="click->modal#open">
+            <i class="fas fa-code"></i> Embed
+          </button>
+          @include('image.embed-modal')
+        </div>
+        <div data-controller="modal" data-action="keydown@window->modal#closeWithKeyboard">
+          <button class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded modal-open-tools hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent" data-action="click->modal#open">
+            <i class="fas fa-globe-europe"></i> BBCode
+          </button>
+          @include('image.bbcode-modal')
         </div>
       </div>
-      <a href="{{ route('image.download', ['image' => $image->name]) }}">
-        <button class="block px-4 py-2 mb-4 font-semibold text-gray-900 bg-transparent border rounded hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent">
-          <i class="fa fa-download"></i> {{ __('Download') }}
-        </button>
+      @if ($image->user->id == 1)
+      <a class="flex items-center pt-4" href="{{ route('register') }}">
+        <img class="w-10 h-10 mr-4 rounded-full" src="{{ Storage::url($image->user->avatar) }}" alt="Anonyme User">
+        <div class="text-sm">
+        <p class="leading-none text-gray-900 dark:text-gray-300">Anonyme | Signup Now !</p>
+        <p class="text-gray-600">{{ $image->created_at->format('d/m/Y') }} ({{ $image->created_at->diffForHumans() }})</p>
+        </div>
       </a>
-      <div data-controller="modal" data-action="keydown@window->modal#closeWithKeyboard">
-        <button class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded modal-open-tools hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent" data-action="click->modal#open">
-          <i class="fas fa-code"></i> Embed
-        </button>
-        @include('image.embed-modal')
-      </div>
-      <div data-controller="modal" data-action="keydown@window->modal#closeWithKeyboard">
-        <button class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded modal-open-tools hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent" data-action="click->modal#open">
-          <i class="fas fa-globe-europe"></i> BBCode
-        </button>
-        @include('image.bbcode-modal')
-      </div>
+      @else
+      <a class="flex items-center pt-4" href="{{ route('profile', $image->user->username) }}">
+        <img class="w-10 h-10 mr-4 rounded-full" src="{{ Storage::url($image->user->avatar) }}" alt="{{ $image->user->username }}'s image'">
+        <div class="text-sm">
+        <p class="leading-none text-gray-900 dark:text-gray-300">{{ $image->user->username }}</p>
+        <p class="text-gray-600">{{ $image->created_at->format('d/m/Y') }} ({{ $image->created_at->diffForHumans() }})</p>
+        </div>
+      </a>
+      @endif
     </div>
   </div>
 
