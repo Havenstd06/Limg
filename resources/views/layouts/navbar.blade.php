@@ -33,35 +33,30 @@
                 </div>
                 </label>
             </form>
-            <div class="relative inline-block dropdown">
-                <button class="inline-flex items-center px-4 py-1 font-semibold text-gray-700 rounded dark:text-white">
-                    <span class="mr-1">
-                        <img src="{{ Storage::url(auth()->user()->avatar) }}" class="inline-block w-10 mr-1 -mt-1 -mb-1 -ml-1 border-white border-solid rounded shadow-md">		
-                        {{ auth()->user()->username }}
-                    </span>
-                    <svg class="w-4 h-4 -mr-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
-                </button>
-                    <ul class="absolute hidden pt-2 text-gray-700 dropdown-menu">
-                    <li class="w-36">
-                        <a class="block px-4 py-2 whitespace-no-wrap bg-gray-100 hover:bg-gray-400" href="{{ route('profile', auth()->user()->username) }}">
-                            <i class="fas fa-user"></i> {{ __('Profile') }}
-                        </a>
-                    </li>
-                    <li class="w-36">
-                        <a class="block px-4 py-2 whitespace-no-wrap bg-gray-100 hover:bg-gray-400" href="{{ route('settings.index', ['user' => $user]) }}">
-                            <i class="fas fa-cogs"></i> {{ __('Settings') }}
-                        </a>
-                    </li>
-                    <li class="w-36">
-                        <a class="block px-4 py-2 whitespace-no-wrap bg-gray-100 hover:bg-gray-400" href="{{ route('logout') }}" 
-                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                            <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
-                        </a>
-                    </li>
+            <div class="relative leading-none no-underline rounded" data-controller="dropdown">
+                <div data-action="click->dropdown#toggle click@window->dropdown#hide" role="button" class="inline-block select-none">
+                    <button class="inline-flex items-center px-4 py-1 font-semibold text-gray-700 rounded dark:text-white">
+                        <img src="{{ Storage::url(auth()->user()->avatar) }}" class="inline-block w-10 mr-2 -mt-1 -mb-1 -ml-1 border-white border-solid rounded shadow-md">		
+                            {{ auth()->user()->username }}
+                        <svg class="w-4 h-4 -mr-1 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
+                    </button>
+                </div>
+                <div data-target="dropdown.menu" class="absolute right-0 hidden mt-2">
+                <div class="w-40 overflow-hidden bg-white border rounded shadow">
+                    <a href="{{ route('profile', auth()->user()->username) }}" class="block py-3 pl-8 text-gray-800 no-underline whitespace-no-wrap bg-white hover:bg-gray-300 dark-hover:bg-gray-300">
+                        <i class="fas fa-user"></i> {{ __('Profile') }}
+                    </a>
+                    <a href="{{ route('settings.index', ['user' => $user]) }}" class="block py-3 pl-8 text-gray-800 no-underline whitespace-no-wrap bg-white hover:bg-gray-300 dark-hover:bg-gray-300">
+                        <i class="fas fa-cogs"></i> {{ __('Settings') }}
+                    </a>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="block py-3 pl-8 text-gray-800 no-underline whitespace-no-wrap bg-white border-t hover:bg-gray-300 dark-hover:bg-gray-300">
+                        <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
+                    </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                         @csrf
                     </form>
-                </ul>
+                </div>
+                </div>
             </div>
         </div>
         @endguest

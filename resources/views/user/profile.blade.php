@@ -37,7 +37,7 @@
                     @if (Auth::check() && auth()->user()->id == $user->id)
                     <form action="{{ route('settings.update.profile', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <label for="always_public" class="flex items-center justify-center pt-3 pb-3 pr-3 cursor-pointer">
+                        <label for="always_public" class="flex items-center justify-center pt-6 pb-3 pr-3 cursor-pointer">
                         <div class="relative">
                             <input name="always_public" id="always_public" type="checkbox" class="hidden" value="{{ $user->always_public ? '1' : '0' }}" {{ $user->always_public ? 'checked' : '' }} onChange="form.submit()"/>
                             <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner toggle__line"></div>
