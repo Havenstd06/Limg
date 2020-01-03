@@ -65,17 +65,22 @@
           <i class="fa fa-download"></i> {{ __('Download') }}
         </button>
       </a>
-      <button class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded modal-open-tools hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent">
-        <i class="fas fa-code"></i> Embed
-      </button>
-      <button class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded modal-open-tools hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent">
-        <i class="fas fa-globe-europe"></i> BBCode
-      </button>
+      <div data-controller="modal" data-action="keydown@window->modal#closeWithKeyboard">
+        <button class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded modal-open-tools hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent" data-action="click->modal#open">
+          <i class="fas fa-code"></i> Embed
+        </button>
+        @include('image.embed-modal')
+      </div>
+      <div data-controller="modal" data-action="keydown@window->modal#closeWithKeyboard">
+        <button class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded modal-open-tools hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent" data-action="click->modal#open">
+          <i class="fas fa-globe-europe"></i> BBCode
+        </button>
+        @include('image.bbcode-modal')
+      </div>
     </div>
   </div>
 
   </div>
-  @include('image.modal')
   @endisNotPublic
 </div>
 @endsection
@@ -103,6 +108,22 @@ function changeText(){
     var lnk = document.getElementById('lnk');
     lnk.href = "{{ route('image.show', ['image' => $image->fullname]) }}/" + userInput;
     lnk.innerHTML = lnk.href;
+}
+</script>
+<script>
+function copyEmbed() {
+  var copyText = document.getElementById("embed");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+}
+</script>
+<script>
+function copyBbcode() {
+  var copyText = document.getElementById("bbcode");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
 }
 </script>
 @endsection

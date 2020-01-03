@@ -1,11 +1,21 @@
 <div class="container px-4 mx-auto">
     <div class="flex items-center justify-center py-6 sm:justify-between sm:py-4">
-        <div>
+        <div class="flex">
             <a href="{{ route('home') }}">
                 <img src="{{ url('images/logo-text-min-p.png') }}" alt="{{ config('app.name') }} Logo" class="h-8 rounded-lg">
             </a>
+            <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <label id="image-drop"
+                class="flex items-center px-2 py-2 ml-3 -mt-1 text-purple-700 bg-white border border-purple-800 rounded-lg shadow-lg hover:bg-purple-600 hover:text-white dark-hover:bg-purple-600 dark-hover:text-white" for="image-upload">
+                    <i class="ml-1 far fa-file-image"></i>
+                    <span class="ml-1 leading-normal text-center">
+                        <strong>Upload</strong>
+                    </span>
+                    <input class="hidden opacity-0 sm:absolute sm:-ml-3 sm:-mt-15 sm:h-12 sm:w-27 sm:block" id="image-upload" type="file" accept="image/*" name="image" aria-describedby="image" onChange="form.submit()"/>
+                </label>
+            </form>
         </div>
-
         @guest
         <div class="hidden sm:flex sm:items-center">
             <a href="{{ route('login') }}" class="mr-4 text-sm font-semibold text-gray-800 hover:text-purple-600 dark:text-gray-200 dark-hover:text-purple-600">{{ __('Login') }}</a>
@@ -86,3 +96,20 @@
         </div>
     </div>
 </div>
+
+@section('javascripts')
+<script>
+    var fileInput = document.querySelector('input[type=file]');
+    var dropzone = document.querySelector('label#image-drop');
+
+    fileInput.addEventListener('dragenter', function () {
+    dropzone.classList.remove('text-purple-700', 'bg-white');
+    dropzone.classList.add('text-white', 'bg-purple-600');
+    });
+
+    fileInput.addEventListener('dragleave', function () {
+    dropzone.classList.remove('text-white', 'bg-purple-600');
+    dropzone.classList.add('text-purple-700', 'bg-white');
+    });
+</script>
+@endsection

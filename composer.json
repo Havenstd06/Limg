@@ -16,6 +16,7 @@
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
+        "honeybadger-io/honeybadger-laravel": "^2.1",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
         "laravel/nova": "~2.0",
@@ -23,7 +24,8 @@
         "laravel/tinker": "^2.0",
         "mckenziearts/laravel-notify": "^1.1",
         "realrashid/sweet-alert": "^3.0",
-        "socialiteproviders/discord": "^2.0"
+        "socialiteproviders/discord": "^2.0",
+        "spatie/laravel-tags": "^2.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
