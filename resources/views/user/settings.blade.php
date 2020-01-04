@@ -16,7 +16,7 @@
 <meta data-rh="true" name="twitter:card" content="summary_large_image" />
 <meta data-rh="true" name="twitter:creator" content="@HavensYT" />
 <meta data-rh="true" name="author" content="Thomas Drumont" />
-<meta data-rh="true" name="twitter:site" content="@rss_chat" />
+<meta data-rh="true" name="twitter:site" content="@limg_app" />
 <meta data-rh="true" property="twitter:title" content="{{ config('app.name') }}" />
 
 @endsection
