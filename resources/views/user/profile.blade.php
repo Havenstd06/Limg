@@ -1,7 +1,23 @@
 @extends('layouts.app')
 
-@section('title')
-    <title>{{ $user->username }}'s profile — {{ config('app.name', 'Laravel') }} — {{ config('app.title') }}</title>
+@section('head')
+<title>{{ $user->username }}'s profile — {{ config('app.name', 'Laravel') }} — {{ config('app.description') }}</title>
+
+<!-- OpenGraph/Twitter -->
+<meta data-rh="true" name="description" content="{{ $user->username }}'s Profile" />
+<meta data-rh="true" property="og:url" content="{{ url()->current() }}" />
+<meta data-rh="true" property="og:description" content="{{ $user->username }}'s Profile" />
+<meta data-rh="true" property="og:image" content="{{ url(Storage::url($user->avatar)) }}" />
+<meta data-rh="true" property="og:title" content="{{ config('app.name') }}" />
+<meta data-rh="true" property="og:website" content="website" />
+<meta data-rh="true" property="og:site_name" content="{{ config('app.name') }}.app" />
+<meta data-rh="true" name="twitter:image:src" content="{{ url(Storage::url($user->avatar)) }}" />
+<meta data-rh="true" property="twitter:description" content="{{ $user->username }}'s Profile" />
+<meta data-rh="true" name="twitter:card" content="summary_large_image" />
+<meta data-rh="true" name="twitter:creator" content="@HavensYT" />
+<meta data-rh="true" name="author" content="Thomas Drumont" />
+<meta data-rh="true" name="twitter:site" content="@rss_chat" />
+<meta data-rh="true" property="twitter:title" content="{{ config('app.name') }}" />
 @endsection
 
 @section('content')

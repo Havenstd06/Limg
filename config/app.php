@@ -15,7 +15,7 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
-    'title' => "Image Hosting Made In Laravel",
+    'description' => "Image Hosting Made In Laravel",
 
     /*
     |--------------------------------------------------------------------------
@@ -82,7 +82,7 @@ return [
     |
     */
 
-    'locale' => 'fr',
+    'locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------

@@ -7,9 +7,25 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Title -->
-    @section('title')
-        <title>{{ config('app.name', 'Laravel') }} — {{ config('app.title') }}</title>
+    <!-- Title & Meta -->
+    @section('head')
+    <title>{{ config('app.name', 'Laravel') }} — {{ config('app.description') }}</title>
+
+    <!-- OpenGraph/Twitter -->
+    <meta data-rh="true" name="description" content="{{ config('app.description') }}" />
+    <meta data-rh="true" property="og:url" content="{{ url()->current() }}" />
+    <meta data-rh="true" property="og:description" content="{{ config('app.description') }}" />
+    <meta data-rh="true" property="og:image" content="{{ asset('images/cover.png') }}" />
+    <meta data-rh="true" property="og:title" content="{{ config('app.name') }}" />
+    <meta data-rh="true" property="og:website" content="website" />
+    <meta data-rh="true" property="og:site_name" content="{{ config('app.name') }}.app" />
+    <meta data-rh="true" name="twitter:image:src" content="{{ asset('images/cover.png') }}" />
+    <meta data-rh="true" property="twitter:description" content="{{ config('app.description') }}" />
+    <meta data-rh="true" name="twitter:card" content="summary_large_image" />
+    <meta data-rh="true" name="twitter:creator" content="@HavensYT" />
+    <meta data-rh="true" name="author" content="Thomas Drumont" />
+    <meta data-rh="true" name="twitter:site" content="@rss_chat" />
+    <meta data-rh="true" property="twitter:title" content="{{ config('app.name') }}" />
     @show
 
 

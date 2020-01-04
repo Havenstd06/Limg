@@ -1,7 +1,23 @@
 @extends('layouts.app')
 
-@section('title')
-    <title>@if($image->title) {{ $image->title }} — @endif {{ config('app.name', 'Laravel') }} — {{ config('app.title') }}</title>
+@section('head')
+    <title>@if($image->title) {{ $image->title }} — @endif {{ config('app.name', 'Laravel') }} — {{ config('app.description') }}</title>
+
+    <!-- OpenGraph/Twitter -->
+    <meta data-rh="true" name="description" content="@if($image->title) {{ $image->title }} @else {{ config('app.description') }} @endif" />
+    <meta data-rh="true" property="og:url" content="{{ url()->current() }}" />
+    <meta data-rh="true" property="og:description" content="@if($image->title) {{ $image->title }} @else {{ config('app.description') }} @endif" />
+    <meta data-rh="true" property="og:image" content="{{ url($image->path) }}" />
+    <meta data-rh="true" property="og:title" content="{{ config('app.name') }}" />
+    <meta data-rh="true" property="og:website" content="website" />
+    <meta data-rh="true" property="og:site_name" content="{{ config('app.name') }}.app" />
+    <meta data-rh="true" name="twitter:image:src" content="{{ url($image->path) }}" />
+    <meta data-rh="true" property="twitter:description" content="@if($image->title) {{ $image->title }} @else {{ config('app.description') }} @endif" />
+    <meta data-rh="true" name="twitter:card" content="summary_large_image" />
+    <meta data-rh="true" name="twitter:creator" content="@HavensYT" />
+    <meta data-rh="true" name="author" content="Thomas Drumont" />
+    <meta data-rh="true" name="twitter:site" content="@limg_app" />
+    <meta data-rh="true" property="twitter:title" content="{{ config('app.name') }}" />
 @endsection
 
 @section('content')
