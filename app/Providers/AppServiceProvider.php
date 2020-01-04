@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\User;
 use App\Image;
-use App\Observers\UserObserver;
 use App\Observers\ImageObserver;
+use App\Observers\UserObserver;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Blade::if('isNotPublic', function ($image) {
-            return $image->is_public == 0 && (!Auth::check() || auth()->user()->id != $image->user->id);
+            return $image->is_public == 0 && (! Auth::check() || auth()->user()->id != $image->user->id);
         });
     }
 }

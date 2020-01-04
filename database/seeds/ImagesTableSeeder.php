@@ -12,7 +12,7 @@ class ImagesTableSeeder extends Seeder
     public function run()
     {
         \DB::table('images')->delete();
-        
+
         \DB::table('images')->insert([
             0 => [
                 'id' => 1,
