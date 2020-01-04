@@ -11,7 +11,7 @@
 <hr>
 
 ## Requirement
-- [**PHP**](https://php.net) 5.6.4+ (**7.0** preferred)
+- [**PHP**](https://php.net) 7.2+ (**7.4** preferred)
 - PHP Extensions: openssl, mcrypt and mbstring, phpredis
 - Database server: [MySQL](https://www.mysql.com) or [**MariaDB**](https://mariadb.org)
 - [Redis](http://redis.io) Server
@@ -25,6 +25,7 @@
 * create configuration env file `.env` refer to `.env.example`
 * generate a new application key `php artisan key:generate`
 * setup database tables: `php artisan migrate:fresh --seed`
+* create storage link `php artisan storage:link`
 
 
 ## Setup Discord Login
