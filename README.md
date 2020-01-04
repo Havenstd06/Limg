@@ -21,11 +21,12 @@
 ## Installation
 * clone the repository: `git clone https://git.latable.dev/Havens/Limg Limg`
 * create a database
-* install: `composer install --no-dev`
+* install: `composer install --dev`
 * create configuration env file `.env` refer to `.env.example`
 * generate a new application key `php artisan key:generate`
 * setup database tables: `php artisan migrate:fresh --seed`
 * create storage link `php artisan storage:link`
+* install node_module `npm i && npm run dev`
 
 
 ## Setup Discord Login
