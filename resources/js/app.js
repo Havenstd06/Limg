@@ -13,7 +13,6 @@ import { Dropdown, Modal, Tabs, Popover } from "tailwindcss-stimulus-components"
 application.register('dropdown', Dropdown)
 application.register('modal', Modal)
 application.register('tabs', Tabs)
-application.register('popover', Popover)
 
 require('./notify');
 

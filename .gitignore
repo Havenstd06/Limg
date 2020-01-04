@@ -1,22 +1,22 @@
 # NodeJS
-node_modules
+/node_modules
 
 # Public
-public/hot
-public/css
-public/js
-public/mix-manifest.json
-public/vendor
-public/storage
+/public/hot
+/public/css
+/public/js
+/public/mix-manifest.json
+/public/vendor
+/public/storage
 
 # Nova ;)
-resources/views/vendor/nova
-resources/lang/vendor/nova
-config/nova.php
-app/nova
+/resources/views/vendor/nova
+/resources/lang/vendor/nova
+/config/nova.php
+/app/nova
 
-storage/*.key
-vendor
+/storage/*.key
+/vendor
 .env
 .env.backup
 .phpunit.result.cache
