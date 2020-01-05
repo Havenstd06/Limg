@@ -1,7 +1,7 @@
 # Limg
 ## An open source image hosting service powered by Laravel
   
-<img src="https://i.imgur.com/L4xOtFh.png" width=500>
+<img src="https://limg.app/i/gQHOGpS.png/500">
   
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
