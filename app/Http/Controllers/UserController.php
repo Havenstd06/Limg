@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Rules\MatchOldPassword;
 use App\User;
+use App\Image;
 use Illuminate\Http\Request;
+use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -13,10 +14,15 @@ use Intervention\Image\Facades\Image as InterImage;
 
 class UserController extends Controller
 {
-    public function profile(User $user)
+    public function profile(Request $request, $username)
     {
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        $userImages = Image::where('user_id', '=', $user->id)->orderBy('created_at', 'DESC')->paginate(18);
+
         return view('user.profile', [
             'user' => $user,
+            'userImages' => $userImages,
         ]);
     }
 

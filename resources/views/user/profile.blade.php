@@ -26,7 +26,7 @@
     <div class="sm:px-2">
         <div class="sm:-mx-2 sm:flex">
             <div class="sm:w-1/3 sm:px-2">
-                <div class="flex sm:ml-40">
+                <div class="flex sm:ml-0 md:ml-1 lg:ml-4 xl:ml-40">
                     <img class="w-24 rounded sm:w-38" src="{{ Storage::url($user->avatar) }}"/>
                     <div class="mt-4 ml-2 sm:ml-4">
                         <h4 class="text-lg sm:text-5xl font-firacode dark:text-gray-300">{{ $user->username }}</h4>
@@ -97,7 +97,7 @@
         </ul>
         <div class="hidden px-4 py-4" data-target="tabs.panel">
             <div class="flex flex-wrap">
-                @foreach ($user->images as $image)
+                @foreach ($userImages as $image)
                     @isNotPublic($image)
                     @else
                     <div class="p-3 md:w-1/2 lg:w-1/6">
@@ -108,6 +108,9 @@
                     </div>
                     @endisNotPublic
                 @endforeach
+            </div>
+            <div class="pt-5 text-center">
+                {{ $userImages->links() }}
             </div>
         </div>
         @if (Auth::check() && auth()->user()->id == $user->id)
