@@ -9,12 +9,6 @@
 /public/vendor
 /public/storage
 
-# Nova ;)
-/resources/views/vendor/nova
-/resources/lang/vendor/nova
-/config/nova.php
-/app/nova
-
 /storage/*.key
 /vendor
 .env
