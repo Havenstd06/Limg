@@ -19,7 +19,7 @@
 - [Node.js](https://nodejs.org/) with npm
 
 ## Installation
-* clone the repository: `git clone https://git.latable.dev/Havens/Limg Limg`
+* clone the repository: `git clone https://github.com/Havenstd06/Limg`
 * create a database
 * install: `composer install --dev`
 * create configuration env file `.env` refer to `.env.example`
