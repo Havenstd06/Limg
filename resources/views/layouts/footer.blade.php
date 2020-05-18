@@ -9,7 +9,7 @@
       </span>
     </div>
     <div class="flex justify-center w-full my-2 item-center lg:justify-end lg:w-1/5 lg:my-0">
-      <a href="{{ config('app.discordUrl') }}" target="_nofollow">
+      <a href="https://github.com/Havenstd06/Limg" target="_nofollow">
         <span class="relative mr-2 font-semibold" style="bottom:7px">Open-Source on GitHub</span> 
         <i class="fa-2x fab fa-github"></i>
       </a>
