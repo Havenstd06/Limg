@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
         $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
 
-        $images = Image::orderBy('created_at', 'desc')->paginate(18);
+        $images = Image::orderBy('created_at', 'desc')->where('is_public', '=', 1)->paginate(12);
 
         return view('home', [
             'user' => $user,
