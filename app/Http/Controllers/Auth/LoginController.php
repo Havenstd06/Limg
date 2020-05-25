@@ -140,4 +140,13 @@ class LoginController extends Controller
     {
         return $this->username;
     }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        connectify('success', 'Success!', 'Logout Successfully!');
+
+        return Redirect::route('home');
+    }
 }

@@ -41,10 +41,13 @@
     <meta name="theme-color" content="#ffffff">
 
     <!-- Scripts -->
+    
     <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
 </head>
 

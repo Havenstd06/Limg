@@ -15,6 +15,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('login/discord', 'Auth\LoginController@redirectToProvider')->name('login.discord');
 Route::get('login/discord/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'HomeController@index')->name('home');
 

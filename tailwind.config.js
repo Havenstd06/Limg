@@ -2,6 +2,7 @@ module.exports = {
   theme: {
     fontFamily: {
       'firacode': ["Fira Code"],
+      sans: ['Inter var'],
     },
     extend: {
       width: {

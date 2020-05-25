@@ -1,6 +1,7 @@
 var Turbolinks = require("turbolinks");
 Turbolinks.start();
 require('./bootstrap');
+// import "alpinejs";
 
 // Start StimulusJS
 import { Application } from "stimulus"

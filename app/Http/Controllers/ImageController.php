@@ -67,31 +67,42 @@ class ImageController extends Controller
             ], 500);
 
         } else {
+            $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
+            
+            if(in_array($upload_key, $keys)) {
 
-            $user = User::where('api_token', '=', $upload_key)->first();
+                $user = User::where('api_token', '=', $upload_key)->first();
 
-            $newName = Str::random(7);
-            $newFullName = $newName.'.'.$file->getClientOriginalExtension();
-            $file->move(('storage/images'), $newFullName);
+                $newName = Str::random(7);
+                $newFullName = $newName.'.'.$file->getClientOriginalExtension();
+                $file->move(('storage/images'), $newFullName);
 
-            $image = new Image;
-            $image->name = $newName;
-            $image->extension = pathinfo($newFullName, PATHINFO_EXTENSION);
-            $image->path = '/i/'.$newFullName;
-            $image->user_id = $user->id;
-            $image->is_public = 0;
-            $image->save();
+                $image = new Image;
+                $image->name = $newName;
+                $image->extension = pathinfo($newFullName, PATHINFO_EXTENSION);
+                $image->path = '/i/'.$newFullName;
+                $image->user_id = $user->id;
+                $image->is_public = 0;
+                $image->save();
 
-            return response()->json([
-                'success' => true,
-                'image' => [
-                    'url' => route('image.show', [
-                        $image->name,
-                    ]),
-                    'delete_url' => 'Use the web UI please.',
-                ],
-                'error' => '',
-            ]);
+                return response()->json([
+                    'success' => true,
+                    'image' => [
+                        'url' => route('image.show', [
+                            $image->name,
+                        ]),
+                        'delete_url' => 'Use the web UI please.',
+                    ],
+                    'error' => '',
+                ]);
+            
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'screenshot' => [],
+                    'error' => 'Invalid key!',
+                ], 500);
+            }
         }
     }
 

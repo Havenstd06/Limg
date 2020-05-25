@@ -49,12 +49,9 @@
                     <a href="{{ route('settings.index', ['user' => $user]) }}" class="block py-3 pl-8 text-gray-800 no-underline whitespace-no-wrap bg-white hover:bg-gray-300 dark-hover:bg-gray-300">
                         <i class="fas fa-cogs"></i> {{ __('Settings') }}
                     </a>
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="block py-3 pl-8 text-gray-800 no-underline whitespace-no-wrap bg-white border-t hover:bg-gray-300 dark-hover:bg-gray-300">
+                    <a href="{{ route('logout') }}" class="block py-3 pl-8 text-gray-800 no-underline whitespace-no-wrap bg-white border-t hover:bg-gray-300 dark-hover:bg-gray-300">
                         <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                        @csrf
-                    </form>
                 </div>
                 </div>
             </div>
