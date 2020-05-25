@@ -10,6 +10,14 @@
 
 <hr>
 
+## Features
+- Upload and share your image with privacy
+- (new) Upload your image on ShareX
+- Manage your image (custom title, public or private, delete, custom size...)
+
+## Soon
+- Admin Panel
+
 ## Requirement
 - [**PHP**](https://php.net) 7.2+ (**7.4** preferred)
 - PHP Extensions: openssl, mcrypt and mbstring, phpredis
@@ -39,9 +47,9 @@
 
 <hr>  
 
+If you have any problem or request open an issue ! 😅
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
 Please make sure to update tests as appropriate.
 
 ## License

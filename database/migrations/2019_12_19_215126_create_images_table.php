@@ -16,8 +16,7 @@ class CreateImagesTable extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title')->nullable();
-            $table->string('pageName');
-            $table->string('imageName');
+            $table->string('name');
             $table->string('path');
             $table->string('extension');
             $table->boolean('is_public')->default(0);
