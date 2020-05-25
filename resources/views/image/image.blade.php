@@ -80,14 +80,14 @@
             <a href="#" onclick="javascript:changeText();location.reload();" target="_nofollow" id=lnk class="p-2 pr-4 font-semibold text-center text-gray-700 bg-gray-300">Go</a>
           </div>
         </div>
-        <a href="{{ route('image.download', ['image' => $image->imageName]) }}">
+        <a href="{{ route('image.download', ['image' => $image->pageName]) }}">
           <button class="block px-4 py-2 mb-4 font-semibold text-gray-900 bg-transparent border rounded hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent">
             <i class="fa fa-download"></i> {{ __('Download') }}
           </button>
         </a>
         <div x-data="{ open: false }">
             <button @click="open = true" class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent">
-                <i class="fas fa-code"></i> Embed
+                <i class="fas fa-code"></i> {{ __('Embed') }}
             </button>
 
             <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full" style="background-color: rgba(0,0,0,.5);" x-show="open"  x-description="Background overlay, show/hide based on modal state." x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 transition-opacity">
@@ -98,7 +98,7 @@
         </div>
         <div x-data="{ open: false }">
             <button @click="open = true" class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent">
-                <i class="fas fa-globe-europe"></i> BBCode
+                <i class="fas fa-globe-europe"></i> {{ __('BBCode') }}
             </button>
 
             <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full" style="background-color: rgba(0,0,0,.5);" x-show="open"  x-description="Background overlay, show/hide based on modal state." x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 transition-opacity">
@@ -145,7 +145,7 @@ function deleteImage() {
   })
   .then((willDelete) => {
     if (willDelete) {
-      window.location = "{{ route('image.delete', ['image' => $image->imageName]) }}";
+      window.location = "{{ route('image.delete', ['image' => $image->pageName]) }}";
     }
   });
 }
