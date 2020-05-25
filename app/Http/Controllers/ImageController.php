@@ -43,7 +43,7 @@ class ImageController extends Controller
         $image->is_public = (! $user->always_public) ? 0 || (! Auth::check() || $user->always_public) : 1;
         $image->save();
 
-        toast('You have successfully upload image!','success');
+        toast('You have successfully upload image!', 'success');
 
         return redirect(route('image.show', ['image' => $image->pageName]));
     }
@@ -53,25 +53,22 @@ class ImageController extends Controller
         $file = $request->file('file');
         $upload_key = $request->key;
 
-        if($file == null) {
+        if ($file == null) {
             return response()->json([
                 'success' => false,
                 'image' => [],
                 'error' => 'Please give a file to upload.',
             ], 500);
-
-        } elseif($upload_key == null) {
+        } elseif ($upload_key == null) {
             return response()->json([
                 'success' => false,
                 'image' => [],
                 'error' => 'Please give a api key to validate.',
             ], 500);
-
         } else {
             $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
-            
-            if(in_array($upload_key, $keys)) {
 
+            if (in_array($upload_key, $keys)) {
                 $user = User::where('api_token', '=', $upload_key)->first();
 
                 $imageName = Str::random(14);
@@ -91,12 +88,11 @@ class ImageController extends Controller
                 return response()->json([
                     'success' => true,
                     'image' => [
-                        'url' => env('APP_URL') . $image->path,
+                        'url' => env('APP_URL').$image->path,
                         'delete_url' => 'Use the web UI please.',
                     ],
                     'error' => '',
                 ]);
-            
             } else {
                 return response()->json([
                     'success' => false,
@@ -137,7 +133,7 @@ class ImageController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            toast('The title must contain maximum 50 characters!','error');
+            toast('The title must contain maximum 50 characters!', 'error');
 
             return back();
         }
@@ -146,7 +142,7 @@ class ImageController extends Controller
         $image->is_public = $request->has('is_public');
         $image->save();
 
-        toast('You have successfully updated your image!','success');
+        toast('You have successfully updated your image!', 'success');
 
         return redirect(route('image.show', ['image' => $image->pageName]));
     }
@@ -159,7 +155,7 @@ class ImageController extends Controller
         File::delete($image->fullpath);
         $image->delete();
 
-        toast('You have successfully delete your image!','success');
+        toast('You have successfully delete your image!', 'success');
 
         return redirect(route('home'));
     }

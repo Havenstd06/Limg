@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Image;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
+use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as InterImage;
 
 class UserController extends Controller
@@ -44,7 +44,7 @@ class UserController extends Controller
         $user->description = $request->input('description');
         $user->save();
 
-        toast('You have successfully update your profile!','success');
+        toast('You have successfully update your profile!', 'success');
 
         return back();
     }
@@ -56,7 +56,7 @@ class UserController extends Controller
         $user->style = $request->has('style');
         $user->save();
 
-        toast('You have successfully update your style!','success');
+        toast('You have successfully update your style!', 'success');
 
         return back();
     }
@@ -70,11 +70,10 @@ class UserController extends Controller
         ]);
 
         User::find(auth()->user()->id)->update([
-            'password' => Hash::make($request->new_password)
+            'password' => Hash::make($request->new_password),
         ]);
 
-        toast('You have successfully update your passsword.','success');
-
+        toast('You have successfully update your passsword.', 'success');
 
         return back();
     }
@@ -82,10 +81,10 @@ class UserController extends Controller
     public function update_token(Request $request)
     {
         User::find(auth()->user()->id)->update([
-            'api_token' => Str::random(20)
+            'api_token' => Str::random(20),
         ]);
 
-        toast('You have successfully update your api token.','success');
+        toast('You have successfully update your api token.', 'success');
 
         return back();
     }
@@ -129,7 +128,7 @@ class UserController extends Controller
                 InterImage::make($avatar)->resize(150, 150)->save($location);
             }
         } else {
-            toast('Your avatar is too large, max file size: 2 MB','error');
+            toast('Your avatar is too large, max file size: 2 MB', 'error');
 
             return back();
         }
@@ -137,7 +136,7 @@ class UserController extends Controller
         $user->avatar = 'avatars/'.$avatarName;
         $user->save();
 
-        toast('You have successfully upload avatar.','success');
+        toast('You have successfully upload avatar.', 'success');
 
         return back();
     }
