@@ -46,37 +46,33 @@ class ImageController extends Controller
         return redirect(route('image.show', ['image' => $image->name]));
     }
 
-    public function api_upload (Request $request)
+    public function api_upload(Request $request)
     {
         $storage = storage_path('app/public/images');
         $file = $request->file('file');
         $upload_key = $request->key;
 
         if($file == null) {
-            throw new \App\Exceptions\Images\NoFileSpecifiedToUpload();
+            return response()->json([
+                'success' => false,
+                'image' => [],
+                'error' => 'Please give a file to upload.',
+            ], 500);
+
         } elseif($upload_key == null) {
-            throw new \App\Exceptions\Images\NoApiTokenSpecifiedToValidate();
+            return response()->json([
+                'success' => false,
+                'image' => [],
+                'error' => 'Please give a api key to validate.',
+            ], 500);
+
         } else {
-            $rules = [
-                'image' => 'required | mimes:jpeg,jpg,png,svg,gif,bmp,tiff',
-            ];
-
-            $validator = Validator::make($request->all(), $rules);
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'success' => false,
-                    'image' => null,
-                    'error' => 'File is not an image.',
-                ], 500);
-            }
-
 
             $user = User::where('api_token', '=', $upload_key)->first();
 
             $newName = Str::random(7);
-            $newFullName = $newName.'.'.$request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move(('storage/images'), $newFullName);
+            $newFullName = $newName.'.'.$file->getClientOriginalExtension();
+            $file->move(('storage/images'), $newFullName);
 
             $image = new Image;
             $image->name = $newName;
@@ -88,14 +84,23 @@ class ImageController extends Controller
 
             return response()->json([
                 'success' => true,
-                'screenshot' => [
-                    'url' => route('image.get', [
+                'image' => [
+                    'url' => route('image.show', [
                         $image->name,
                     ]),
                     'delete_url' => 'Use the web UI please.',
                 ],
                 'error' => '',
             ]);
+        }
+    }
+
+    public function api_get(Request $request, $name)
+    {
+        if($image = Image::where('name', '=', $name)->first()) {
+            return view('image', compact('image'));
+        } else {
+            return view(route('home'));
         }
     }
 

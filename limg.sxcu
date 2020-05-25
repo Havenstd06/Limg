@@ -1,0 +1,11 @@
+﻿{
+  "Name": "Limg.test",
+  "DestinationType": "ImageUploader",
+  "RequestURL": "https://limg.test/api/upload",
+  "FileFormName": "file",
+  "Arguments": {
+    "key": "CX2kNqHhxyEnc5S4Fpwc",
+    "file": "%guid"
+  },
+  "URL": "$json:image.url$"
+}
