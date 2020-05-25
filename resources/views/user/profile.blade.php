@@ -28,35 +28,39 @@
             <img class="w-24 rounded sm:w-38" src="{{ Storage::url($user->avatar) }}"/>
             <div class="ml-4">
                 <h4 class="text-lg sm:text-5xl dark:text-gray-300">{{ $user->username }}</h4>
+                <span class="flex mb-1 -mt-1">{{ $user->description }}</span>
                 <span class="inline-flex items-center px-3 text-sm font-medium leading-5 text-gray-800 bg-gray-100 rounded-full">
-                <span class="text-green-600">{{ $user->images->count() }}</span>&nbsp;images</span>
+                    <span class="text-green-600">{{ $user->images->count() }}</span>
+                    &nbsp;images
+                </span>
             </div>
         </div>
         <div class="flex items-center mt-6 md:mt-0">
             <div>
-            @if (Auth::check() && auth()->user()->id == $user->id)
-                <form action="{{ route('settings.update.profile', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="flex items-center">
-                        <div class="relative">
-                            <input name="description" value="{{ $user->description }}" class="block w-full px-2 py-2 leading-5 transition duration-150 ease-in-out border border-gray-300 rounded-none dark:text-gray-700 rounded-l-md sm:text-sm" placeholder="Description" />
+                @if (Auth::check() && auth()->user()->id == $user->id)
+                    <form action="{{ route('settings.update.profile', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="flex items-center">
+                            <div class="relative">
+                                <input name="description" value="{{ $user->description }}" class="block w-full px-2 py-2 leading-5 transition duration-150 ease-in-out border border-gray-300 rounded-none dark:text-gray-700 rounded-l-md sm:text-sm" placeholder="Description" />
+                            </div>
+                            <button type="submit" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 dark:text-gray-300 rounded-r-md bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
+                                <span>Save</span>
+                            </button>
                         </div>
-                        <button type="submit" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 dark:text-gray-300 rounded-r-md bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
-                            <span>Save</span>
-                        </button>
-                    </div>
-                    <label for="always_public" class="flex items-center justify-center pt-6 pb-3 cursor-pointer">
-                        <div class="relative">
-                            <input name="always_public" id="always_public" type="checkbox" class="hidden" value="{{ $user->always_public ? '1' : '0' }}" {{ $user->always_public ? 'checked' : '' }} onChange="form.submit()"/>
-                            <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner toggle__line"></div>
-                            <div class="absolute inset-y-0 left-0 w-6 h-6 bg-white rounded-full shadow toggle__dot"></div>
-                        </div>
-                        <span class="pl-4 text-sm font-bold text-gray-800 md:text-base dark:text-gray-300">Always Upload Image in public</span>
-                    </label>
-                </form>
-            @endif
+                        <label for="always_public" class="flex items-center justify-center pt-6 pb-3 cursor-pointer">
+                            <div class="relative">
+                                <input name="always_public" id="always_public" type="checkbox" class="hidden" value="{{ $user->always_public ? '1' : '0' }}" {{ $user->always_public ? 'checked' : '' }} onChange="form.submit()"/>
+                                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner toggle__line"></div>
+                                <div class="absolute inset-y-0 left-0 w-6 h-6 bg-white rounded-full shadow toggle__dot"></div>
+                            </div>
+                            <span class="pl-4 text-sm font-bold text-gray-800 md:text-base dark:text-gray-300">Always Upload Image in public</span>
+                        </label>
+                    </form>
+                @endif
             </div>
         </div>
+        @if (Auth::check() && auth()->user()->id == $user->id)
         <div class="flex items-center">
             <div class="mt-6" x-data="{ open: false }">
                 <button @click="open = true" class="relative inline-flex items-center px-4 py-2 -ml-px text-lg font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded dark:text-gray-300 bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
@@ -89,37 +93,38 @@
                 </div>
             </div>
         </div>
+        @endif
     </div>
 </div>
 <div class="px-8 pt-6 pb-8 mt-4 bg-white rounded-lg shadow-md dark:bg-midnight sm:container sm:mx-auto sm:w-full">
     @if ($user->images->count() != 0)
-    <div data-controller="tabs" data-tabs-active-tab="-text-gray-600 border-b-2 border-blue-500 text-blue-500" class="pb-6">
-        <ul class="flex flex-col list-reset sm:flex-row">
-            <li data-target="tabs.tab" data-action="click->tabs#change">
-                <a href="#all" class="block px-6 py-4 font-medium text-center dark:text-gray-300 focus:outline-none">
-                    <i class="fas fa-globe"></i> All
-                </a>
-            </li>
+    <div x-data="{ tab: 'all' }">
+        <nav class="flex items-center -mb-px">
+            <button class="px-1 py-4 ml-8 font-medium leading-5 whitespace-no-wrap border-b-2 focus:outline-none" 
+            :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'all', 'text-indigo-600 border-indigo-500 focus:text-indigo-800 focus:border-indigo-700': tab === 'all'}"
+            @click="tab = 'all'">
+                <i class="fas fa-globe"></i> All
+            </button>
             @if (Auth::check() && auth()->user()->id == $user->id)
-            <li data-target="tabs.tab" data-action="click->tabs#change">
-                <a href="#public" class="block px-6 py-4 text-center dark:text-gray-300 focus:outline-none">
-                    <i class="fas fa-globe-europe"></i> Public
-                </a>
-            </li>
-            <li data-target="tabs.tab" data-action="click->tabs#change">
-                <a href="#private" class="block px-6 py-4 text-center dark:text-gray-300 focus:outline-none">
-                    <i class="fas fa-user-lock"></i> Private
-                </a>
-            </li>
+            <button class="px-1 py-4 ml-8 font-medium leading-5 whitespace-no-wrap border-b-2 focus:outline-none" 
+            :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'public', 'text-indigo-600 border-indigo-500 focus:text-indigo-800 focus:border-indigo-700': tab === 'public'}"
+            @click="tab = 'public'">
+                <i class="fas fa-globe-europe"></i> Public
+            </button>
+            <button class="px-1 py-4 ml-8 font-medium leading-5 whitespace-no-wrap border-b-2 focus:outline-none" 
+            :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'private', 'text-indigo-600 border-indigo-500 focus:text-indigo-800 focus:border-indigo-700': tab === 'private'}"
+            @click="tab = 'private'">
+                <i class="fas fa-user-lock"></i> Private
+            </button>
             @endif
-        </ul>
-        <div class="hidden px-4 py-4" data-target="tabs.panel">
+        </nav>
+        <div x-show="tab === 'all'">
             <div class="flex flex-wrap">
                 @foreach ($userImages as $image)
                     @isNotPublic($image)
                     @else
                     <div class="p-3 md:w-1/2 lg:w-1/6">
-                        <a href="{{ route('image.show', ['image' => $image->name]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
+                        <a href="{{ route('image.show', ['image' => $image->pageName]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
                             <h1 class="items-center justify-between h-16 p-3 px-4 text-lg leading-tight bg-white rounded-t dark:text-gray-300 dark:bg-forest lg:flex">{{ $image->title ?? '‌‌' }} <small class="dark:text-gray-400">@if($image->is_public) Public @else Private @endif</small></h1>
                             <img class="w-full rounded-b" src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="{{ $image->title ?? $user->username }}">
                         </a>
@@ -127,17 +132,13 @@
                     @endisNotPublic
                 @endforeach
             </div>
-            <div class="pt-5 text-center">
-                {{ $userImages->links() }}
-            </div>
         </div>
-        @if (Auth::check() && auth()->user()->id == $user->id)
-        <div class="hidden px-4 py-4" data-target="tabs.panel">
+        <div x-show="tab === 'public'">
             <div class="flex flex-wrap">
                 @foreach ($userImages as $image)
                     @if ($image->is_public)
                     <div class="p-3 md:w-1/2 lg:w-1/6">
-                        <a href="{{ route('image.show', ['image' => $image->name]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
+                        <a href="{{ route('image.show', ['image' => $image->pageName]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
                             <h1 class="items-center justify-between h-16 p-3 px-4 text-lg leading-tight bg-white rounded-t dark:text-gray-300 dark:bg-forest lg:flex">{{ $image->title ?? '‌‌' }} <small class="dark:text-gray-400">@if($image->is_public) Public @else Private @endif</small></h1>
                             <img class="w-full rounded-b" src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="{{ $image->title ?? $user->username }}">
                         </a>
@@ -146,12 +147,12 @@
                 @endforeach
             </div>
         </div>
-        <div class="hidden px-4 py-4" data-target="tabs.panel">
+        <div x-show="tab === 'private'">
             <div class="flex flex-wrap">
                 @foreach ($userImages as $image)
                     @if (!$image->is_public)
                     <div class="p-3 md:w-1/2 lg:w-1/6">
-                        <a href="{{ route('image.show', ['image' => $image->name]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
+                        <a href="{{ route('image.show', ['image' => $image->pageName]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
                             <h1 class="items-center justify-between h-16 p-3 px-4 text-lg leading-tight bg-white rounded-t dark:text-gray-300 dark:bg-forest lg:flex">{{ $image->title ?? '‌‌' }} <small class="dark:text-gray-400">@if($image->is_public) Public @else Private @endif</small></h1>
                             <img class="w-full rounded-b" src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="{{ $image->title ?? $user->username }}">
                         </a>
@@ -160,7 +161,9 @@
                 @endforeach
             </div>
         </div>
-        @endif
+        <div class="pt-5 text-center">
+            {{ $userImages->links() }}
+        </div>
     </div>
     @else
         <div class="py-4 text-center lg:px-4">

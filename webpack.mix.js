@@ -16,7 +16,6 @@ const tailwindcss = require('tailwindcss');
 
 mix.js('resources/js/app.js', 'public/js')
     .copy('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/css/webfonts')
-    .copy('vendor/mckenziearts/laravel-notify/public/fonts', 'public/css/webfonts')
     .copy('resources/sass/fonts/webfonts', 'public/css/webfonts')
     .sass('resources/sass/app.scss', 'public/css')
     .options({

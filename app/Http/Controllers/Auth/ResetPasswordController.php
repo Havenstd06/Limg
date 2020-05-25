@@ -31,7 +31,7 @@ class ResetPasswordController extends Controller
 
     public function redirectTo()
     {
-        connectify('success', 'Success!', 'Password Reset Successfully!');
+        toast('Password Reset Successfully!','success');
 
         return $redirectTo = RouteServiceProvider::HOME;
     }

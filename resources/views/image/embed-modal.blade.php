@@ -14,7 +14,7 @@
               </svg>
             </div>
           </div>
-          <textarea name="image" id="embed" cols="55" rows="4" class="p-1 bg-gray-100 border"><a href="{{ route('image.show', ['image' => $image->name]) }}"><img src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="Limg" title="{{ $image->title ? $image->title . ' - Limg' : 'Limg' }}"></a></textarea>
+          <textarea name="image" id="embed" cols="55" rows="4" class="p-1 bg-gray-100 border"><a href="{{ route('image.show', ['image' => $image->pageName]) }}"><img src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="Limg" title="{{ $image->title ? $image->title . ' - Limg' : 'Limg' }}"></a></textarea>
           <div class="flex justify-center">
             <p class="text-center text-md">
               To change the image size add <code class="bg-gray-500">/{Size}</code> at the end of the link in &lt;img.>

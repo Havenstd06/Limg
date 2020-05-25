@@ -44,7 +44,7 @@ class UserController extends Controller
         $user->description = $request->input('description');
         $user->save();
 
-        notify()->success('You have successfully update your profile!');
+        toast('You have successfully update your profile!','success');
 
         return back();
     }
@@ -56,7 +56,7 @@ class UserController extends Controller
         $user->style = $request->has('style');
         $user->save();
 
-        notify()->success('You have successfully update your style!');
+        toast('You have successfully update your style!','success');
 
         return back();
     }
@@ -73,7 +73,8 @@ class UserController extends Controller
             'password' => Hash::make($request->new_password)
         ]);
 
-        notify()->success('You have successfully update your passsword.');
+        toast('You have successfully update your passsword.','success');
+
 
         return back();
     }
@@ -84,7 +85,8 @@ class UserController extends Controller
             'api_token' => Str::random(20)
         ]);
 
-        notify()->success('You have successfully update your api token.');
+        toast('You have successfully update your api token.','success');
+
         return back();
     }
 
@@ -127,7 +129,7 @@ class UserController extends Controller
                 InterImage::make($avatar)->resize(150, 150)->save($location);
             }
         } else {
-            notify()->error('Your avatar is too large, max file size: 2 MB');
+            toast('Your avatar is too large, max file size: 2 MB','error');
 
             return back();
         }
@@ -135,7 +137,7 @@ class UserController extends Controller
         $user->avatar = 'avatars/'.$avatarName;
         $user->save();
 
-        notify()->success('You have successfully upload avatar.');
+        toast('You have successfully upload avatar.','success');
 
         return back();
     }

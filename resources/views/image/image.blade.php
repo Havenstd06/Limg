@@ -42,7 +42,7 @@
     <h3 class="mb-4 text-4xl dark:text-gray-300">{{ $image->title }}</h3>
   @endif
   @ownsImage($image)
-    <form role="form" method="POST" action="{{ route('image.infos', ['image' => $image->name]) }}">
+    <form role="form" method="POST" action="{{ route('image.infos', ['image' => $image->pageName]) }}">
       @csrf
       <div class="my-6 sm:flex sm:items-center">
         <label class="mr-4">
@@ -65,7 +65,6 @@
       </div>
     </form>
   @endownsImage
-
   <div class="sm:flex sm:flex-row">
     <div class="sm:w-3/4">
       <div class="relative flex items-center justify-center max-w-full overflow-hidden bg-gray-100 rounded shadow dark:bg-asphalt sm:min-h-12">
@@ -81,7 +80,7 @@
             <a href="#" onclick="javascript:changeText();location.reload();" target="_nofollow" id=lnk class="p-2 pr-4 font-semibold text-center text-gray-700 bg-gray-300">Go</a>
           </div>
         </div>
-        <a href="{{ route('image.download', ['image' => $image->name]) }}">
+        <a href="{{ route('image.download', ['image' => $image->imageName]) }}">
           <button class="block px-4 py-2 mb-4 font-semibold text-gray-900 bg-transparent border rounded hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent">
             <i class="fa fa-download"></i> {{ __('Download') }}
           </button>
@@ -136,7 +135,7 @@ function deleteImage() {
   })
   .then((willDelete) => {
     if (willDelete) {
-      window.location = "{{ route('image.delete', ['image' => $image->name]) }}";
+      window.location = "{{ route('image.delete', ['image' => $image->imageName]) }}";
     }
   });
 }

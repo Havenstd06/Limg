@@ -12,6 +12,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Facades\Socialite;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Intervention\Image\Facades\Image as InterImage;
 
@@ -92,16 +93,16 @@ class LoginController extends Controller
 
         Auth::login($foundUser, true);
 
-        connectify('success', 'Success!', 'Login Successfully With Discord!');
+        toast('Login Successfully With Discord!','success');
 
         return redirect($this->redirectPath());
     }
 
-    protected function authenticated(Request $request, $user)
+    protected function authenticated(Request $request)
     {
-        connectify('success', 'Success!', 'Login Successfully!');
-
-        return Redirect::route('home');
+        // toast('Login Successfully!','success');
+        
+        return Redirect::back();
     }
 
     /**
@@ -145,7 +146,7 @@ class LoginController extends Controller
     {
         Auth::logout();
 
-        connectify('success', 'Success!', 'Logout Successfully!');
+        toast('Logout Successfully!','success');
 
         return Redirect::route('home');
     }
