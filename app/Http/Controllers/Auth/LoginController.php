@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\User;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\Redirect;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image as InterImage;
+use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Intervention\Image\Facades\Image as InterImage;
 
 class LoginController extends Controller
 {
@@ -78,6 +79,7 @@ class LoginController extends Controller
                 'email' => $user->email,
                 'email_verified_at' => $user->verified,
                 'avatar' => $avatar,
+                'api_token' => Str::random(20)
             ]);
 
             if ($user->avatar != null) {

@@ -4,15 +4,15 @@
     <title>@if($image->title) {{ $image->title }} — @endif {{ config('app.name', 'Laravel') }} — {{ config('app.description') }}</title>
 
     <!-- OpenGraph/Twitter -->
-    <meta data-rh="true" name="description" content="@if($image->title) {{ $image->title }} @else {{ config('app.description') }} @endif" />
+    <meta data-rh="true" name="description" content="@if($image->title) {{ $image->title }}@endif" />
     <meta data-rh="true" property="og:url" content="{{ url()->current() }}" />
-    <meta data-rh="true" property="og:description" content="@if($image->title) {{ $image->title }} @else {{ config('app.description') }} @endif" />
+    <meta data-rh="true" property="og:description" content="@if($image->title) {{ $image->title }} @endif" />
     <meta data-rh="true" property="og:image" @if($image->is_public) content="{{ url($image->path) }}" @endif @if(!$image->is_public) content="{{ asset('images/cover.png') }}" @endif />
     <meta data-rh="true" property="og:title" content="{{ config('app.name') }}" />
     <meta data-rh="true" property="og:website" content="website" />
     <meta data-rh="true" property="og:site_name" content="{{ config('app.name') }}.app" />
     <meta data-rh="true" name="twitter:image:src" @if($image->is_public) content="{{ url($image->path) }}" @endif @if(!$image->is_public) content="{{ asset('images/cover.png') }}" @endif />
-    <meta data-rh="true" property="twitter:description" content="@if($image->title) {{ $image->title }} @else {{ config('app.description') }} @endif" />
+    <meta data-rh="true" property="twitter:description" content="@if($image->title) {{ $image->title }}@endif" />
     <meta data-rh="true" name="twitter:card" content="summary_large_image" />
     <meta data-rh="true" name="twitter:creator" content="@HavensYT" />
     <meta data-rh="true" name="author" content="Thomas Drumont" />

@@ -29,12 +29,12 @@
       <img class="ml-12 rounded-lg shadow-md sm:ml-14 w-38" src="{{ Storage::url($user->avatar) }}" alt="{{ $user->username }}">
       <form action="{{ route('settings.update.avatar', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="relative w-32 mx-2 my-4 ml-6 overflow-hidden sm:ml-12 sm:mx-10">
+        <div class="relative w-32 mx-2 my-4 ml-6 overflow-hidden cursor-pointer sm:ml-12 sm:mx-10">
           <label id="image-drop" class="inline-flex items-center w-24 py-2 pr-2 font-bold text-white bg-indigo-700 rounded-lg cursor-pointer hover:bg-indigo-800 sm:px-4 sm:w-full" for="avatar-upload">
             <div class="ml-2">
               <i class="fas fa-file-import"></i> Upload
             </div>
-            <input class="hidden opacity-0 sm:absolute sm:-ml-4 sm:h-10 sm:w-32 sm:block" id="avatar-upload" type="file" name="avatar" aria-describedby="avatar" onChange="form.submit()">
+            <input class="hidden opacity-0 cursor-pointer sm:absolute sm:-ml-4 sm:h-10 sm:w-32 sm:block" id="avatar-upload" type="file" name="avatar" aria-describedby="avatar" onChange="form.submit()">
           </label>
         </div>
       </form>
@@ -66,7 +66,7 @@
           placeholder="******************" id="password" type="password" name="current_password" autocomplete="current-password" @if($errors->all())value="{{ old('current_password') }}" @endif>
         </div>
       </div>
-      <div class="flex flex-wrap -mx-3 @if(!$errors->all())mb-4 @endif">
+      <div class="flex flex-wrap -mx-3 @if(!$errors->all())mb-3 @endif">
         <div class="w-full px-3 mb-6 md:w-1/2 md:mb-0">
           <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-400" for="password">
             {{ __('New Password') }}
@@ -89,13 +89,12 @@
           @endforeach 
         </div>
       @endif
-      <div class="md:flex md:items-center">
-        <div class="md:w-1/3">
-        <button class="inline-flex items-center px-5 py-2 font-bold text-white bg-indigo-700 border-b-2 border-indigo-500 rounded shadow-md hover:border-indigo-600 hover:bg-indigo-800 hover:text-white">
-          <i class="mr-2 fas fa-save"></i> Save
-        </button>
+      <div class="flex justify-end">
+        <div class="pb-4">
+          <button class="inline-flex items-center px-5 py-2 font-bold text-white bg-indigo-700 border-b-2 border-indigo-500 rounded shadow-md hover:border-indigo-600 hover:bg-indigo-800 hover:text-white">
+            <i class="mr-2 fas fa-save"></i> Save
+          </button>
         </div>
-        <div class="md:w-2/3"></div>
       </div>
     </form>
     @else 
@@ -103,6 +102,22 @@
       <i class="text-center text-gray-600">Because you signed in with Discord you have no password options.</i>
     </div>
     @endif
+    <form method="POST" action="{{ route('settings.update.token', ['user' => $user]) }}">
+      @csrf
+      <hr class="pb-4">
+      <div class="mb-4">
+        <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-400" for="password">
+          {{ __('Api Token') }}
+        </label>
+        <div class="flex">
+          <input value="{{ $user->api_token }}" class="flex-auto px-3 py-2 leading-tight text-gray-700 bg-gray-200 border rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" spellcheck="false">
+          <button class="inline-flex items-center px-4 py-2 ml-2 font-bold text-white bg-indigo-700 rounded hover:border-indigo-600 hover:bg-indigo-800 hover:text-white">
+            <i class="relative inline text-lg fas fa-sync"></i> 
+            <p class="ml-2 font-medium">Update Key</p>
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
   @endif
 </div>

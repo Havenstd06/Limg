@@ -16,13 +16,13 @@ class ImageController extends Controller
     public function upload(Request $request)
     {
         $rules = [
-            'image' => 'required | mimes:jpeg,jpg,png,gif,bmp,tiff',
+            'image' => 'required | mimes:jpeg,jpg,png,svg,gif,bmp,tiff',
         ];
 
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            notify()->error('Image must be filled!');
+            notify()->error('Image format must be jpeg, jpg, png, svg, gif, bmp, tiff!');
 
             return back();
         }
@@ -44,6 +44,59 @@ class ImageController extends Controller
         notify()->success('You have successfully upload image!');
 
         return redirect(route('image.show', ['image' => $image->name]));
+    }
+
+    public function api_upload (Request $request)
+    {
+        $storage = storage_path('app/public/images');
+        $file = $request->file('file');
+        $upload_key = $request->key;
+
+        if($file == null) {
+            throw new \App\Exceptions\Images\NoFileSpecifiedToUpload();
+        } elseif($upload_key == null) {
+            throw new \App\Exceptions\Images\NoApiTokenSpecifiedToValidate();
+        } else {
+            $rules = [
+                'image' => 'required | mimes:jpeg,jpg,png,svg,gif,bmp,tiff',
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'image' => null,
+                    'error' => 'File is not an image.',
+                ], 500);
+            }
+
+
+            $user = User::where('api_token', '=', $upload_key)->first();
+
+            $newName = Str::random(7);
+            $newFullName = $newName.'.'.$request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(('storage/images'), $newFullName);
+
+            $image = new Image;
+            $image->name = $newName;
+            $image->extension = pathinfo($newFullName, PATHINFO_EXTENSION);
+            $image->path = '/i/'.$newFullName;
+            $image->user_id = $user->id;
+            $image->is_public = 0;
+            $image->save();
+
+            return response()->json([
+                'success' => true,
+                'screenshot' => [
+                    'url' => route('image.get', [
+                        $image->name,
+                    ]),
+                    'delete_url' => 'Use the web UI please.',
+                ],
+                'error' => '',
+            ]);
+        }
     }
 
     public function get($image)

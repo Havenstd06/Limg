@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
-use App\Rules\MatchOldPassword;
 use App\User;
+use App\Image;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -68,10 +69,22 @@ class UserController extends Controller
             'new_confirm_password' => ['same:new_password'],
         ]);
 
-        User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);
+        User::find(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
 
         notify()->success('You have successfully update your passsword.');
 
+        return back();
+    }
+
+    public function update_token (Request $request)
+    {
+        User::find(auth()->user()->id)->update([
+            'api_token' => Str::random(20)
+        ]);
+
+        notify()->success('You have successfully update your api token.');
         return back();
     }
 
