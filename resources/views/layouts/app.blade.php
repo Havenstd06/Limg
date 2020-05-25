@@ -40,6 +40,9 @@
     <meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
+    <!-- Scripts -->
+    <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
 
@@ -59,8 +62,6 @@
 @include('notify::messages')
 @include('sweetalert::alert')
 @yield('javascripts')
-<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
-<script type="module" src="{{ mix('js/instantpage.js') }}" defer></script>
 
 </body>
 </html>

@@ -1,3 +1,5 @@
+var Turbolinks = require("turbolinks");
+Turbolinks.start();
 require('./bootstrap');
 
 // Start StimulusJS

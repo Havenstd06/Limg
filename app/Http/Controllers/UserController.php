@@ -78,7 +78,7 @@ class UserController extends Controller
         return back();
     }
 
-    public function update_token (Request $request)
+    public function update_token(Request $request)
     {
         User::find(auth()->user()->id)->update([
             'api_token' => Str::random(20)
