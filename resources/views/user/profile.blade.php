@@ -134,7 +134,7 @@
         @if (Auth::check() && auth()->user()->id == $user->id)
         <div class="hidden px-4 py-4" data-target="tabs.panel">
             <div class="flex flex-wrap">
-                @foreach ($user->images as $image)
+                @foreach ($userImages as $image)
                     @if ($image->is_public)
                     <div class="p-3 md:w-1/2 lg:w-1/6">
                         <a href="{{ route('image.show', ['image' => $image->name]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
@@ -148,7 +148,7 @@
         </div>
         <div class="hidden px-4 py-4" data-target="tabs.panel">
             <div class="flex flex-wrap">
-                @foreach ($user->images as $image)
+                @foreach ($userImages as $image)
                     @if (!$image->is_public)
                     <div class="p-3 md:w-1/2 lg:w-1/6">
                         <a href="{{ route('image.show', ['image' => $image->name]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
