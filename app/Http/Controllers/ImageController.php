@@ -88,9 +88,7 @@ class ImageController extends Controller
                 return response()->json([
                     'success' => true,
                     'image' => [
-                        'url' => route('image.show', [
-                            $image->name,
-                        ]),
+                        'url' => env('APP_URL') . $image->path,
                         'delete_url' => 'Use the web UI please.',
                     ],
                     'error' => '',
