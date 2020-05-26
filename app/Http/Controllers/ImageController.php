@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Image;
-use Illuminate\Support\Str;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
-use Nubs\RandomNameGenerator\Alliteration;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as InterImage;
+use Nubs\RandomNameGenerator\Alliteration;
 
 class ImageController extends Controller
 {
