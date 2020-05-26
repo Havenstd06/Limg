@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
 use App\User;
+use App\Image;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
+use Nubs\RandomNameGenerator\Alliteration;
 use Intervention\Image\Facades\Image as InterImage;
 
 class ImageController extends Controller
@@ -22,15 +23,15 @@ class ImageController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            notify()->error('Image format must be jpeg, jpg, png, svg, gif, bmp, tiff!');
+            toast('Image format must be jpeg, jpg, png, svg, gif, bmp, tiff!', 'error');
 
             return back();
         }
 
         $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
 
-        $imageName = Str::random(14);
-        $pageName = Str::random(7);
+        $pageName = str_replace(' ', '', new Alliteration());
+        $imageName = str_replace(' ', '', new Alliteration()).str_replace(' ', '', new Alliteration());
         $newFullName = $imageName.'.'.$request->file('image')->getClientOriginalExtension();
         $request->file('image')->move(('storage/images'), $newFullName);
 
@@ -71,8 +72,8 @@ class ImageController extends Controller
             if (in_array($upload_key, $keys)) {
                 $user = User::where('api_token', '=', $upload_key)->first();
 
-                $imageName = Str::random(14);
-                $pageName = Str::random(7);
+                $pageName = str_replace(' ', '', new Alliteration());
+                $imageName = str_replace(' ', '', new Alliteration()).str_replace(' ', '', new Alliteration());
                 $imageFullName = $imageName.'.'.$file->getClientOriginalExtension();
                 $file->move(('storage/images'), $imageFullName);
 
