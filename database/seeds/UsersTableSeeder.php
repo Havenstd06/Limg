@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 use TCG\Voyager\Models\Role;
 use TCG\Voyager\Models\User;
 
@@ -28,11 +27,11 @@ class UsersTableSeeder extends Seeder
             factory(App\User::class)->create([
                 'username' => 'Havens',
                 'email' => 'me@hvs.cx',
-                'role_id' => $roleAdmin->id
-            ])->save(); 
+                'role_id' => $roleAdmin->id,
+            ])->save();
 
             factory(App\User::class, 10)->create([
-                'role_id' => $roleUser->id
+                'role_id' => $roleUser->id,
             ]);
         }
     }

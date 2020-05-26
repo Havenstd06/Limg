@@ -46,7 +46,6 @@ Route::prefix('/i/{image}')->group(function () {
     Route::get('/{size}', 'ImageController@build');
 });
 
-
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });

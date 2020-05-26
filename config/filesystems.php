@@ -63,7 +63,7 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
         ],
-        
+
         'voyager' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
