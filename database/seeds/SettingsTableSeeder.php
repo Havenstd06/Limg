@@ -11,7 +11,7 @@ class SettingsTableSeeder extends Seeder
     public function run()
     {
         $setting = $this->findSetting('site.title');
-        if (!$setting->exists) {
+        if (! $setting->exists) {
             $setting->fill([
                 'display_name' => 'Limg',
                 'value'        => 'Limg',
@@ -23,7 +23,7 @@ class SettingsTableSeeder extends Seeder
         }
 
         $setting = $this->findSetting('site.description');
-        if (!$setting->exists) {
+        if (! $setting->exists) {
             $setting->fill([
                 'display_name' => 'Image Hosting Made In Laravel',
                 'value'        => 'Image Hosting Made In Laravel',
@@ -35,7 +35,7 @@ class SettingsTableSeeder extends Seeder
         }
 
         $setting = $this->findSetting('site.logo');
-        if (!$setting->exists) {
+        if (! $setting->exists) {
             $setting->fill([
                 'display_name' => __('voyager::seeders.settings.site.logo'),
                 'value'        => '',
@@ -47,7 +47,7 @@ class SettingsTableSeeder extends Seeder
         }
 
         $setting = $this->findSetting('site.google_analytics_tracking_id');
-        if (!$setting->exists) {
+        if (! $setting->exists) {
             $setting->fill([
                 'display_name' => __('voyager::seeders.settings.site.google_analytics_tracking_id'),
                 'value'        => '',
@@ -59,7 +59,7 @@ class SettingsTableSeeder extends Seeder
         }
 
         $setting = $this->findSetting('admin.bg_image');
-        if (!$setting->exists) {
+        if (! $setting->exists) {
             $setting->fill([
                 'display_name' => __('voyager::seeders.settings.admin.background_image'),
                 'value'        => '',
@@ -71,7 +71,7 @@ class SettingsTableSeeder extends Seeder
         }
 
         $setting = $this->findSetting('admin.title');
-        if (!$setting->exists) {
+        if (! $setting->exists) {
             $setting->fill([
                 'display_name' => 'Limg Admin',
                 'value'        => 'Limg Admin',
@@ -83,7 +83,7 @@ class SettingsTableSeeder extends Seeder
         }
 
         $setting = $this->findSetting('admin.description');
-        if (!$setting->exists) {
+        if (! $setting->exists) {
             $setting->fill([
                 'display_name' => 'Limg Admin Panel',
                 'value'        => 'Limg Admin Panel',
@@ -95,7 +95,7 @@ class SettingsTableSeeder extends Seeder
         }
 
         $setting = $this->findSetting('admin.loader');
-        if (!$setting->exists) {
+        if (! $setting->exists) {
             $setting->fill([
                 'display_name' => __('voyager::seeders.settings.admin.loader'),
                 'value'        => '',
@@ -107,7 +107,7 @@ class SettingsTableSeeder extends Seeder
         }
 
         $setting = $this->findSetting('admin.icon_image');
-        if (!$setting->exists) {
+        if (! $setting->exists) {
             $setting->fill([
                 'display_name' => __('voyager::seeders.settings.admin.icon_image'),
                 'value'        => '',
@@ -119,7 +119,7 @@ class SettingsTableSeeder extends Seeder
         }
 
         $setting = $this->findSetting('admin.google_analytics_client_id');
-        if (!$setting->exists) {
+        if (! $setting->exists) {
             $setting->fill([
                 'display_name' => __('voyager::seeders.settings.admin.google_analytics_client_id'),
                 'value'        => '',
