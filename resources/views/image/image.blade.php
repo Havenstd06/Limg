@@ -72,7 +72,7 @@
       </div>
     </div>
     <div class="my-6 ml-6 sm:my-0">
-      <div class="ml-16">
+      <div class="md:ml-16">
         <h3 class="pb-3 -ml-2 text-2xl font-medium text-gray-900 dark:text-gray-100 font-firacode">Image Tools</h3>
         <div class="h-10 mt-3 mb-4 w-36 sm:mt-0 sm:mr-3 custom-number-input">
           <div class="relative flex flex-row w-full h-10 bg-transparent rounded-lg">

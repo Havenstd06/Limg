@@ -80,7 +80,7 @@
             @else 
             <div class="block py-2 bg-white rounded dark:bg-asphalt sm:hidden">
                 <div class="flex items-center justify-center">
-                    <img src="{{ Storage::url($user->avatar) }}" class="inline-block w-10 mr-4 border-white border-solid rounded-lg">
+                    <img src="{{ url($user->avatar) }}" class="inline-block w-10 mr-4 border-white border-solid rounded-lg">
                     <a href="{{ route('profile', auth()->user()->username) }}" class="mr-4 text-sm font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600">
                         <i class="fas fa-user"></i> {{ __('Profile') }}
                     </a>

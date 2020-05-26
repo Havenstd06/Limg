@@ -7,11 +7,11 @@
 <meta data-rh="true" name="description" content="{{ $user->username }}'s Profile" />
 <meta data-rh="true" property="og:url" content="{{ url()->current() }}" />
 <meta data-rh="true" property="og:description" content="{{ $user->username }}'s Profile" />
-<meta data-rh="true" property="og:image" content="{{ url(Storage::url($user->avatar)) }}" />
+<meta data-rh="true" property="og:image" content="{{ url(url($user->avatar)) }}" />
 <meta data-rh="true" property="og:title" content="{{ config('app.name') }}" />
 <meta data-rh="true" property="og:website" content="website" />
 <meta data-rh="true" property="og:site_name" content="{{ config('app.name') }}.app" />
-<meta data-rh="true" name="twitter:image:src" content="{{ url(Storage::url($user->avatar)) }}" />
+<meta data-rh="true" name="twitter:image:src" content="{{ url(url($user->avatar)) }}" />
 <meta data-rh="true" property="twitter:description" content="{{ $user->username }}'s Profile" />
 <meta data-rh="true" name="twitter:card" content="summary_large_image" />
 <meta data-rh="true" name="twitter:creator" content="@HavensYT" />
@@ -61,7 +61,7 @@
             </div>
         </div>
         @if (Auth::check() && auth()->user()->id == $user->id)
-        <div class="flex items-center">
+        <div class="flex items-center justify-center md:justify-start">
             <div class="mt-6" x-data="{ open: false }">
                 <button @click="open = true" class="relative inline-flex items-center px-4 py-2 -ml-px text-lg font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded dark:text-gray-300 bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
                     ShareX Configuration
@@ -96,7 +96,7 @@
         @endif
     </div>
 </div>
-<div class="px-8 pt-6 pb-8 mt-4 bg-white rounded-lg shadow-md dark:bg-midnight sm:container sm:mx-auto sm:w-full">
+<div class="pt-6 pb-8 mt-4 bg-white rounded-lg shadow-md md:px-8 dark:bg-midnight sm:container sm:mx-auto sm:w-full">
     @if ($user->images->count() != 0)
     <div x-data="{ tab: 'all' }">
         <nav class="flex items-center -mb-px">

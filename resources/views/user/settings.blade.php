@@ -109,12 +109,14 @@
         <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-400" for="password">
           {{ __('Api Token') }}
         </label>
-        <div class="flex">
-          <input value="{{ $user->api_token }}" class="flex-auto px-3 py-2 leading-tight text-gray-700 bg-gray-200 border rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" spellcheck="false">
-          <button class="inline-flex items-center px-4 py-2 ml-2 font-bold text-white bg-indigo-700 rounded hover:border-indigo-600 hover:bg-indigo-800 hover:text-white">
-            <i class="relative inline text-lg fas fa-sync"></i> 
-            <p class="ml-2 font-medium">Update Key</p>
-          </button>
+        <div class="md:flex">
+          <input value="{{ $user->api_token }}" class="w-full px-3 py-2 leading-tight text-gray-700 bg-gray-200 border rounded appearance-none md:w-0 md:flex-auto focus:outline-none focus:bg-white focus:border-gray-500" spellcheck="false">
+          <div class="flex justify-end">
+            <button class="inline-flex items-center px-4 py-2 mt-3 font-bold text-white bg-indigo-700 rounded md:ml-2 md:mt-0 hover:border-indigo-600 hover:bg-indigo-800 hover:text-white">
+              <i class="relative inline text-lg fas fa-sync"></i> 
+              <p class="ml-2 font-medium">Update Key</p>
+            </button>
+          </div>
         </div>
       </div>
     </form>
