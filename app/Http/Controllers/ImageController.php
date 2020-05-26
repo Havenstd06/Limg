@@ -17,7 +17,7 @@ class ImageController extends Controller
     public function upload(Request $request)
     {
         $rules = [
-            'image' => 'required | mimes:jpeg,jpg,png,svg,gif,bmp,tiff',
+            'image' => 'required | mimes:jpeg,jpg,png,svg,gif,bmp,tiff | max:15000',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -67,39 +67,61 @@ class ImageController extends Controller
                 'error' => 'Please give a api key to validate.',
             ], 500);
         } else {
-            $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
 
-            if (in_array($upload_key, $keys)) {
-                $user = User::where('api_token', '=', $upload_key)->first();
+            $postData = $request->only('file');
+            $file = $postData['file'];
 
-                $pageName = str_replace(' ', '', new Alliteration());
-                $imageName = str_replace(' ', '', new Alliteration()).str_replace(' ', '', new Alliteration());
-                $imageFullName = $imageName.'.'.$file->getClientOriginalExtension();
-                $file->move(('storage/images'), $imageFullName);
+            $fileArray = array('image' => $file);
 
-                $image = new Image;
-                $image->pageName = $pageName;
-                $image->imageName = $imageName;
-                $image->extension = pathinfo($imageFullName, PATHINFO_EXTENSION);
-                $image->path = '/i/'.$imageFullName;
-                $image->user_id = $user->id;
-                $image->is_public = 0;
-                $image->save();
+            $rules = array(
+            'image' => 'mimes:jpeg,jpg,png,gif | required | max:15000' // max 10000kb
+            );
+            $validator = Validator::make($fileArray, $rules);
 
-                return response()->json([
-                    'success' => true,
-                    'image' => [
-                        'url' => config('app.url').$image->path,
-                        'delete_url' => 'Use the web UI please.',
-                    ],
-                    'error' => '',
-                ]);
-            } else {
+            if($validator->fails()){
+
                 return response()->json([
                     'success' => false,
-                    'screenshot' => [],
-                    'error' => 'Invalid key!',
+                    'image' => [],
+                    'error' => 'File must be Image.',
                 ], 500);
+
+            } else {
+
+                $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
+
+                if (in_array($upload_key, $keys)) {
+                    $user = User::where('api_token', '=', $upload_key)->first();
+
+                    $pageName = str_replace(' ', '', new Alliteration());
+                    $imageName = str_replace(' ', '', new Alliteration()).str_replace(' ', '', new Alliteration());
+                    $imageFullName = $imageName.'.'.$file->getClientOriginalExtension();
+                    $file->move(('storage/images'), $imageFullName);
+
+                    $image = new Image;
+                    $image->pageName = $pageName;
+                    $image->imageName = $imageName;
+                    $image->extension = pathinfo($imageFullName, PATHINFO_EXTENSION);
+                    $image->path = '/i/'.$imageFullName;
+                    $image->user_id = $user->id;
+                    $image->is_public = 0;
+                    $image->save();
+
+                    return response()->json([
+                        'success' => true,
+                        'image' => [
+                            'url' => config('app.url').$image->path,
+                            'delete_url' => 'Use the web UI please.',
+                        ],
+                        'error' => '',
+                    ]);
+                } else {
+                    return response()->json([
+                        'success' => false,
+                        'screenshot' => [],
+                        'error' => 'Invalid key!',
+                    ], 500);
+                }
             }
         }
     }
