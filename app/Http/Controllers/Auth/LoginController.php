@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\User;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\Redirect;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image as InterImage;
+use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Facades\Socialite;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Intervention\Image\Facades\Image as InterImage;
 
 class LoginController extends Controller
 {
@@ -78,6 +80,7 @@ class LoginController extends Controller
                 'email' => $user->email,
                 'email_verified_at' => $user->verified,
                 'avatar' => $avatar,
+                'api_token' => Str::random(20)
             ]);
 
             if ($user->avatar != null) {
@@ -90,16 +93,16 @@ class LoginController extends Controller
 
         Auth::login($foundUser, true);
 
-        connectify('success', 'Success!', 'Login Successfully With Discord!');
+        toast('Login Successfully With Discord!','success');
 
         return redirect($this->redirectPath());
     }
 
-    protected function authenticated(Request $request, $user)
+    protected function authenticated(Request $request)
     {
-        connectify('success', 'Success!', 'Login Successfully!');
-
-        return Redirect::route('home');
+        // toast('Login Successfully!','success');
+        
+        return Redirect::back();
     }
 
     /**
@@ -137,5 +140,14 @@ class LoginController extends Controller
     public function username()
     {
         return $this->username;
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        toast('Logout Successfully!','success');
+
+        return Redirect::route('home');
     }
 }

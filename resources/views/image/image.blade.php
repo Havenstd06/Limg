@@ -4,15 +4,15 @@
     <title>@if($image->title) {{ $image->title }} — @endif {{ config('app.name', 'Laravel') }} — {{ config('app.description') }}</title>
 
     <!-- OpenGraph/Twitter -->
-    <meta data-rh="true" name="description" content="@if($image->title) {{ $image->title }} @else {{ config('app.description') }} @endif" />
+    <meta data-rh="true" name="description" content="@if($image->title) {{ $image->title }}@endif" />
     <meta data-rh="true" property="og:url" content="{{ url()->current() }}" />
-    <meta data-rh="true" property="og:description" content="@if($image->title) {{ $image->title }} @else {{ config('app.description') }} @endif" />
+    <meta data-rh="true" property="og:description" content="@if($image->title) {{ $image->title }} @endif" />
     <meta data-rh="true" property="og:image" @if($image->is_public) content="{{ url($image->path) }}" @endif @if(!$image->is_public) content="{{ asset('images/cover.png') }}" @endif />
     <meta data-rh="true" property="og:title" content="{{ config('app.name') }}" />
     <meta data-rh="true" property="og:website" content="website" />
     <meta data-rh="true" property="og:site_name" content="{{ config('app.name') }}.app" />
     <meta data-rh="true" name="twitter:image:src" @if($image->is_public) content="{{ url($image->path) }}" @endif @if(!$image->is_public) content="{{ asset('images/cover.png') }}" @endif />
-    <meta data-rh="true" property="twitter:description" content="@if($image->title) {{ $image->title }} @else {{ config('app.description') }} @endif" />
+    <meta data-rh="true" property="twitter:description" content="@if($image->title) {{ $image->title }}@endif" />
     <meta data-rh="true" name="twitter:card" content="summary_large_image" />
     <meta data-rh="true" name="twitter:creator" content="@HavensYT" />
     <meta data-rh="true" name="author" content="Thomas Drumont" />
@@ -42,7 +42,7 @@
     <h3 class="mb-4 text-4xl dark:text-gray-300">{{ $image->title }}</h3>
   @endif
   @ownsImage($image)
-    <form role="form" method="POST" action="{{ route('image.infos', ['image' => $image->name]) }}">
+    <form role="form" method="POST" action="{{ route('image.infos', ['image' => $image->pageName]) }}">
       @csrf
       <div class="my-6 sm:flex sm:items-center">
         <label class="mr-4">
@@ -65,7 +65,6 @@
       </div>
     </form>
   @endownsImage
-
   <div class="sm:flex sm:flex-row">
     <div class="sm:w-3/4">
       <div class="relative flex items-center justify-center max-w-full overflow-hidden bg-gray-100 rounded shadow dark:bg-asphalt sm:min-h-12">
@@ -81,22 +80,32 @@
             <a href="#" onclick="javascript:changeText();location.reload();" target="_nofollow" id=lnk class="p-2 pr-4 font-semibold text-center text-gray-700 bg-gray-300">Go</a>
           </div>
         </div>
-        <a href="{{ route('image.download', ['image' => $image->name]) }}">
+        <a href="{{ route('image.download', ['image' => $image->pageName]) }}">
           <button class="block px-4 py-2 mb-4 font-semibold text-gray-900 bg-transparent border rounded hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent">
             <i class="fa fa-download"></i> {{ __('Download') }}
           </button>
         </a>
-        <div data-controller="modal" data-action="keydown@window->modal#closeWithKeyboard">
-          <button class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded modal-open-tools hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent" data-action="click->modal#open">
-            <i class="fas fa-code"></i> Embed
-          </button>
-          @include('image.embed-modal')
+        <div x-data="{ open: false }">
+            <button @click="open = true" class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent">
+                <i class="fas fa-code"></i> {{ __('Embed') }}
+            </button>
+
+            <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full" style="background-color: rgba(0,0,0,.5);" x-show="open"  x-description="Background overlay, show/hide based on modal state." x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 transition-opacity">
+                <div class="h-auto p-4 mx-2 text-left bg-white rounded shadow-xl md:max-w-xl md:p-6 lg:p-8 md:mx-0" @click.away="open = false">
+                    @include('image.embed-modal')
+                </div>
+            </div>
         </div>
-        <div data-controller="modal" data-action="keydown@window->modal#closeWithKeyboard">
-          <button class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded modal-open-tools hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent" data-action="click->modal#open">
-            <i class="fas fa-globe-europe"></i> BBCode
-          </button>
-          @include('image.bbcode-modal')
+        <div x-data="{ open: false }">
+            <button @click="open = true" class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent">
+                <i class="fas fa-globe-europe"></i> {{ __('BBCode') }}
+            </button>
+
+            <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full" style="background-color: rgba(0,0,0,.5);" x-show="open"  x-description="Background overlay, show/hide based on modal state." x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 transition-opacity">
+                <div class="h-auto p-4 mx-2 text-left bg-white rounded shadow-xl md:max-w-xl md:p-6 lg:p-8 md:mx-0" @click.away="open = false">
+                    @include('image.bbcode-modal')
+                </div>
+            </div>
         </div>
       </div>
       @if ($image->user->id == 1)
@@ -136,7 +145,7 @@ function deleteImage() {
   })
   .then((willDelete) => {
     if (willDelete) {
-      window.location = "{{ route('image.delete', ['image' => $image->name]) }}";
+      window.location = "{{ route('image.delete', ['image' => $image->pageName]) }}";
     }
   });
 }

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
-use App\Rules\MatchOldPassword;
 use App\User;
+use App\Image;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -43,7 +44,7 @@ class UserController extends Controller
         $user->description = $request->input('description');
         $user->save();
 
-        notify()->success('You have successfully update your profile!');
+        toast('You have successfully update your profile!','success');
 
         return back();
     }
@@ -55,7 +56,7 @@ class UserController extends Controller
         $user->style = $request->has('style');
         $user->save();
 
-        notify()->success('You have successfully update your style!');
+        toast('You have successfully update your style!','success');
 
         return back();
     }
@@ -68,9 +69,23 @@ class UserController extends Controller
             'new_confirm_password' => ['same:new_password'],
         ]);
 
-        User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);
+        User::find(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
 
-        notify()->success('You have successfully update your passsword.');
+        toast('You have successfully update your passsword.','success');
+
+
+        return back();
+    }
+
+    public function update_token(Request $request)
+    {
+        User::find(auth()->user()->id)->update([
+            'api_token' => Str::random(20)
+        ]);
+
+        toast('You have successfully update your api token.','success');
 
         return back();
     }
@@ -114,7 +129,7 @@ class UserController extends Controller
                 InterImage::make($avatar)->resize(150, 150)->save($location);
             }
         } else {
-            notify()->error('Your avatar is too large, max file size: 2 MB');
+            toast('Your avatar is too large, max file size: 2 MB','error');
 
             return back();
         }
@@ -122,7 +137,7 @@ class UserController extends Controller
         $user->avatar = 'avatars/'.$avatarName;
         $user->save();
 
-        notify()->success('You have successfully upload avatar.');
+        toast('You have successfully upload avatar.','success');
 
         return back();
     }

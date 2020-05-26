@@ -17,12 +17,12 @@ class Image extends Model
 
     public function getFullNameAttribute()
     {
-        return $this->name.'.'.$this->extension;
+        return $this->imageName.'.'.$this->extension;
     }
 
     public function getRouteKeyName()
     {
-        return 'name';
+        return 'pageName';
     }
 
     public function getFullPathAttribute()

@@ -11,6 +11,8 @@
 |
 */
 
+// Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
 Auth::routes(['verify' => true]);
 
 Route::get('login/discord', 'Auth\LoginController@redirectToProvider')->name('login.discord');
@@ -26,12 +28,14 @@ Route::prefix('p/{user}')->group(function () {
         Route::post('update/style', 'UserController@update_style')->name('update.style');
         Route::post('update/profile', 'UserController@update_profile')->name('update.profile');
         Route::post('update/password', 'UserController@update_password')->name('update.password');
+        Route::post('update/token', 'UserController@update_token')->name('update.token');
         Route::post('update/avatar', 'UserController@update_avatar')->name('update.avatar');
     });
 });
 
 // Image Route
 Route::post('/upload', 'ImageController@upload')->name('upload');
+Route::post('/api/upload', 'ImageController@api_upload')->name('api_upload');
 
 Route::prefix('/i/{image}')->group(function () {
     Route::get('/', 'ImageController@get')->name('image.show');

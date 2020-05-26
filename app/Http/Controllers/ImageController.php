@@ -16,34 +16,95 @@ class ImageController extends Controller
     public function upload(Request $request)
     {
         $rules = [
-            'image' => 'required | mimes:jpeg,jpg,png,gif,bmp,tiff',
+            'image' => 'required | mimes:jpeg,jpg,png,svg,gif,bmp,tiff',
         ];
 
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            notify()->error('Image must be filled!');
+            notify()->error('Image format must be jpeg, jpg, png, svg, gif, bmp, tiff!');
 
             return back();
         }
 
         $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
 
-        $newName = Str::random(7);
-        $newFullName = $newName.'.'.$request->file('image')->getClientOriginalExtension();
+        $imageName = Str::random(14);
+        $pageName = Str::random(7);
+        $newFullName = $imageName.'.'.$request->file('image')->getClientOriginalExtension();
         $request->file('image')->move(('storage/images'), $newFullName);
 
         $image = new Image;
-        $image->name = $newName;
+        $image->pageName = $pageName;
+        $image->imageName = $imageName;
         $image->extension = pathinfo($newFullName, PATHINFO_EXTENSION);
         $image->path = '/i/'.$newFullName;
         $image->user_id = $user->id;
         $image->is_public = (! $user->always_public) ? 0 || (! Auth::check() || $user->always_public) : 1;
         $image->save();
 
-        notify()->success('You have successfully upload image!');
+        toast('You have successfully upload image!','success');
 
-        return redirect(route('image.show', ['image' => $image->name]));
+        return redirect(route('image.show', ['image' => $image->pageName]));
+    }
+
+    public function api_upload(Request $request)
+    {
+        $file = $request->file('file');
+        $upload_key = $request->key;
+
+        if($file == null) {
+            return response()->json([
+                'success' => false,
+                'image' => [],
+                'error' => 'Please give a file to upload.',
+            ], 500);
+
+        } elseif($upload_key == null) {
+            return response()->json([
+                'success' => false,
+                'image' => [],
+                'error' => 'Please give a api key to validate.',
+            ], 500);
+
+        } else {
+            $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
+            
+            if(in_array($upload_key, $keys)) {
+
+                $user = User::where('api_token', '=', $upload_key)->first();
+
+                $imageName = Str::random(14);
+                $pageName = Str::random(7);
+                $imageFullName = $imageName.'.'.$file->getClientOriginalExtension();
+                $file->move(('storage/images'), $imageFullName);
+
+                $image = new Image;
+                $image->pageName = $pageName;
+                $image->imageName = $imageName;
+                $image->extension = pathinfo($imageFullName, PATHINFO_EXTENSION);
+                $image->path = '/i/'.$imageFullName;
+                $image->user_id = $user->id;
+                $image->is_public = 0;
+                $image->save();
+
+                return response()->json([
+                    'success' => true,
+                    'image' => [
+                        'url' => env('APP_URL') . $image->path,
+                        'delete_url' => 'Use the web UI please.',
+                    ],
+                    'error' => '',
+                ]);
+            
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'screenshot' => [],
+                    'error' => 'Invalid key!',
+                ], 500);
+            }
+        }
     }
 
     public function get($image)
@@ -55,7 +116,7 @@ class ImageController extends Controller
         } else { // Afficher le view image
 
             $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
-            $pageImage = Image::where('name', pathinfo($image, PATHINFO_FILENAME))->firstOrFail();
+            $pageImage = Image::where('pageName', pathinfo($image, PATHINFO_FILENAME))->firstOrFail();
 
             return view('image.image', [
                 'user' => $user,
@@ -76,7 +137,7 @@ class ImageController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            notify()->error('The title must contain maximum 50 characters!');
+            toast('The title must contain maximum 50 characters!','error');
 
             return back();
         }
@@ -85,9 +146,9 @@ class ImageController extends Controller
         $image->is_public = $request->has('is_public');
         $image->save();
 
-        notify()->success('You have successfully updated your image!');
+        toast('You have successfully updated your image!','success');
 
-        return redirect(route('image.show', ['image' => $image->name]));
+        return redirect(route('image.show', ['image' => $image->pageName]));
     }
 
     public function delete(Request $request, Image $image)
@@ -98,7 +159,7 @@ class ImageController extends Controller
         File::delete($image->fullpath);
         $image->delete();
 
-        notify()->success('You have successfully delete your image !');
+        toast('You have successfully delete your image!','success');
 
         return redirect(route('home'));
     }

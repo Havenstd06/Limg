@@ -40,8 +40,14 @@
     <meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
+    <!-- Scripts -->
+    <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
 </head>
 
@@ -56,11 +62,8 @@
 @include('layouts.footer')
 
 <!-- Scripts -->
-@include('notify::messages')
 @include('sweetalert::alert')
 @yield('javascripts')
-<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
-<script type="module" src="{{ mix('js/instantpage.js') }}" defer></script>
 
 </body>
 </html>

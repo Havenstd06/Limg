@@ -15,9 +15,7 @@ const tailwindcss = require('tailwindcss');
 // require('laravel-mix-purgecss');
 
 mix.js('resources/js/app.js', 'public/js')
-    .js('resources/js/instantpage-3.0.0.js', 'public/js/instantpage.js')
     .copy('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/css/webfonts')
-    .copy('vendor/mckenziearts/laravel-notify/public/fonts', 'public/css/webfonts')
     .copy('resources/sass/fonts/webfonts', 'public/css/webfonts')
     .sass('resources/sass/app.scss', 'public/css')
     .options({
