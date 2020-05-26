@@ -67,27 +67,23 @@ class ImageController extends Controller
                 'error' => 'Please give a api key to validate.',
             ], 500);
         } else {
-
             $postData = $request->only('file');
             $file = $postData['file'];
 
-            $fileArray = array('image' => $file);
+            $fileArray = ['image' => $file];
 
-            $rules = array(
-            'image' => 'mimes:jpeg,jpg,png,gif | required | max:15000' // max 10000kb
-            );
+            $rules = [
+                'image' => 'mimes:jpeg,jpg,png,gif | required | max:15000', // max 10000kb
+            ];
             $validator = Validator::make($fileArray, $rules);
 
-            if($validator->fails()){
-
+            if ($validator->fails()) {
                 return response()->json([
                     'success' => false,
                     'image' => [],
                     'error' => 'File must be Image.',
                 ], 500);
-
             } else {
-
                 $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
 
                 if (in_array($upload_key, $keys)) {
