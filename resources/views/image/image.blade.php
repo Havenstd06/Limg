@@ -117,7 +117,7 @@
         </div>
       </a>
       @else
-      <a class="flex items-center pt-4" href="{{ route('profile', $image->user->username) }}">
+      <a class="flex items-center pt-4" href="{{ route('user.profile', $image->user->username) }}">
         <img class="w-10 h-10 mr-4 rounded-full" src="{{ url($image->user->avatar) }}" alt="{{ $image->user->username }}'s image'">
         <div class="text-sm">
         <p class="leading-none text-gray-900 dark:text-gray-300">{{ $image->user->username }}</p>

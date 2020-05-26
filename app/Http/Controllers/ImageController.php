@@ -158,7 +158,7 @@ class ImageController extends Controller
 
         toast('You have successfully delete your image!', 'success');
 
-        return redirect(route('home'));
+        return redirect(back());
     }
 
     public function download(Image $image)

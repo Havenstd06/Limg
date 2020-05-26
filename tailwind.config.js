@@ -24,21 +24,12 @@ module.exports = {
       },
     },
     pagination: theme => ({
-      link: 'bg-forest text-gray-300 px-4 py-2 no-underline',
-      linkHover: 'bg-purple-400 border-purple-500 text-gray-800 font-bold',
-      linkActive: 'bg-purple-400 border-purple-500 text-gray-800 font-bold',
-      linkSecond: 'rounded-l',
-      linkBeforeLast: 'rounded-r',
-      linkDisabled: 'bg-forest',
-      linkFirst: {
-        '@apply mr-1 pl-3 text-gray-300': {},
-        'border-top-left-radius': '999px',
-      },
-      linkLast: {
-        '@apply ml-1 pr-3 text-gray-300': {},
-        'border-top-right-radius': '999px',
-      },
-    }),
+      color: theme('colors.purple.600'),
+      linkFirst: 'mr-6 border rounded',
+      linkSecond: 'rounded-l border-l',
+      linkBeforeLast: 'rounded-r border-r',
+      linkLast: 'ml-6 border rounded',
+    })
   },
   variants: {
     backgroundColor: ['dark', 'dark-hover', 'dark-group-hover'],

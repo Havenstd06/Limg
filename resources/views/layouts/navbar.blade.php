@@ -48,17 +48,22 @@
                 x-transition:leave-end="opacity-0 transform -translate-y-3"
                 >
                 <li>
-                    <a href="{{ route('profile', auth()->user()->username) }}" class="block py-3 pl-8 text-gray-800 no-underline whitespace-no-wrap bg-white hover:bg-gray-300 dark-hover:bg-gray-300">
+                    <a href="{{ route('user.profile', auth()->user()->username) }}" class="block py-2 pl-6 text-gray-800 no-underline whitespace-no-wrap bg-white hover:bg-gray-300 dark-hover:bg-gray-300">
                         <i class="fas fa-user"></i> {{ __('Profile') }}
                     </a>      
                 </li>
                 <li>
-                    <a href="{{ route('settings.index', ['user' => $user]) }}" class="block py-3 pl-8 text-gray-800 no-underline whitespace-no-wrap bg-white hover:bg-gray-300 dark-hover:bg-gray-300">
+                    <a href="{{ route('user.myimages', ['user' => $user]) }}" class="block py-2 pl-6 text-gray-800 no-underline whitespace-no-wrap bg-white hover:bg-gray-300 dark-hover:bg-gray-300">
+                        <i class="far fa-images"></i> {{ __('My Images') }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('settings.index', ['user' => $user]) }}" class="block py-2 pl-6 text-gray-800 no-underline whitespace-no-wrap bg-white hover:bg-gray-300 dark-hover:bg-gray-300">
                         <i class="fas fa-cogs"></i> {{ __('Settings') }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="block py-3 pl-8 text-gray-800 no-underline whitespace-no-wrap bg-white border-t hover:bg-gray-300 dark-hover:bg-gray-300">
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="block py-2 pl-6 text-gray-800 no-underline whitespace-no-wrap bg-white border-t hover:bg-gray-300 dark-hover:bg-gray-300">
                         <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
@@ -80,16 +85,19 @@
             @else 
             <div class="block py-2 bg-white rounded dark:bg-asphalt sm:hidden">
                 <div class="flex items-center justify-center">
-                    <img src="{{ url($user->avatar) }}" class="inline-block w-10 mr-4 border-white border-solid rounded-lg">
-                    <a href="{{ route('profile', auth()->user()->username) }}" class="mr-4 text-sm font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600">
-                        <i class="fas fa-user"></i> {{ __('Profile') }}
+                    <img src="{{ url($user->avatar) }}" class="w-10 mx-4 border-white border-solid rounded-lg">
+                    <a href="{{ route('user.profile', auth()->user()->username) }}" class="mr-4 text-xs font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600">
+                        {{ __('Profile') }}
                     </a>
-                    <a href="{{ route('settings.index', ['user' => $user]) }}" class="mr-4 text-sm font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600">
-                        <i class="fas fa-cogs"></i> {{ __('Settings') }}
+                    <a href="{{ route('user.myimages', ['user' => $user]) }}" class="mr-4 text-xs font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600">
+                        {{ __('My Images') }}
                     </a>
-                    <a href="{{ route('logout') }}" class="mr-4 text-sm font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600"
+                    <a href="{{ route('settings.index', ['user' => $user]) }}" class="mr-4 text-xs font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600">
+                        {{ __('Settings') }}
+                    </a>
+                    <a href="{{ route('logout') }}" class="mr-4 text-xs font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600"
                     onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                        <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
+                        {{ __('Logout') }}
                     </a>
                 </div>
             </div>

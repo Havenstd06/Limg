@@ -14,9 +14,7 @@
 - Upload and share your image with privacy
 - (new) Upload your image on ShareX
 - Manage your image (custom title, public or private, delete, custom size...)
-
-## Soon
-- Admin Panel
+- Admin Panel (ready to use)
 
 ## Requirement
 - [**PHP**](https://php.net) 7.2+ (**7.4** preferred)

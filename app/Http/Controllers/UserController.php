@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
-use App\Rules\MatchOldPassword;
 use App\User;
+use App\Image;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Rules\MatchOldPassword;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as InterImage;
 
 class UserController extends Controller
@@ -139,5 +140,17 @@ class UserController extends Controller
         toast('You have successfully upload avatar.', 'success');
 
         return back();
+    }
+
+    public function my_images (Request $request, $username)
+    {
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($user == $request->user(), 403);
+
+
+        return view('user.myimages', [
+            'user' => $user
+        ]);
     }
 }
