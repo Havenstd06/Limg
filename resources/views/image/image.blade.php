@@ -110,7 +110,7 @@
       </div>
       @if ($image->user->id == 1)
       <a class="flex items-center pt-4" href="{{ route('register') }}">
-        <img class="w-10 h-10 mr-4 rounded-full" src="{{ Storage::url($image->user->avatar) }}" alt="Anonyme User">
+        <img class="w-10 h-10 mr-4 rounded-full" src="{{ url($image->user->avatar) }}" alt="Anonyme User">
         <div class="text-sm">
         <p class="leading-none text-gray-900 dark:text-gray-300">Anonyme | Signup Now !</p>
         <p class="text-gray-600">{{ $image->created_at->format('d/m/Y') }} ({{ $image->created_at->diffForHumans() }})</p>
@@ -118,7 +118,7 @@
       </a>
       @else
       <a class="flex items-center pt-4" href="{{ route('profile', $image->user->username) }}">
-        <img class="w-10 h-10 mr-4 rounded-full" src="{{ Storage::url($image->user->avatar) }}" alt="{{ $image->user->username }}'s image'">
+        <img class="w-10 h-10 mr-4 rounded-full" src="{{ url($image->user->avatar) }}" alt="{{ $image->user->username }}'s image'">
         <div class="text-sm">
         <p class="leading-none text-gray-900 dark:text-gray-300">{{ $image->user->username }}</p>
         <p class="text-gray-600">{{ $image->created_at->format('d/m/Y') }} ({{ $image->created_at->diffForHumans() }})</p>

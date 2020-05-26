@@ -13,7 +13,7 @@
 
 // Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::get('login/discord', 'Auth\LoginController@redirectToProvider')->name('login.discord');
 Route::get('login/discord/callback', 'Auth\LoginController@handleProviderCallback');
@@ -44,4 +44,9 @@ Route::prefix('/i/{image}')->group(function () {
     Route::get('/delete', 'ImageController@delete')->name('image.delete');
     Route::get('/download', 'ImageController@download')->name('image.download');
     Route::get('/{size}', 'ImageController@build');
+});
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
 });

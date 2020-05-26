@@ -65,11 +65,11 @@ class LoginController extends Controller
                 $url = $user->avatar.'?size=256';
                 $extension = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
                 $contents = file_get_contents($url);
-                $name = 'avatars/'.strtolower($user->name.$user->user['discriminator']).".${extension}";
+                $name = 'storage/avatars/'.strtolower($user->name.$user->user['discriminator']).".${extension}";
                 Storage::disk('public')->put($name, $contents);
                 $avatar = $name;
             } else {
-                $avatar = 'avatars/default.png';
+                $avatar = 'storage/avatars/default.png';
             }
 
             $user->verified = ($user->user['verified']) ? Date::now() : null;

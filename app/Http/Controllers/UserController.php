@@ -100,7 +100,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            notify()->error('Image must be filled!');
+            toast('Image must be filled!', 'error');
 
             return back();
         }
@@ -133,7 +133,7 @@ class UserController extends Controller
             return back();
         }
 
-        $user->avatar = 'avatars/'.$avatarName;
+        $user->avatar = 'storage/avatars/'.$avatarName;
         $user->save();
 
         toast('You have successfully upload avatar.', 'success');

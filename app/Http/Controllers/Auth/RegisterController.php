@@ -65,7 +65,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        toast('Thanks for signing up! Please check your email to Validate your account!', 'success');
+        toast('Thanks for signing up!', 'success');
 
         return User::create([
             'username' => $data['username'],

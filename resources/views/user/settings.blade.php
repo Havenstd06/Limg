@@ -7,11 +7,11 @@
 <meta data-rh="true" name="description" content="{{ $user->username }}'s Settings" />
 <meta data-rh="true" property="og:url" content="{{ url()->current() }}" />
 <meta data-rh="true" property="og:description" content="{{ $user->username }}'s Settings" />
-<meta data-rh="true" property="og:image" content="{{ url(Storage::url($user->avatar)) }}" />
+<meta data-rh="true" property="og:image" content="{{ url(url($user->avatar)) }}" />
 <meta data-rh="true" property="og:title" content="{{ config('app.name') }}" />
 <meta data-rh="true" property="og:website" content="website" />
 <meta data-rh="true" property="og:site_name" content="{{ config('app.name') }}.app" />
-<meta data-rh="true" name="twitter:image:src" content="{{ url(Storage::url($user->avatar)) }}" />
+<meta data-rh="true" name="twitter:image:src" content="{{ url(url($user->avatar)) }}" />
 <meta data-rh="true" property="twitter:description" content="{{ $user->username }}'s Settings" />
 <meta data-rh="true" name="twitter:card" content="summary_large_image" />
 <meta data-rh="true" name="twitter:creator" content="@HavensYT" />
@@ -26,7 +26,7 @@
   @if (auth()->user() == $user)
   <div class="max-w-lg px-8 pt-6 pb-8 mx-4 bg-white rounded-lg shadow-md dark:bg-midnight sm:container sm:mx-auto sm:w-full">
     <div class="flex items-center justify-center mb-8">
-      <img class="ml-12 rounded-lg shadow-md sm:ml-14 w-38" src="{{ Storage::url($user->avatar) }}" alt="{{ $user->username }}">
+      <img class="ml-12 rounded-lg shadow-md sm:ml-14 w-38" src="{{ url($user->avatar) }}" alt="{{ $user->username }}">
       <form action="{{ route('settings.update.avatar', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="relative w-32 mx-2 my-4 ml-6 overflow-hidden cursor-pointer sm:ml-12 sm:mx-10">

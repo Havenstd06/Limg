@@ -15,7 +15,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        $user->avatar = 'avatars/default.png';
+        $user->avatar = 'storage/avatars/default.png';
         $user->save();
     }
 
@@ -27,7 +27,7 @@ class UserObserver
      */
     public function updated(User $user)
     {
-        if (strpos($user->avatar, 'avatars/') !== false) {
+        if (strpos($user->avatar, 'storage/avatars/') !== false) {
             $user->avatar = basename($user->avatar);
         }
     }
@@ -42,7 +42,7 @@ class UserObserver
     {
         $oldExt = pathinfo($this->avatar, PATHINFO_EXTENSION);
 
-        Storage::disk('public')->delete('avatars/'.strtolower($user->username).'.'.$oldExt);
+        Storage::disk('public')->delete('storage/avatars/'.strtolower($user->username).'.'.$oldExt);
     }
 
     /**

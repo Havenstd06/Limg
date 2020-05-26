@@ -25,7 +25,7 @@
 <div class="px-8 pt-6 pb-8 mb-6 bg-white rounded-lg shadow-md dark:bg-midnight dark:text-gray-300">
     <div class="grid-flow-col md:grid sm:grid-flow-row md:grid-flow-col-dense lg:grid-flow-row-dense xl:grid-flow-col">
         <div class="flex items-center justify-center mx-auto md:justify-start">
-            <img class="w-24 rounded sm:w-38" src="{{ Storage::url($user->avatar) }}"/>
+            <img class="w-24 rounded sm:w-38" src="{{ url($user->avatar) }}"/>
             <div class="ml-4">
                 <h4 class="text-lg sm:text-5xl dark:text-gray-300">{{ $user->username }}</h4>
                 <span class="flex mb-1 -mt-1">{{ $user->description }}</span>

@@ -19,7 +19,8 @@
         "laravel/ui": "^2.0",
         "nubs/random-name-generator": "^2.1",
         "realrashid/sweet-alert": "^3.1",
-        "socialiteproviders/discord": "^2.0"
+        "socialiteproviders/discord": "^2.0",
+        "tcg/voyager": "^1.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
@@ -67,5 +68,11 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
+    },
+    "repositories": {
+        "hooks": {
+            "type": "composer",
+            "url": "https://larapack.io"
+        }
     }
 }

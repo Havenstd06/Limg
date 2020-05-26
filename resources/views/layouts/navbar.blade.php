@@ -35,12 +35,12 @@
             </form>
             <div class="relative inline-block" x-data="{open: false}">
                 <button @click="open = !open" class="inline-flex items-center px-4 py-1 font-medium text-gray-700 rounded dark:text-white focus:outline-none">
-                    <img src="{{ Storage::url(auth()->user()->avatar) }}" class="inline-block w-10 mr-2 -mt-1 -mb-1 -ml-1 border-white border-solid rounded shadow-md">		
+                    <img src="{{ url(auth()->user()->avatar) }}" class="inline-block w-10 mr-2 -mt-1 -mb-1 -ml-1 border-white border-solid rounded shadow-md">		
                         {{ auth()->user()->username }}
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" :class="{'rotate-180': open}" class="inline-block w-6 h-6 text-gray-500 transform fill-current"><path fill-rule="evenodd" d="M15.3 10.3a1 1 0 011.4 1.4l-4 4a1 1 0 01-1.4 0l-4-4a1 1 0 011.4-1.4l3.3 3.29 3.3-3.3z"/></svg>
                 </button>
 
-                <ul x-show="open" class="absolute w-40 py-1 mt-2 text-indigo-600 bg-white rounded shadow"
+                <ul x-show="open" @click.away="open = false" class="absolute z-50 w-40 py-1 mt-2 text-indigo-600 bg-white rounded shadow"
                 x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="opacity-0 transform -translate-y-2"
                 x-transition:enter-end="opacity-100 transform translate-y-0"
