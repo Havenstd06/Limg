@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
+use App\User;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
-use Laravel\Socialite\Facades\Socialite;
-use RealRashid\SweetAlert\Facades\Alert;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as InterImage;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -80,7 +79,7 @@ class LoginController extends Controller
                 'email' => $user->email,
                 'email_verified_at' => $user->verified,
                 'avatar' => $avatar,
-                'api_token' => Str::random(20)
+                'api_token' => Str::random(20),
             ]);
 
             if ($user->avatar != null) {
@@ -93,7 +92,7 @@ class LoginController extends Controller
 
         Auth::login($foundUser, true);
 
-        toast('Login Successfully With Discord!','success');
+        toast('Login Successfully With Discord!', 'success');
 
         return redirect($this->redirectPath());
     }
@@ -101,7 +100,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request)
     {
         // toast('Login Successfully!','success');
-        
+
         return Redirect::back();
     }
 
@@ -146,7 +145,7 @@ class LoginController extends Controller
     {
         Auth::logout();
 
-        toast('Logout Successfully!','success');
+        toast('Logout Successfully!', 'success');
 
         return Redirect::route('home');
     }

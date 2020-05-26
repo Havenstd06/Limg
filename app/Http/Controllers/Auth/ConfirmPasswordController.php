@@ -30,7 +30,7 @@ class ConfirmPasswordController extends Controller
 
     public function redirectTo()
     {
-        toast('Password Reset Link Incorrect!','error');
+        toast('Password Reset Link Incorrect!', 'error');
 
         return $redirectTo = RouteServiceProvider::HOME;
     }
