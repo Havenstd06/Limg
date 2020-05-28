@@ -81,6 +81,22 @@ class MenuItemsTableSeeder extends Seeder
 
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
+            'title'   => 'Domains',
+            'url'     => '',
+            'route'   => 'voyager.domains.index',
+        ]);
+        if (! $menuItem->exists) {
+            $menuItem->fill([
+                'target'     => '_self',
+                'icon_class' => 'voyager-list-add',
+                'color'      => null,
+                'parent_id'  => null,
+                'order'      => 4,
+            ])->save();
+        }
+
+        $menuItem = MenuItem::firstOrNew([
+            'menu_id' => $menu->id,
             'title'   => __('voyager::seeders.menu_items.roles'),
             'url'     => '',
             'route'   => 'voyager.roles.index',
@@ -91,7 +107,7 @@ class MenuItemsTableSeeder extends Seeder
                 'icon_class' => 'voyager-lock',
                 'color'      => null,
                 'parent_id'  => null,
-                'order'      => 4,
+                'order'      => 5,
             ])->save();
         }
 

@@ -14,6 +14,7 @@
 - Upload and share your image with privacy
 - (new) Upload your image on ShareX
 - Manage your image (custom title, public or private, delete, custom size...)
+- Custom Domain (be sure to add a redirect from the new domain to the main domain)
 - Admin Panel (ready to use)
 
 ## Requirement

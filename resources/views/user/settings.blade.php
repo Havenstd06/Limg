@@ -106,7 +106,7 @@
       @csrf
       <hr class="pb-4">
       <div class="mb-4">
-        <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-400" for="password">
+        <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-400" for="apitoken">
           {{ __('Api Token') }}
         </label>
         <div class="md:flex">
@@ -115,6 +115,30 @@
             <button class="inline-flex items-center px-4 py-2 mt-3 font-bold text-white bg-indigo-700 rounded md:ml-2 md:mt-0 hover:border-indigo-600 hover:bg-indigo-800 hover:text-white">
               <i class="relative inline text-lg fas fa-sync"></i> 
               <p class="ml-2 font-medium">Update Key</p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <form method="POST" action="{{ route('settings.update.domain', ['user' => $user]) }}">
+      @csrf
+      <hr class="pb-4">
+      <div class="mb-4">
+        <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-400" for="domain">
+          {{ __('Domain') }}
+        </label>
+        <div class="md:flex">
+          <select name="domain" class="block w-full py-2 pl-3 pr-10 mt-1 text-base leading-6 transition duration-150 ease-in-out bg-gray-200 border-gray-300 md:w-0 md:flex-auto form-select focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
+             @foreach (App\Domain::all() as $domain)
+              <option value="{{ $domain->url }}" {{ $domain->url == $user->domain ? 'selected' : ''}}>
+                {{ $domain->name }}
+              </option>
+            @endforeach
+          </select>
+          <div class="flex justify-end">
+            <button class="inline-flex items-center px-4 py-2 mt-3 font-bold text-white bg-indigo-700 rounded md:ml-2 md:mt-0 hover:border-indigo-600 hover:bg-indigo-800 hover:text-white">
+              <i class="relative inline text-lg fas fa-link"></i> 
+              <p class="ml-2 font-medium">Update Domain</p>
             </button>
           </div>
         </div>

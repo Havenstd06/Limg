@@ -106,7 +106,7 @@ class ImageController extends Controller
                     return response()->json([
                         'success' => true,
                         'image' => [
-                            'url' => config('app.url').$image->path,
+                            'url' => $user->domain.$image->path,
                             'delete_url' => 'Use the web UI please.',
                         ],
                         'error' => '',

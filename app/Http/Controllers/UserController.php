@@ -89,6 +89,30 @@ class UserController extends Controller
         return back();
     }
 
+    public function update_domain(Request $request, User $user)
+    {
+        abort_unless($user == $request->user(), 403);
+
+        $user->domain = $request->input('domain');
+
+        $v = validator($user->toArray(), [
+            'domain' => 'required',
+        ]);
+
+        if ($v->fails()) {
+            
+            toast('Error must be filled.', 'error');
+            return redirect()->back();
+        }
+        $user->save();
+
+
+
+        toast('You have successfully update your domain.', 'success');
+
+        return back();
+    }
+
     public function update_avatar(Request $request, User $user)
     {
         abort_unless($user == $request->user(), 403);

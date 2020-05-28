@@ -38,6 +38,19 @@ class DataTypesTableSeeder extends Seeder
             ])->save();
         }
 
+        $dataType = $this->dataType('slug', 'domains');
+        if (! $dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'domains',
+                'display_name_singular' => 'domain',
+                'display_name_plural'   => 'domains',
+                'icon'                  => 'voyager-list-add',
+                'model_name'            => 'App\Domain',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
         $dataType = $this->dataType('slug', 'menus');
         if (! $dataType->exists) {
             $dataType->fill([

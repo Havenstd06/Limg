@@ -37,6 +37,7 @@ module.exports = {
     textColor: ['dark', 'dark-hover', 'dark-active']
   },
   plugins: [
+    require('@tailwindcss/ui'),
     require('tailwindcss-dark-mode')(),
     require('tailwindcss-plugins/pagination'),
   ]
