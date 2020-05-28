@@ -603,7 +603,7 @@ class DataRowsTableSeeder extends Seeder
                 'order'        => 1,
             ])->save();
         }
-        
+
         $dataRow = $this->dataRow($domainDataType, 'name');
         if (! $dataRow->exists) {
             $dataRow->fill([
@@ -663,7 +663,6 @@ class DataRowsTableSeeder extends Seeder
                 'order'        => 5,
             ])->save();
         }
-
     }
 
     /**
