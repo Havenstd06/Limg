@@ -100,13 +100,11 @@ class UserController extends Controller
         ]);
 
         if ($v->fails()) {
-            
             toast('Error must be filled.', 'error');
+
             return redirect()->back();
         }
         $user->save();
-
-
 
         toast('You have successfully update your domain.', 'success');
 
