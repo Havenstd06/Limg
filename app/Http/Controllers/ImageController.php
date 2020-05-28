@@ -171,12 +171,14 @@ class ImageController extends Controller
         $user = $request->user();
         abort_unless(Auth::check() && $user->id == $image->user->id, 403);
 
-        File::delete($image->fullpath);
-        $image->delete();
+        if(File::exists($image->fullpath)) {
+            File::delete($image->fullpath);
+            $image->delete();
+        }
 
         toast('You have successfully delete your image!', 'success');
 
-        return redirect(back());
+        return redirect()->route('home');
     }
 
     public function download(Image $image)
