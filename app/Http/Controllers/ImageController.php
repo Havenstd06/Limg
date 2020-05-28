@@ -171,7 +171,7 @@ class ImageController extends Controller
         $user = $request->user();
         abort_unless(Auth::check() && $user->id == $image->user->id, 403);
 
-        if(File::exists($image->fullpath)) {
+        if (File::exists($image->fullpath)) {
             File::delete($image->fullpath);
             $image->delete();
         }
