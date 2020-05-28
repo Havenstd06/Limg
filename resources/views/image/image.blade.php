@@ -65,69 +65,51 @@
       </div>
     </form>
   @endownsImage
-  <div class="sm:flex sm:flex-row">
-    <div class="sm:w-3/4">
-      <div class="relative flex items-center justify-center max-w-full overflow-hidden bg-gray-100 rounded shadow dark:bg-asphalt sm:min-h-12">
-        <img src="{{ route('image.show', ['image' => $image->fullname]) }}">
-      </div>
-    </div>
-    <div class="my-6 ml-6 sm:my-0">
-      <div class="md:ml-16">
-        <h3 class="pb-3 -ml-2 text-2xl font-medium text-gray-900 dark:text-gray-100 font-firacode">Image Tools</h3>
-        <div class="h-10 mt-3 mb-4 w-36 sm:mt-0 sm:mr-3 custom-number-input">
-          <div class="relative flex flex-row w-full h-10 bg-transparent rounded-lg">
-            <input type="number" id="userInput" placeholder="Size" class="flex items-center w-full max-w-full font-semibold text-center text-gray-700 bg-gray-300 outline-none focus:outline-none text-md hover:text-black focus:text-black md:text-basecursor-default">
-            <a href="#" onclick="javascript:changeText();location.reload();" target="_nofollow" id=lnk class="p-2 pr-4 font-semibold text-center text-gray-700 bg-gray-300">Go</a>
+    <div class="md:flex">
+      <div class="flex-1">
+        <div class="w-full">
+          <div class="relative flex items-center justify-center max-w-full overflow-hidden bg-gray-100 rounded shadow dark:bg-asphalt sm:min-h-12">
+            <img src="{{ route('image.show', ['image' => $image->fullname]) }}">
           </div>
         </div>
-        <a href="{{ route('image.download', ['image' => $image->pageName]) }}">
-          <button class="block px-4 py-2 mb-4 font-semibold text-gray-900 bg-transparent border rounded hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent">
-            <i class="fa fa-download"></i> {{ __('Download') }}
-          </button>
-        </a>
-        <div x-data="{ open: false }">
-            <button @click="open = true" class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent">
-                <i class="fas fa-code"></i> {{ __('Embed') }}
-            </button>
-
-            <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full" style="background-color: rgba(0,0,0,.5);" x-show="open"  x-description="Background overlay, show/hide based on modal state." x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 transition-opacity">
-                <div class="h-auto p-4 mx-2 text-left bg-white rounded shadow-xl md:max-w-xl md:p-6 lg:p-8 md:mx-0" @click.away="open = false">
-                    @include('image.embed-modal')
-                </div>
-            </div>
-        </div>
-        <div x-data="{ open: false }">
-            <button @click="open = true" class="block px-4 py-2 my-4 font-semibold text-gray-900 bg-transparent border rounded hover:bg-gray-600 hover:text-white dark:text-gray-200 w-36 border-grey hover:border-transparent">
-                <i class="fas fa-globe-europe"></i> {{ __('BBCode') }}
-            </button>
-
-            <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full" style="background-color: rgba(0,0,0,.5);" x-show="open"  x-description="Background overlay, show/hide based on modal state." x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 transition-opacity">
-                <div class="h-auto p-4 mx-2 text-left bg-white rounded shadow-xl md:max-w-xl md:p-6 lg:p-8 md:mx-0" @click.away="open = false">
-                    @include('image.bbcode-modal')
-                </div>
-            </div>
-        </div>
       </div>
-      @if ($image->user->id == 1)
-      <a class="flex items-center pt-4" href="{{ route('register') }}">
-        <img class="w-10 h-10 mr-4 rounded-full" src="{{ url($image->user->avatar) }}" alt="Anonyme User">
-        <div class="text-sm">
-        <p class="leading-none text-gray-900 dark:text-gray-300">Anonyme | Signup Now !</p>
-        <p class="text-gray-600">{{ $image->created_at->format('d/m/Y') }} ({{ $image->created_at->diffForHumans() }})</p>
-        </div>
-      </a>
-      @else
-      <a class="flex items-center pt-4" href="{{ route('user.profile', $image->user->username) }}">
-        <img class="w-10 h-10 mr-4 rounded-full" src="{{ url($image->user->avatar) }}" alt="{{ $image->user->username }}'s image'">
-        <div class="text-sm">
-        <p class="leading-none text-gray-900 dark:text-gray-300">{{ $image->user->username }}</p>
-        <p class="text-gray-600">{{ $image->created_at->format('d/m/Y') }} ({{ $image->created_at->diffForHumans() }})</p>
-        </div>
-      </a>
-      @endif
-    </div>
-  </div>
+      <div class="mx-8">
+        <h3 class="pb-3 mt-5 -ml-2 text-2xl font-medium text-center text-gray-900 dark:text-gray-100 md:mt-0">Image Tools</h3>
+          <div class="w-full mt-3 mb-4 sm:mt-0 sm:mr-3 custom-number-input">
+            <div class="relative flex flex-row w-full bg-transparent rounded-lg">
+              <input type="number" id="userInput" placeholder="Size" class="flex items-center w-full max-w-full font-semibold text-center text-gray-800 bg-gray-200 outline-none focus:outline-none text-md hover:text-black focus:text-black md:text-basecursor-default">
+              <a href="#" onclick="javascript:changeText();location.reload();" target="_nofollow" id=lnk class="p-2 pr-4 font-semibold text-center text-gray-800 bg-gray-200">Go</a>
+            </div>
+          </div>
+          <a href="{{ route('image.download', ['image' => $image->pageName]) }}">
+            <button type="button" class="w-full px-4 py-2 font-normal text-gray-200 transition duration-300 ease-in-out border border-purple-500 rounded btn-outline-primary focus:outline-none focus:shadow-outline hover:bg-purple-700 hover:text-white">
+              <i class="fa fa-download"></i> {{ __('Download') }}
+            </button>
+          </a>
+          <div x-data="{ open: false }">
+              <button @click="open = true" type="button" class="w-full px-4 py-2 mt-2 font-normal text-gray-200 transition duration-300 ease-in-out border border-purple-500 rounded btn-outline-primary focus:outline-none focus:shadow-outline hover:bg-purple-700 hover:text-white">
+                <i class="fas fa-code"></i> {{ __('Embed') }}
+              </button>
 
+              <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full" style="background-color: rgba(0,0,0,.5);" x-show="open"  x-description="Background overlay, show/hide based on modal state." x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 transition-opacity">
+                  <div class="h-auto p-4 mx-2 text-left bg-white rounded shadow-xl md:max-w-xl md:p-6 lg:p-8 md:mx-0" @click.away="open = false">
+                      @include('image.embed-modal')
+                  </div>
+              </div>
+          </div>
+          <div x-data="{ open: false }">
+              <button @click="open = true" type="button" class="w-full px-4 py-2 mt-2 font-normal text-gray-200 transition duration-300 ease-in-out border border-purple-500 rounded btn-outline-primary focus:outline-none focus:shadow-outline hover:bg-purple-700 hover:text-white">
+                <i class="fas fa-globe-europe"></i> {{ __('BBCode') }}
+              </button>
+
+              <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full" style="background-color: rgba(0,0,0,.5);" x-show="open"  x-description="Background overlay, show/hide based on modal state." x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 transition-opacity">
+                  <div class="h-auto p-4 mx-2 text-left bg-white rounded shadow-xl md:max-w-xl md:p-6 lg:p-8 md:mx-0" @click.away="open = false">
+                      @include('image.bbcode-modal')
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
   </div>
   @endisNotPublic
 </div>
