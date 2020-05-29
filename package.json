@@ -19,7 +19,6 @@
         "sass-loader": "^8.0.2",
         "tailwindcss": "^1.4.6",
         "tailwindcss-dark-mode": "^1.1.4",
-        "tailwindcss-plugins": "^0.3.0",
         "vue-template-compiler": "^2.6.11",
         "@tailwindcss/ui": "^0.3.0",
         "alpinejs": "^2.3.5",

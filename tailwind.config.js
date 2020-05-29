@@ -42,6 +42,5 @@ module.exports = {
   plugins: [
     require('@tailwindcss/ui'),
     require('tailwindcss-dark-mode')(),
-    require('tailwindcss-plugins/pagination'),
   ]
 }
