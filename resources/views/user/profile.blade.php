@@ -63,7 +63,7 @@
         @if (Auth::check() && auth()->user()->id == $user->id)
         <div class="flex items-center justify-center md:justify-start">
             <div class="mt-6" x-data="{ open: false }">
-                <button @click="open = true" class="relative inline-flex items-center px-4 py-2 -ml-px text-lg font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded dark:text-gray-300 bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
+                <button @click="open = true" class="relative inline-flex items-center px-4 py-2 -ml-px text-lg font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
                     ShareX Configuration
                 </button>
 

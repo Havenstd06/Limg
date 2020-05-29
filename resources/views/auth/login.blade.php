@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mx-auto mt-10">
     <div class="flex items-center justify-center">
-        <div class="flex flex-col px-8 pt-6 pb-8 mx-4 bg-white rounded shadow-md dark:bg-midnight md:w-1/4">
+        <div class="flex flex-col px-8 pt-6 pb-8 mx-4 bg-white rounded shadow-md dark:bg-midnight md:w-1/2 xl:w-1/4">
             <a href="{{ route('login.discord') }}">
                 <div class="mx-4 mb-2">
                     <button class="flex items-center justify-center w-full px-5 py-2 text-xs font-bold text-white uppercase bg-indigo-600 rounded shadow-md hover:bg-indigo-700 hover:text-white">

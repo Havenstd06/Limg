@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mx-auto mt-10">
     <div class="flex items-center justify-center">
-        <div class="flex flex-col px-8 pt-6 pb-8 mx-4 bg-white rounded shadow-md dark:bg-midnight md:w-1/4">
+        <div class="flex flex-col px-8 pt-6 pb-8 mx-4 bg-white rounded shadow-md dark:bg-midnight md:w-1/2 xl:w-1/4">
             <form method="POST" action="{{ route('password.update') }}">
             @csrf
                 <input type="hidden" name="token" value="{{ $token }}">
