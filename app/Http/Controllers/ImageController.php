@@ -102,7 +102,7 @@ class ImageController extends Controller
                     ->replace('\\', '')
                     ->replace(' ', '-');
 
-                    $imageName = (string) Str::of(new Alliteration().new Vgng().'-'.Str::random(6))
+                    $imageName = (string) Str::of(new Alliteration().'-'.new Vgng().'-'.Str::random(6))
                     ->replace('\'', '')
                     ->replace('.', '')
                     ->replace('/', '')
