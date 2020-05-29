@@ -95,7 +95,7 @@
                             {{ $image->created_at->format('Y/m/d H:i:s') }}
                         </td>
                         <td class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                            @if ($confirming===$image->id)
+                            @if ($confirming === $image->id)
                                 <button wire:click="destroy({{ $image->id }})" class="px-4 py-2 text-sm font-medium leading-5 text-white transition duration-200 ease-in-out bg-red-600 border border-red-300 rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:shadow-outline">
                                     <i class="mr-1 far fa-trash-alt"></i> Sure ?
                                 </button> 
