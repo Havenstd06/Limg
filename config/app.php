@@ -174,7 +174,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         \SocialiteProviders\Manager\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        Yoeunes\Notify\NotifyServiceProvider::class
     ],
 
     /*
@@ -226,7 +226,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
 
     ],
 

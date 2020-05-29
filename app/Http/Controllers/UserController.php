@@ -44,7 +44,7 @@ class UserController extends Controller
         $user->description = $request->input('description');
         $user->save();
 
-        toast('You have successfully update your profile!', 'success');
+        notify()->success('You have successfully update your profile!');
 
         return back();
     }
@@ -56,7 +56,7 @@ class UserController extends Controller
         $user->style = $request->has('style');
         $user->save();
 
-        toast('You have successfully update your style!', 'success');
+        notify()->success('You have successfully update your style!');
 
         return back();
     }
@@ -72,8 +72,8 @@ class UserController extends Controller
         User::find(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password),
         ]);
-
-        toast('You have successfully update your passsword.', 'success');
+        
+        notify()->success('You have successfully update your passsword.');
 
         return back();
     }
@@ -84,7 +84,7 @@ class UserController extends Controller
             'api_token' => Str::random(20),
         ]);
 
-        toast('You have successfully update your api token.', 'success');
+        notify()->success('You have successfully update your token.');
 
         return back();
     }
@@ -100,13 +100,13 @@ class UserController extends Controller
         ]);
 
         if ($v->fails()) {
-            toast('Error must be filled.', 'error');
+            notify()->error('Error must be filled');
 
             return redirect()->back();
         }
         $user->save();
 
-        toast('You have successfully update your domain.', 'success');
+        notify()->success('You have successfully update your domain.');
 
         return back();
     }
@@ -122,7 +122,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            toast('Image must be filled!', 'error');
+            notify()->error('Image must be filled!');
 
             return back();
         }
@@ -150,7 +150,7 @@ class UserController extends Controller
                 InterImage::make($avatar)->resize(150, 150)->save($location);
             }
         } else {
-            toast('Your avatar is too large, max file size: 2 MB', 'error');
+            notify()->error('Your avatar is too large, max file size: 2 MB');
 
             return back();
         }
@@ -158,7 +158,7 @@ class UserController extends Controller
         $user->avatar = 'storage/avatars/'.$avatarName;
         $user->save();
 
-        toast('You have successfully upload avatar.', 'success');
+        notify()->success('You have successfully upload avatar.');
 
         return back();
     }

@@ -19,9 +19,9 @@
         "laravel/ui": "^2.0",
         "livewire/livewire": "^1.1",
         "nubs/random-name-generator": "^2.1",
-        "realrashid/sweet-alert": "^3.1",
         "socialiteproviders/discord": "^2.0",
-        "tcg/voyager": "^1.4"
+        "tcg/voyager": "^1.4",
+        "yoeunes/notify": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

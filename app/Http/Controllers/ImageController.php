@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
 use App\User;
+use App\Image;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Nubs\RandomNameGenerator\Vgng;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image as InterImage;
 use Nubs\RandomNameGenerator\Alliteration;
-use Nubs\RandomNameGenerator\Vgng;
+use Intervention\Image\Facades\Image as InterImage;
 
 class ImageController extends Controller
 {
@@ -45,10 +45,10 @@ class ImageController extends Controller
         $image->user_id = $user->id;
         $image->is_public = (! $user->always_public) ? 0 || (! Auth::check() || $user->always_public) : 1;
         $image->save();
+        
+        notify()->success('You have successfully upload image!');
 
-        toast('You have successfully upload image!', 'success');
-
-        return redirect(route('image.show', ['image' => $image->pageName]));
+        return redirect()->route('image.show', ['image' => $image->pageName]);
     }
 
     public function api_upload(Request $request)
@@ -164,7 +164,7 @@ class ImageController extends Controller
         $image->is_public = $request->has('is_public');
         $image->save();
 
-        toast('You have successfully updated your image!', 'success');
+        notify()->success('You have successfully updated your image!');
 
         return redirect(route('image.show', ['image' => $image->pageName]));
     }
@@ -178,8 +178,7 @@ class ImageController extends Controller
             File::delete($image->fullpath);
             $image->delete();
         }
-
-        toast('You have successfully delete your image!', 'success');
+        notify()->success('You have successfully delete your image!');
 
         return redirect()->route('home');
     }

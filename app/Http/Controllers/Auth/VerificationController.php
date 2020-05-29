@@ -30,7 +30,7 @@ class VerificationController extends Controller
 
     public function redirectTo()
     {
-        toast('E-Mail Verification Successfully!', 'success');
+        notify()->success('E-Mail Verification Successfully!');
 
         return $redirectTo = RouteServiceProvider::HOME;
     }

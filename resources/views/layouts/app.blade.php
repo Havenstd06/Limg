@@ -45,6 +45,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    @notify_css
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     @livewireStyles
 </head>
@@ -60,7 +61,8 @@
 @include('layouts.footer')
 
 <!-- Scripts -->
-@include('sweetalert::alert')
+@notify_js
+@notify_render
 @livewireScripts
 @yield('javascripts')
 
