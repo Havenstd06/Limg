@@ -59,7 +59,7 @@
         <button type="submit" class="px-4 py-2 mt-4 font-bold text-white bg-indigo-700 rounded shadow hover:bg-indigo-800 focus:shadow-outline focus:outline-none sm:mx-4 sm:mt-0">
           <i class="fas fa-save"></i> {{ __('Save') }}
         </button>
-        <a onclick="confirm('Are you sure you want to delete all your images? (This action is irreversible)') || event.stopImmediatePropagation()" href="{{ route('image.delete', ['image' => $image->pageName]) }}" class="px-4 py-2 mt-4 font-bold text-white bg-red-700 rounded shadow hover:bg-red-800 focus:shadow-outline focus:outline-none sm:mx-4 sm:mt-0">
+        <a onclick="return confirm('Are you sure you want to delete all your images? (This action is irreversible)')" href="{{ route('image.delete', ['image' => $image->pageName]) }}" class="px-4 py-2 mt-4 font-bold text-white bg-red-700 rounded shadow hover:bg-red-800 focus:shadow-outline focus:outline-none sm:mx-4 sm:mt-0">
           <i class="fas fa-trash-alt"></i> {{ __('Delete') }}
         </a>
       </div>
