@@ -30,7 +30,7 @@ class ValidImageDomainRule implements Rule
 
         $passed = Domain::where('url', $value)->get()->first();
 
-        if (!$domains->contains($passed)) {
+        if (! $domains->contains($passed)) {
             return false;
         }
 

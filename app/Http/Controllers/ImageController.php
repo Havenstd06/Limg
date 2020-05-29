@@ -95,14 +95,14 @@ class ImageController extends Controller
                 if (in_array($upload_key, $keys)) {
                     $user = User::where('api_token', '=', $upload_key)->first();
 
-                    $pageName = (string)Str::of(new Vgng().'-'.Str::random(6))
+                    $pageName = (string) Str::of(new Vgng().'-'.Str::random(6))
                     ->replace('\'', '')
                     ->replace('.', '')
                     ->replace('/', '')
                     ->replace('\\', '')
                     ->replace(' ', '-');
 
-                    $imageName = (string)Str::of(new Alliteration().new Vgng().'-'.Str::random(6))
+                    $imageName = (string) Str::of(new Alliteration().new Vgng().'-'.Str::random(6))
                     ->replace('\'', '')
                     ->replace('.', '')
                     ->replace('/', '')
