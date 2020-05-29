@@ -9,7 +9,6 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
-        "appstract/laravel-opcache": "^3.2",
         "fideloper/proxy": "^4.0",
         "honeybadger-io/honeybadger-laravel": "^3.1",
         "intervention/image": "^2.5",
