@@ -12,19 +12,17 @@ const mix = require('laravel-mix');
  */
 
 const tailwindcss = require('tailwindcss');
-// require('laravel-mix-purgecss');
+require('laravel-mix-purgecss');
 
 mix.js('resources/js/app.js', 'public/js')
     .copy('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/css/webfonts')
-    .copy('resources/sass/fonts/webfonts', 'public/css/webfonts')
     .sass('resources/sass/app.scss', 'public/css')
     .options({
         processCssUrls: false,
         postCss: [tailwindcss('./tailwind.config.js')],
     });
 
-// if (mix.inProduction()) {
-//     mix
-//         .version()
-//         .purgeCss();
-// }
+if (mix.inProduction()) {
+    mix.version();
+    mix.purgeCss();
+}

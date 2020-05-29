@@ -1,7 +1,10 @@
 module.exports = {
+  purge: {
+      enabled: false,
+  },
   theme: {
     fontFamily: {
-      'firacode': ["Fira Code"],
+      firacode: ["Fira Code"],
       sans: ['Inter var'],
     },
     extend: {
@@ -32,9 +35,9 @@ module.exports = {
     })
   },
   variants: {
-    backgroundColor: ['dark', 'dark-hover', 'dark-group-hover'],
-    borderColor: ['dark', 'dark-focus', 'dark-focus-within'],
-    textColor: ['dark', 'dark-hover', 'dark-active']
+    backgroundColor: ['dark', 'dark-hover', 'dark-group-hover', 'responsive', 'hover', 'focus'],
+    borderColor: ['dark', 'dark-focus', 'dark-focus-within', 'responsive', 'hover', 'focus'],
+    textColor: ['dark', 'dark-hover', 'dark-active', 'responsive', 'hover', 'focus']
   },
   plugins: [
     require('@tailwindcss/ui'),
