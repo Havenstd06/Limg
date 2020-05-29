@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Image;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
+use App\Rules\ValidDiscordWebhookRule;
+use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-use App\Rules\ValidDiscordWebhookRule;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as InterImage;
 
 class UserController extends Controller
@@ -119,7 +119,7 @@ class UserController extends Controller
         $user->webhook_url = $request->input('webhook_url');
 
         $v = validator($user->toArray(), [
-            'webhook_url' => ['required', 'url', new ValidDiscordWebhookRule]
+            'webhook_url' => ['required', 'url', new ValidDiscordWebhookRule],
         ]);
 
         if ($v->fails()) {
