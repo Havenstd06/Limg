@@ -73,7 +73,7 @@
           </div>
         </div>
       </div>
-      <div class="mx-8">
+      <div class="md:mx-8">
         <h3 class="pb-3 mt-5 -ml-2 text-2xl font-medium text-center text-gray-900 dark:text-gray-100 md:mt-0">Image Tools</h3>
           <div class="w-full mt-3 mb-4 sm:mt-0 sm:mr-3 custom-number-input">
             <div class="relative flex flex-row w-full bg-transparent rounded-lg">
@@ -108,9 +108,26 @@
                   </div>
               </div>
           </div>
+          @if ($image->user->id == 1)	
+          <a class="flex items-center justify-center pt-6" href="{{ route('register') }}">	
+            <img class="w-10 h-10 mr-4 rounded-full" src="{{ url($image->user->avatar) }}" alt="Anonyme User">	
+            <div class="text-sm">	
+            <p class="leading-none text-gray-900 dark:text-gray-300">Anonyme | Signup Now !</p>	
+            <p class="text-gray-500">{{ $image->created_at->format('d/m/Y') }} ({{ $image->created_at->diffForHumans() }})</p>	
+            </div>	
+          </a>	
+          @else	
+          <a class="flex items-center justify-center pt-6" href="{{ route('user.profile', $image->user->username) }}">	
+            <img class="w-10 h-10 mr-4 rounded-full" src="{{ url($image->user->avatar) }}" alt="{{ $image->user->username }}'s image'">	
+            <div class="text-sm">	
+            <p class="leading-none text-gray-900 dark:text-gray-300">{{ $image->user->username }}</p>	
+            <p class="text-gray-500">{{ $image->created_at->format('d/m/Y') }} ({{ $image->created_at->diffForHumans() }})</p>	
+            </div>	
+          </a>	
+          @endif
+        </div>
       </div>
     </div>
-  </div>
   @endisNotPublic
 </div>
 @endsection
