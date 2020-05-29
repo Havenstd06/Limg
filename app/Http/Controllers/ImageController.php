@@ -112,7 +112,7 @@ class ImageController extends Controller
                         $webhook = new Client($user->webhook_url);
                         $embed = new Embed();
 
-                        $embed->title('New image uploaded!');
+                        $embed->title('New image uploaded!', route('image.show', ['image' => $image]));
                         $embed->image($user->domain.$image->path);
                         $embed->author($user->username, route('user.profile', ['user' => $user]), url($user->avatar));
                         $embed->footer(config('app.url'), config('app.url').'/images/favicon/favicon-32x32.png');
