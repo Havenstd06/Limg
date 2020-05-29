@@ -14,3 +14,7 @@ input:checked ~ .toggle__dot {
   transform: translateX(100%);
   background-color: #292A2F;
 }
+
+[x-cloak] {
+    display: none;
+}
