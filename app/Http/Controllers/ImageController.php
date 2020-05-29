@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Image;
-use DiscordWebhooks\Embed;
+use App\User;
 use DiscordWebhooks\Client;
-use Illuminate\Support\Str;
+use DiscordWebhooks\Embed;
 use Illuminate\Http\Request;
-use Nubs\RandomNameGenerator\Vgng;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
-use Nubs\RandomNameGenerator\Alliteration;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as InterImage;
+use Nubs\RandomNameGenerator\Alliteration;
+use Nubs\RandomNameGenerator\Vgng;
 
 class ImageController extends Controller
 {
@@ -116,7 +116,7 @@ class ImageController extends Controller
                         $embed->image($user->domain.$image->path);
                         $embed->author($user->username, route('user.profile', ['user' => $user]), url($user->avatar));
                         $embed->footer(config('app.url'), config('app.url').'/images/favicon/favicon-32x32.png');
-                        $embed->timestamp(date("c"));
+                        $embed->timestamp(date('c'));
                         $embed->color('7041F6');
 
                         $webhook->username(config('app.name'))->avatar(config('app.url').'/images/favicon/apple-touch-icon.png')->embed($embed)->send();
