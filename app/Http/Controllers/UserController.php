@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Image;
 use App\Rules\MatchOldPassword;
 use App\Rules\ValidDiscordWebhookRule;
+use App\Rules\ValidImageDomainRule;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,9 +51,9 @@ class UserController extends Controller
         return back();
     }
 
-    public function update_style(Request $request, User $user)
+    public function update_style(Request $request)
     {
-        abort_unless($user == $request->user(), 403);
+        $user = auth()->user();
 
         $user->style = $request->has('style');
         $user->save();
@@ -74,7 +75,7 @@ class UserController extends Controller
             'password' => Hash::make($request->new_password),
         ]);
 
-        notify()->success('You have successfully update your passsword.');
+        notify()->success('You have successfully update your passsword!');
 
         return back();
     }
@@ -85,7 +86,7 @@ class UserController extends Controller
             'api_token' => Str::random(20),
         ]);
 
-        notify()->success('You have successfully update your token.');
+        notify()->success('You have successfully update your token!');
 
         return back();
     }
@@ -97,17 +98,17 @@ class UserController extends Controller
         $user->domain = $request->input('domain');
 
         $v = validator($user->toArray(), [
-            'domain' => 'required',
+            'domain' => ['required', new ValidImageDomainRule]
         ]);
 
         if ($v->fails()) {
-            notify()->error('Error must be filled');
+            notify()->error('Domain must be valid!');
 
             return redirect()->back();
         }
         $user->save();
 
-        notify()->success('You have successfully update your domain.');
+        notify()->success('You have successfully update your domain!');
 
         return back();
     }
@@ -123,13 +124,14 @@ class UserController extends Controller
         ]);
 
         if ($v->fails()) {
-            notify()->error('Error must be valid webbook');
+            notify()->error('Webbook must be valid!');
 
             return redirect()->back();
         }
+        
         $user->save();
 
-        notify()->success('You have successfully update your Discord Webhook URL.');
+        notify()->success('You have successfully update your Discord Webhook URL!');
 
         return back();
     }
