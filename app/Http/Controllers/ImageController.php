@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
 use App\User;
+use App\Image;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Nubs\RandomNameGenerator\Vgng;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image as InterImage;
 use Nubs\RandomNameGenerator\Alliteration;
+use Intervention\Image\Facades\Image as InterImage;
 
 class ImageController extends Controller
 {
@@ -30,8 +31,9 @@ class ImageController extends Controller
 
         $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
 
-        $pageName = str_replace(' ', '', new Alliteration());
-        $imageName = str_replace(' ', '', new Alliteration()).str_replace(' ', '', new Alliteration());
+        $pageName = str_replace(' ', '-', new Vgng()).'-'.Str::random(6);
+        $imageName = str_replace(' ', '-', new Alliteration()).'-'.str_replace(' ', '-',
+        new Vgng()).'-'.Str::random(6);
         $newFullName = $imageName.'.'.$request->file('image')->getClientOriginalExtension();
         $request->file('image')->move(('storage/images'), $newFullName);
 
@@ -88,9 +90,10 @@ class ImageController extends Controller
 
                 if (in_array($upload_key, $keys)) {
                     $user = User::where('api_token', '=', $upload_key)->first();
-
-                    $pageName = str_replace(' ', '', new Alliteration());
-                    $imageName = str_replace(' ', '', new Alliteration()).str_replace(' ', '', new Alliteration());
+                    
+                    $pageName = str_replace(' ', '-', new Vgng()).'-'.Str::random(6);
+                    $imageName = str_replace(' ', '-', new Alliteration()).'-'.str_replace(' ', '-',
+                    new Vgng()).'-'.Str::random(6);
                     $imageFullName = $imageName.'.'.$file->getClientOriginalExtension();
                     $file->move(('storage/images'), $imageFullName);
 
@@ -107,7 +110,7 @@ class ImageController extends Controller
                         'success' => true,
                         'image' => [
                             'url' => $user->domain.$image->path,
-                            'delete_url' => 'Use the web UI please.',
+                            'delete_url' => route('image.delete', ['image' => $image->pageName]),
                         ],
                         'error' => '',
                     ]);
