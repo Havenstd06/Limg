@@ -95,9 +95,20 @@ class ImageController extends Controller
                 if (in_array($upload_key, $keys)) {
                     $user = User::where('api_token', '=', $upload_key)->first();
 
-                    $pageName = str_replace(' ', '-', new Vgng()).'-'.Str::random(6);
-                    $imageName = str_replace(' ', '-', new Alliteration()).'-'.str_replace(' ', '-',
-                    new Vgng()).'-'.Str::random(6);
+                    $pageName = (string)Str::of(new Vgng().'-'.Str::random(6))
+                    ->replace('\'', '')
+                    ->replace('.', '')
+                    ->replace('/', '')
+                    ->replace('\\', '')
+                    ->replace(' ', '-');
+
+                    $imageName = (string)Str::of(new Alliteration().new Vgng().'-'.Str::random(6))
+                    ->replace('\'', '')
+                    ->replace('.', '')
+                    ->replace('/', '')
+                    ->replace('\\', '')
+                    ->replace(' ', '-');
+
                     $imageFullName = $imageName.'.'.$file->getClientOriginalExtension();
                     $file->move(('storage/images'), $imageFullName);
 
@@ -155,7 +166,7 @@ class ImageController extends Controller
         abort_unless(Auth::check() && $user->id == $image->user->id, 403);
 
         $rules = [
-            'title'      => 'max:50',
+            'title' => 'max:50',
         ];
 
         $validator = Validator::make($request->all(), $rules);
