@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "46e747b5804ed6a804e80d774a1d16ff",
+    "content-hash": "02d01fee753dda23698bb4079a9b41b8",
     "packages": [
         {
             "name": "appstract/laravel-opcache",
@@ -2545,6 +2545,43 @@
                 "php"
             ],
             "time": "2020-04-10T16:34:50+00:00"
+        },
+        {
+            "name": "nopjmp/discord-webhooks",
+            "version": "0.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nopjmp/discord-webhooks.git",
+                "reference": "79a923abebb0b764d8592605fe26750fb7dc9a46"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nopjmp/discord-webhooks/zipball/79a923abebb0b764d8592605fe26750fb7dc9a46",
+                "reference": "79a923abebb0b764d8592605fe26750fb7dc9a46",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DiscordWebhooks\\": "DiscordWebhooks/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kayla Thompson",
+                    "email": "jmp@const.ninja"
+                }
+            ],
+            "description": "A simple Discord webhook client library.",
+            "time": "2018-04-27T04:13:39+00:00"
         },
         {
             "name": "nubs/random-name-generator",

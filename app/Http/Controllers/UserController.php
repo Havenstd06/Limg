@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
-use App\Rules\MatchOldPassword;
 use App\User;
+use App\Image;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use App\Rules\ValidDiscordWebhookRule;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as InterImage;
 
 class UserController extends Controller
@@ -107,6 +108,28 @@ class UserController extends Controller
         $user->save();
 
         notify()->success('You have successfully update your domain.');
+
+        return back();
+    }
+
+    public function update_webhook(Request $request, User $user)
+    {
+        abort_unless($user == $request->user(), 403);
+
+        $user->webhook_url = $request->input('webhook_url');
+
+        $v = validator($user->toArray(), [
+            'webhook_url' => ['required', 'url', new ValidDiscordWebhookRule]
+        ]);
+
+        if ($v->fails()) {
+            notify()->error('Error must be valid webbook');
+
+            return redirect()->back();
+        }
+        $user->save();
+
+        notify()->success('You have successfully update your Discord Webhook URL.');
 
         return back();
     }

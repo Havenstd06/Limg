@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
 use App\User;
+use App\Image;
+use DiscordWebhooks\Embed;
+use DiscordWebhooks\Client;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Nubs\RandomNameGenerator\Vgng;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image as InterImage;
 use Nubs\RandomNameGenerator\Alliteration;
-use Nubs\RandomNameGenerator\Vgng;
+use Intervention\Image\Facades\Image as InterImage;
 
 class ImageController extends Controller
 {
@@ -105,6 +107,20 @@ class ImageController extends Controller
                     $image->user_id = $user->id;
                     $image->is_public = 0;
                     $image->save();
+
+                    if ($user->webhook_url) {
+                        $webhook = new Client($user->webhook_url);
+                        $embed = new Embed();
+
+                        $embed->title('New image uploaded!');
+                        $embed->image($user->domain.$image->path);
+                        $embed->author($user->username, route('user.profile', ['user' => $user]), url($user->avatar));
+                        $embed->footer(config('app.url'), config('app.url').'/images/favicon/favicon-32x32.png');
+                        $embed->timestamp(date("c"));
+                        $embed->color('7041F6');
+
+                        $webhook->username(config('app.name'))->avatar(config('app.url').'/images/favicon/apple-touch-icon.png')->embed($embed)->send();
+                    }
 
                     return response()->json([
                         'success' => true,

@@ -47,7 +47,7 @@
                 x-transition:leave-end="opacity-0 transform -translate-y-3"
                 >
                 <li>
-                    <a href="{{ route('user.profile', auth()->user()->username) }}" class="block py-2 pl-6 text-gray-800 no-underline whitespace-no-wrap bg-white hover:bg-gray-300 dark-hover:bg-gray-300">
+                    <a href="{{ route('user.profile', ['user' => $user]) }}" class="block py-2 pl-6 text-gray-800 no-underline whitespace-no-wrap bg-white hover:bg-gray-300 dark-hover:bg-gray-300">
                         <i class="fas fa-user"></i> {{ __('Profile') }}
                     </a>      
                 </li>
