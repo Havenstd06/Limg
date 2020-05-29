@@ -232,7 +232,7 @@ class ImageController extends Controller
             $embed = new Embed();
 
             $embed->title('New image uploaded!', route('image.show', ['image' => $image]));
-            $embed->image($user->domain.$image->path);
+            $embed->image(config('app.url').$image->path);
             $embed->author($user->username, route('user.profile', ['user' => $user]), url($user->avatar));
             $embed->footer(config('app.url'), config('app.url').'/images/favicon/favicon-32x32.png');
             $embed->timestamp(date('c'));
