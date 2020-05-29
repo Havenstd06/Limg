@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="px-8 pt-6 pb-8 mx-4 bg-white rounded-lg shadow-md dark:bg-midnight sm:container sm:mx-auto sm:w-full">
-  <div class="text-gray-800 dark:text-gray-300">
+  <div class="text-black dark:text-gray-300">
     <h2 class="text-4xl font-bold">Discover</h2>
     <p class="font-medium">Discover Public Images!</p>
   </div>
