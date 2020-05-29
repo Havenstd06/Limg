@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
-use App\Image;
-use App\Observers\ImageObserver;
-use App\Observers\UserObserver;
 use App\User;
+use App\Image;
+use App\Observers\UserObserver;
+use App\Observers\ImageObserver;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
@@ -30,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::defaultView('vendor.pagination.tailwind');
+
+        Paginator::defaultSimpleView('vendor.pagination.simple-tailwind');
+    
         Schema::defaultStringLength(191);
 
         Image::observe(ImageObserver::class);
