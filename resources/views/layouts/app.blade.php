@@ -51,10 +51,10 @@
 
 <body class="flex flex-col h-full">
 
-<header class="dark:shadow-lg navbar dark:bg-midnight">
+<header class="bg-gray-100 dark:shadow-lg navbar dark:bg-midnight">
     @include('layouts.navbar')
 </header>
-<div id="content" class="flex-1 w-full p-3 bg-gray-100 dark:bg-asphalt sm:p-8">
+<div id="content" class="flex-1 w-full p-3 bg-gray-50 dark:bg-asphalt sm:p-8">
     @yield('content')
 </div> 
 @include('layouts.footer')

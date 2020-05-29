@@ -1,7 +1,7 @@
-<footer class="text-gray-200 bg-gray-800 dark:bg-midnight dark:text-white font-firacode" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+<footer class="text-gray-800 bg-gray-100 dark:bg-midnight dark:text-white font-firacode" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
   <div class="flex-wrap items-center px-16 py-3 md:flex">
     <div class="w-full text-center lg:w-1/5 lg:text-left">
-      <a class="text-xl font-semibold text-white" href="{{ route('home') }}">{{ config('app.name', 'Laravel') }}</a>
+      <a class="text-xl font-semibold" href="{{ route('home') }}">{{ config('app.name', 'Laravel') }}</a>
     </div>
     <div class="w-full mt-4 text-center lg:w-3/5 lg:mt-0">
       <span class="block mx-3 mb-4 font-semibold md:inline-block md:mb-0">

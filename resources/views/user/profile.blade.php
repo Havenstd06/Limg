@@ -22,15 +22,15 @@
 
 @section('content')
 
-<div class="px-8 pt-6 pb-8 mb-6 bg-white rounded-lg shadow-md dark:bg-midnight dark:text-gray-300">
+<div class="px-8 pt-6 pb-8 mb-6 bg-gray-100 rounded-lg shadow-md dark:bg-midnight dark:text-gray-300">
     <div class="grid-flow-col md:grid sm:grid-flow-row md:grid-flow-col-dense lg:grid-flow-row-dense xl:grid-flow-col">
         <div class="flex items-center justify-center mx-auto md:justify-start">
             <img class="w-24 rounded sm:w-38" src="{{ url($user->avatar) }}"/>
             <div class="ml-4">
-                <h4 class="text-lg sm:text-5xl dark:text-gray-300">{{ $user->username }}</h4>
+                <h4 class="text-lg text-gray-800 sm:text-5xl dark:text-gray-300">{{ $user->username }}</h4>
                 <span class="flex mb-1 -mt-1">{{ $user->description }}</span>
-                <span class="inline-flex items-center px-3 text-sm font-medium leading-5 text-gray-800 bg-gray-100 rounded-full">
-                    <span class="text-green-600">{{ $user->images->count() }}</span>
+                <span class="inline-flex items-center px-3 text-sm font-medium leading-5 text-white bg-gray-600 rounded-full dark:text-gray-800 dark:bg-gray-100">
+                    <span class="text-green-400 dark:text-green-600">{{ $user->images->count() }}</span>
                     &nbsp;images
                 </span>
             </div>
@@ -44,7 +44,7 @@
                             <div class="relative">
                                 <input name="description" value="{{ $user->description }}" class="block w-full px-2 py-2 leading-5 transition duration-150 ease-in-out border border-gray-300 rounded-none dark:text-gray-700 rounded-l-md sm:text-sm" placeholder="Description" />
                             </div>
-                            <button type="submit" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 dark:text-gray-300 rounded-r-md bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
+                            <button type="submit" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 dark:text-gray-800 rounded-r-md bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
                                 <span>Save</span>
                             </button>
                         </div>
@@ -54,7 +54,7 @@
                                 <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner toggle__line"></div>
                                 <div class="absolute inset-y-0 left-0 w-6 h-6 bg-white rounded-full shadow toggle__dot"></div>
                             </div>
-                            <span class="pl-4 text-sm font-bold text-gray-800 md:text-base dark:text-gray-300">Always Upload Image in public</span>
+                            <span class="pl-4 text-sm font-bold text-gray-700 md:text-base dark:text-gray-300">Always Upload Image in public</span>
                         </label>
                     </form>
                 @endif
@@ -96,7 +96,7 @@
         @endif
     </div>
 </div>
-<div class="pt-6 pb-8 mt-4 bg-white rounded-lg shadow-md md:px-8 dark:bg-midnight sm:container sm:mx-auto sm:w-full">
+<div class="pt-6 pb-8 mt-4 bg-gray-100 rounded-lg shadow-md md:px-8 dark:bg-midnight sm:container sm:mx-auto sm:w-full">
     @if ($user->images->count() != 0)
     <div x-data="{ tab: 'all' }">
         <nav class="flex items-center -mb-px">
@@ -125,7 +125,7 @@
                     @else
                     <div class="p-3 md:w-1/2 lg:w-1/6">
                         <a href="{{ route('image.show', ['image' => $image->pageName]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
-                            <h1 class="items-center justify-between h-16 p-3 px-4 text-lg leading-tight bg-white rounded-t dark:text-gray-300 dark:bg-forest lg:flex">{{ $image->title ?? '‌‌' }} <small class="dark:text-gray-400">@if($image->is_public) Public @else Private @endif</small></h1>
+                            <h1 class="items-center justify-between h-16 p-3 px-4 text-lg leading-tight rounded-t bg-gray-50 dark:text-gray-300 dark:bg-forest lg:flex">{{ $image->title ?? '‌‌' }} <small class="dark:text-gray-400">@if($image->is_public) Public @else Private @endif</small></h1>
                             <img class="w-full rounded-b" src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="{{ $image->title ?? $user->username }}">
                         </a>
                     </div>
@@ -139,7 +139,7 @@
                     @if ($image->is_public)
                     <div class="p-3 md:w-1/2 lg:w-1/6">
                         <a href="{{ route('image.show', ['image' => $image->pageName]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
-                            <h1 class="items-center justify-between h-16 p-3 px-4 text-lg leading-tight bg-white rounded-t dark:text-gray-300 dark:bg-forest lg:flex">{{ $image->title ?? '‌‌' }} <small class="dark:text-gray-400">@if($image->is_public) Public @else Private @endif</small></h1>
+                            <h1 class="items-center justify-between h-16 p-3 px-4 text-lg leading-tight rounded-t bg-gray-50 dark:text-gray-300 dark:bg-forest lg:flex">{{ $image->title ?? '‌‌' }} <small class="dark:text-gray-400">@if($image->is_public) Public @else Private @endif</small></h1>
                             <img class="w-full rounded-b" src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="{{ $image->title ?? $user->username }}">
                         </a>
                     </div>
@@ -153,7 +153,7 @@
                     @if (!$image->is_public)
                     <div class="p-3 md:w-1/2 lg:w-1/6">
                         <a href="{{ route('image.show', ['image' => $image->pageName]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
-                            <h1 class="items-center justify-between h-16 p-3 px-4 text-lg leading-tight bg-white rounded-t dark:text-gray-300 dark:bg-forest lg:flex">{{ $image->title ?? '‌‌' }} <small class="dark:text-gray-400">@if($image->is_public) Public @else Private @endif</small></h1>
+                            <h1 class="items-center justify-between h-16 p-3 px-4 text-lg leading-tight rounded-t bg-gray-50 dark:text-gray-300 dark:bg-forest lg:flex">{{ $image->title ?? '‌‌' }} <small class="dark:text-gray-400">@if($image->is_public) Public @else Private @endif</small></h1>
                             <img class="w-full rounded-b" src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="{{ $image->title ?? $user->username }}">
                         </a>
                     </div>
