@@ -15,6 +15,7 @@
 - (new) Upload your image on ShareX
 - Manage your image (custom title, public or private, delete, custom size...)
 - Custom Domain (be sure to add a redirect from the new domain to the main domain)
+- Discord Webhook
 - Admin Panel (ready to use)
 
 ## Requirement

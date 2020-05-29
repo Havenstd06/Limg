@@ -48,6 +48,8 @@ class ImageController extends Controller
         $image->is_public = (! $user->always_public) ? 0 || (! Auth::check() || $user->always_public) : 1;
         $image->save();
 
+        $this->sendWebhook($user, $image);
+
         notify()->success('You have successfully upload image!');
 
         return redirect()->route('image.show', ['image' => $image->pageName]);
@@ -108,19 +110,7 @@ class ImageController extends Controller
                     $image->is_public = 0;
                     $image->save();
 
-                    if ($user->webhook_url) {
-                        $webhook = new Client($user->webhook_url);
-                        $embed = new Embed();
-
-                        $embed->title('New image uploaded!', route('image.show', ['image' => $image]));
-                        $embed->image($user->domain.$image->path);
-                        $embed->author($user->username, route('user.profile', ['user' => $user]), url($user->avatar));
-                        $embed->footer(config('app.url'), config('app.url').'/images/favicon/favicon-32x32.png');
-                        $embed->timestamp(date('c'));
-                        $embed->color('7041F6');
-
-                        $webhook->username(config('app.name'))->avatar(config('app.url').'/images/favicon/apple-touch-icon.png')->embed($embed)->send();
-                    }
+                    $this->sendWebhook($user, $image);
 
                     return response()->json([
                         'success' => true,
@@ -171,7 +161,7 @@ class ImageController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            toast('The title must contain maximum 50 characters!', 'error');
+            notify()->error('The title must contain maximum 50 characters!');
 
             return back();
         }
@@ -222,5 +212,22 @@ class ImageController extends Controller
         }
 
         return $imageSize->response($imageLink->extension, '80');
+    }
+
+    private function sendWebhook(User $user, Image $image): void
+    {
+        if ($user->webhook_url) {
+            $webhook = new Client($user->webhook_url);
+            $embed = new Embed();
+
+            $embed->title('New image uploaded!', route('image.show', ['image' => $image]));
+            $embed->image($user->domain.$image->path);
+            $embed->author($user->username, route('user.profile', ['user' => $user]), url($user->avatar));
+            $embed->footer(config('app.url'), config('app.url').'/images/favicon/favicon-32x32.png');
+            $embed->timestamp(date('c'));
+            $embed->color('7041F6');
+
+            $webhook->username(config('app.name'))->avatar(config('app.url').'/images/favicon/apple-touch-icon.png')->embed($embed)->send();
+        }
     }
 }
