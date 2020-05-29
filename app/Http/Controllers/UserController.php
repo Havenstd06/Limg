@@ -98,7 +98,7 @@ class UserController extends Controller
         $user->domain = $request->input('domain');
 
         $v = validator($user->toArray(), [
-            'domain' => ['required', new ValidImageDomainRule]
+            'domain' => ['required', new ValidImageDomainRule],
         ]);
 
         if ($v->fails()) {
@@ -128,7 +128,7 @@ class UserController extends Controller
 
             return redirect()->back();
         }
-        
+
         $user->save();
 
         notify()->success('You have successfully update your Discord Webhook URL!');
