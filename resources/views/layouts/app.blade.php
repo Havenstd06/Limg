@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full @guest mode-dark @endguest @auth @if ($user->style == 1) mode-dark @endif @endauth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full @guest mode-dark @endguest @auth @if (auth()->user()->style == 1) mode-dark @endif @endauth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,7 +46,6 @@
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     @notify_css
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     @livewireStyles
 </head>
 
