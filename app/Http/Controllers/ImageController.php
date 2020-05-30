@@ -33,7 +33,7 @@ class ImageController extends Controller
             'images' => $images,
         ]);
     }
-    
+
     public function upload(Request $request)
     {
         $rules = [
