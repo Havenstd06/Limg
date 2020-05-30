@@ -15,6 +15,7 @@ const tailwindcss = require('tailwindcss');
 require('laravel-mix-purgecss');
 
 mix.js('resources/js/app.js', 'public/js')
+    .scripts(['resources/js/dropzone.js'], 'public/js/all.js')
     .copy('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/css/webfonts')
     .sass('resources/sass/app.scss', 'public/css')
     .options({
