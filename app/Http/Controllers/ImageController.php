@@ -96,7 +96,7 @@ class ImageController extends Controller
             $fileArray = ['image' => $file];
 
             $rules = [
-                'image' => 'mimes:jpeg,jpg,png,svg,gif,bmp,tiff | required | max:15000', // max 15000kb
+                'image' => 'mimes:jpeg,jpg,png,svg,gif,bmp,tiff | required | max:30000', // max 30000kb
             ];
             $validator = Validator::make($fileArray, $rules);
 
