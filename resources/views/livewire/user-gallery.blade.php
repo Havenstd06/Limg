@@ -49,7 +49,7 @@
                             @include('includes._sort-icon', ['given_field' => 'title'])
                         </a>
                     </th>
-                    <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-800 uppercase bg-gray-100 border-b border-gray-200">
+                    <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-center text-gray-800 uppercase bg-gray-100 border-b border-gray-200">
                         <a wire:click.prevent="sortBy('is_public')" role="button" href="#">
                             Is Public
                             @include('includes._sort-icon', ['given_field' => 'is_public'])
@@ -68,19 +68,23 @@
                 @foreach ($images as $image)
                     <tr>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{ $image->id }}
+                            <a href="{{ route('image.show', ['image' => $image->pageName]) }}" class="text-indigo-600 hover:text-indigo-900">
+                                {{ $image->id }}
+                            </a>
                         </td>
+
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <a href="{{ route('image.show', ['image' => $image->pageName]) }}">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 w-10 h-auto">
-                                    <img class="w-10 h-auto rounded" src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="" />
+                            <a href="{{ route('image.show', ['image' => $image->pageName]) }}">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 w-10 h-auto">
+                                        <img class="w-10 h-auto rounded" src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="" />
+                                    </div>
+                                    <div class="ml-4 text-sm font-medium leading-5 text-gray-900">{{ $image->title ? $image->title : '' }}</div>
                                 </div>
-                                <div class="ml-4 text-sm font-medium leading-5 text-gray-900">{{ $image->title ? $image->title : '' }}</div>
-                            </div>
-                        </a>
+                            </a>
                         </td>
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+
+                        <td class="px-6 py-4 text-center whitespace-no-wrap border-b border-gray-200">
                         @if ($image->is_public)
                             <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
                                 Active
@@ -91,9 +95,11 @@
                             </span>
                         @endif
                         </td>
+
                         <td class="px-6 py-4 text-sm leading-5 text-center text-gray-800 whitespace-no-wrap border-b border-gray-200">
                             {{ $image->created_at->format('Y/m/d H:i:s') }}
                         </td>
+
                         <td class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
                             @if ($confirming === $image->id)
                                 <button wire:click="destroy({{ $image->id }})" class="px-4 py-2 text-sm font-medium leading-5 text-white transition duration-200 ease-in-out bg-red-600 border border-red-300 rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:shadow-outline">
