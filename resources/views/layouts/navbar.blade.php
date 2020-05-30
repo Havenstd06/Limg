@@ -52,8 +52,8 @@
                     </a>      
                 </li>
                 <li>
-                    <a href="{{ route('user.myimages', ['user' => auth()->user()]) }}" class="block py-2 pl-6 text-gray-800 no-underline whitespace-no-wrap bg-white hover:bg-gray-300 dark-hover:bg-gray-300">
-                        <i class="far fa-images"></i> {{ __('My Images') }}
+                    <a href="{{ route('user.gallery', ['user' => auth()->user()]) }}" class="block py-2 pl-6 text-gray-800 no-underline whitespace-no-wrap bg-white hover:bg-gray-300 dark-hover:bg-gray-300">
+                        <i class="far fa-images"></i> {{ __('Gallery') }}
                     </a>
                 </li>
                 <li>
@@ -88,8 +88,8 @@
                     <a href="{{ route('user.profile', ['user' => auth()->user()]) }}" class="mr-4 text-xs font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600">
                         {{ __('Profile') }}
                     </a>
-                    <a href="{{ route('user.myimages', ['user' => auth()->user()]) }}" class="mr-4 text-xs font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600">
-                        {{ __('My Images') }}
+                    <a href="{{ route('user.gallery', ['user' => auth()->user()]) }}" class="mr-4 text-xs font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600">
+                        {{ __('Gallery') }}
                     </a>
                     <a href="{{ route('settings.index', ['user' => auth()->user()]) }}" class="mr-4 text-xs font-semibold text-gray-800 dark:text-gray-300 hover:text-purple-600">
                         {{ __('Settings') }}

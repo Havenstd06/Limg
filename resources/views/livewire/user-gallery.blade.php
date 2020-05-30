@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="pt-3 md:pl-2 md:pt-0">
-                    <button onclick="confirm('Are you sure you want to delete all your images? (This action is irreversible)') || event.stopImmediatePropagation()" wire:click="destroyAll()" class="inline-flex items-center px-4 py-2 text-base font-medium leading-5 text-white transition duration-150 ease-in-out bg-red-800 border border-red-800 rounded-md shadow-sm delete-all focus:outline-none focus:shadow-outline hover:bg-red-900 hover:border-red-900" data-url="{{ url('myImagesDeleteAll') }}">
+                    <button onclick="confirm('Are you sure you want to delete all your images? (This action is irreversible)') || event.stopImmediatePropagation()" wire:click="destroyAll()" class="inline-flex items-center px-4 py-2 text-base font-medium leading-5 text-white transition duration-150 ease-in-out bg-red-800 border border-red-800 rounded-md shadow-sm delete-all focus:outline-none focus:shadow-outline hover:bg-red-900 hover:border-red-900" data-url="{{ url('galleryDeleteAll') }}">
                         <i class="relative mr-1 text-sm fas fa-redo" style="top:1px;"></i>
                         Delete All
                     </button>

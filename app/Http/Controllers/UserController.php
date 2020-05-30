@@ -188,13 +188,13 @@ class UserController extends Controller
         return back();
     }
 
-    public function my_images(Request $request, $username)
+    public function gallery(Request $request, $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
         abort_unless($user == $request->user(), 403);
 
-        return view('user.myimages', [
+        return view('user.gallery', [
             'user' => $user,
         ]);
     }

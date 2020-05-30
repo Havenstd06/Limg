@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class MyimagesTable extends Component
+class UserGallery extends Component
 {
     use WithPagination;
 
@@ -131,6 +131,6 @@ class MyimagesTable extends Component
             }
         ) : $this->paginate($this->getAllImages(), $this->perPage);
 
-        return view('livewire.myimages-table', ['images' => $images]);
+        return view('livewire.user-gallery', ['images' => $images]);
     }
 }

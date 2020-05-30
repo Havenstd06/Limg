@@ -23,7 +23,7 @@ Route::get('/', 'HomeController@index')->name('home');
 // Profile Route
 Route::prefix('p/{user}')->group(function () {
     Route::get('/', 'UserController@profile')->name('user.profile');
-    Route::get('/images', 'UserController@my_images')->name('user.myimages');
+    Route::get('/gallery', 'UserController@gallery')->name('user.gallery');
     Route::name('settings.')->prefix('settings')->group(function () {
         Route::get('/', 'UserController@settings')->name('index');
         Route::post('update/style', 'UserController@update_style')->name('update.style');
