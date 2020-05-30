@@ -12,11 +12,16 @@
 
 ## Features
 - Upload and share your image with privacy
-- (new) Upload your image on ShareX
 - Manage your image (custom title, public or private, delete, custom size...)
-- Custom Domain (be sure to add a redirect from the new domain to the main domain)
-- Discord Webhook
-- Admin Panel (ready to use)
+- (new) Upload your image on ShareX
+- (new) Custom Domain (be sure to add a redirect from the new domain to the main domain)
+- (new) Discord Webhook
+- (new) Admin Panel (ready to use)
+
+## Soon
+- New Landing Page 
+- User profile & Images refactor
+- Images Albums
 
 ## Requirement
 - [**PHP**](https://php.net) 7.2+ (**7.4** preferred)
@@ -29,12 +34,12 @@
 ## Installation
 * clone the repository: `git clone https://github.com/Havenstd06/Limg`
 * create a database
-* install: `composer install --dev`
+* install: `composer install`
 * create configuration env file `.env` refer to `.env.example`
 * generate a new application key `php artisan key:generate`
 * setup database tables: `php artisan migrate:fresh --seed`
 * create storage link `php artisan storage:link`
-* install node_module `npm i && npm run dev`
+* install node_module `npm i && npm run dev` (or npm run prod)
 
 
 ## Setup Discord Login
