@@ -17,6 +17,23 @@ use Nubs\RandomNameGenerator\Vgng;
 
 class ImageController extends Controller
 {
+    /**
+     * Show the home page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
+
+        $images = Image::orderBy('created_at', 'desc')->where('is_public', '=', 1)->paginate(12);
+
+        return view('image.index', [
+            'user' => $user,
+            'images' => $images,
+        ]);
+    }
+    
     public function upload(Request $request)
     {
         $rules = [
@@ -26,7 +43,7 @@ class ImageController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            toast('Image format must be jpeg, jpg, png, svg, gif, bmp, tiff!', 'error');
+            notify()->error('Image format must be jpeg, jpg, png, svg, gif, bmp, tiff!');
 
             return back();
         }
