@@ -89,7 +89,7 @@ class ImageController extends Controller
     {
         $rules = [
             'url'       => ['required', 'url', new ValidImageUrlRule],
-            'title'     => 'max:50'
+            'title'     => 'max:50',
         ];
 
         $validator = Validator::make($request->all(), $rules);
