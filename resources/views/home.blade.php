@@ -25,6 +25,10 @@
             :class="{ 'text-indigo-700 bg-indigo-100 focus:text-indigo-800 focus:bg-indigo-200': tab === 'url', 'dark:text-gray-300 dark-hover:text-gray-400 text-gray-600 hover:text-gray-900 focus:text-indigo-600 focus:bg-indigo-50': tab !== 'url' }">
               URL
             </button>
+            <button @click="tab = 'sharex'" class="px-3 py-2 ml-4 text-sm font-medium leading-5 rounded-md focus:outline-none"
+            :class="{ 'text-indigo-700 bg-indigo-100 focus:text-indigo-800 focus:bg-indigo-200': tab === 'sharex', 'dark:text-gray-300 dark-hover:text-gray-400 text-gray-600 hover:text-gray-900 focus:text-indigo-600 focus:bg-indigo-50': tab !== 'sharex' }">
+              ShareX
+            </button>
           </nav>
           <div x-cloak x-show="tab === 'drop'">
             <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data" id="my-awesome-dropzone" class="text-lg font-medium border border-gray-300 border-dashed rounded-md cursor-pointer dark:bg-transparent dark:text-gray-100 dropzone">
@@ -55,6 +59,27 @@
               Paste your image link to start upload images. 15 MB per image.
             </p>
           </div>
+          <div x-cloak x-show="tab === 'sharex'">
+            <textarea id="sharex" class="w-full p-2 text-sm border border-gray-300 border-dashed rounded-md h-41 bg-gray-50 focus:outline-none dark:bg-transparent dark:text-gray-100" style="resize: none;" spellcheck="false">{
+"Name": "{{ config('app.name') }}",
+"DestinationType": "ImageUploader",
+"RequestURL": "{{ route('api_upload') }}",
+"FileFormName": "file",
+"Arguments": {
+    "key": "@auth{{ auth()->user()->api_token }}@else{{ App\User::findOrFail(1)->api_token }}@endif",
+    "file": "%guid"
+},
+"URL": "$json:image.url$"
+}</textarea>
+            <button class="px-4 py-2 transition duration-300 ease-out bg-indigo-600 rounded text-gray-50 hover:bg-indigo-700 focus:outline-none" onclick=saveShareXFile(sharex.value,'ShareX-{{ config('app.name') }}.sxcu')>Download</button>
+            <p class="mt-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+              @auth 
+              Download the <a href="https://getsharex.com/" target="no_follow" class="text-indigo-500 hover:text-indigo-600">ShareX</a> configuration linked to your account via a token.
+              @else 
+              Download the <a href="https://getsharex.com/" target="no_follow" class="text-indigo-500 hover:text-indigo-600">ShareX</a> public configuration, <a href="{{ route('register') }}" class="text-indigo-500 hover:text-indigo-600">create an accout now</a>.
+              @endauth
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -81,5 +106,27 @@
     }
     @endauth
   };
+</script>
+<script>
+   function saveShareXFile(textToWrite, fileNameToSaveAs)
+    {
+    	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'}); 
+    	var downloadLink = document.createElement("a");
+    	downloadLink.download = fileNameToSaveAs;
+    	downloadLink.innerHTML = "Download File";
+    	if (window.webkitURL != null)
+    	{
+    		downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+    	}
+    	else
+    	{
+    		downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+    		downloadLink.onclick = destroyClickedElement;
+    		downloadLink.style.display = "none";
+    		document.body.appendChild(downloadLink);
+    	}
+    
+    	downloadLink.click();
+    }
 </script>
 @endsection
