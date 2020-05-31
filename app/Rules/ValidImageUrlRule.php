@@ -39,7 +39,8 @@ class ValidImageUrlRule implements Rule
 
         if ($r->getStatusCode() == 200) {
             $c = $r->getHeaderLine('content-type');
-            if ($c == 'image/png' || $c == 'image/jpeg' || $c == 'image/jpg' || $c == 'image/svg' || $c == 'image/gif') {
+            if ($c == 'image/png' || $c == 'image/jpeg' || $c == 'image/jpg' || $c == 'image/svg' || $c == 'image/gif'
+            || $c == 'image/bmp' || $c == 'image/tiff') {
                 return true;
             } else {
                 return false;
