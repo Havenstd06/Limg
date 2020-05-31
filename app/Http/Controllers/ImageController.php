@@ -88,7 +88,8 @@ class ImageController extends Controller
     public function url_upload(Request $request)
     {       
         $rules = [
-            'url' => ['required', 'url', new ValidImageUrlRule],
+            'url'       => ['required', 'url', new ValidImageUrlRule],
+            'title'     => 'max:50'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -126,14 +127,15 @@ class ImageController extends Controller
         Storage::put('public/images/'.$newFullName, $content);
 
         $image = new Image;
+        $image->title = $request->input('title');
         $image->pageName = $pageName;
         $image->imageName = $imageName;
         $image->extension = $extension;
         $image->path = '/i/'.$newFullName;
         $image->user_id = $user->id;
-        $image->is_public = (! $user->always_public) ? 0 || (! Auth::check() || $user->always_public) : 1;
-        $image->save(); 
-        
+        $image->is_public = ! Auth::check() == 1 || $request->has('is_public');
+        $image->save();
+
         notify()->success('You have successfully upload image!');
 
         return redirect()->route('image.show', ['image' => $image->pageName]);
