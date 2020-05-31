@@ -19,9 +19,15 @@
 - (new) Admin Panel (ready to use)
 
 ## Soon
-- New Landing Page 
-- User profile & Images refactor
+- User profile & Images design refactor
 - Images Albums
+
+## Changelog
+- ShareX Support & Admin Panel (22/05/2020)
+- Table with all images (25/05/2020)
+- Custom Domain (27/05/2020)
+- Discord Webhook (29/05/2020)
+- New Landing Page (31/05/2020)
 
 ## Requirement
 - [**PHP**](https://php.net) 7.2+ (**7.4** preferred)
