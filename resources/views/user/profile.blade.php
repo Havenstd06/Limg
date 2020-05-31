@@ -139,7 +139,7 @@
                 @endforeach
             </div>
             <div class="pt-5 text-center">
-                {{ $allImages->fragment('all')->links() }}
+                {{ $allImages->links() }}
             </div>
         </div>
         <div x-show="tab === 'public'">
@@ -161,7 +161,7 @@
                 @endforeach
             </div>
             <div class="pt-5 text-center">
-                {{ $publicImages->fragment('public')->links() }}
+                {{ $publicImages->links() }}
             </div>
         </div>
         <div x-show="tab === 'private'">
@@ -183,7 +183,7 @@
                 @endforeach
             </div>
             <div class="pt-5 text-center">
-                {{ $privateImages->fragment('private')->links() }}
+                {{ $privateImages->links() }}
             </div>
         </div>
     </div>
