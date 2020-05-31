@@ -98,19 +98,21 @@
 </div>
 <div class="pt-6 pb-8 mt-4 bg-gray-100 rounded-lg shadow-md md:px-8 dark:bg-midnight sm:container sm:mx-auto sm:w-full">
     @if ($user->images->count() != 0)
-    <div x-data="{ tab: 'all' }">
+    <div x-data="{ tab: @if (Auth::check() && auth()->user()->id == $user->id) 'all' @else 'public' @endif }">
         <nav class="flex items-center -mb-px">
+            @if (Auth::check() && auth()->user()->id == $user->id)
             <button class="px-1 py-4 ml-8 font-medium leading-5 whitespace-no-wrap border-b-2 focus:outline-none" 
             :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'all', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'all'}"
             @click="tab = 'all'">
                 <i class="fas fa-globe"></i> All
             </button>
-            @if (Auth::check() && auth()->user()->id == $user->id)
+            @endif
             <button class="px-1 py-4 ml-8 font-medium leading-5 whitespace-no-wrap border-b-2 focus:outline-none" 
             :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'public', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'public'}"
             @click="tab = 'public'">
                 <i class="fas fa-globe-europe"></i> Public
             </button>
+            @if (Auth::check() && auth()->user()->id == $user->id)
             <button class="px-1 py-4 ml-8 font-medium leading-5 whitespace-no-wrap border-b-2 focus:outline-none" 
             :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'private', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'private'}"
             @click="tab = 'private'">
@@ -119,50 +121,70 @@
             @endif
         </nav>
         <div x-show="tab === 'all'">
-            <div class="flex flex-wrap">
-                @foreach ($userImages as $image)
-                    @isNotPublic($image)
-                    @else
-                    <div class="p-3 md:w-1/2 lg:w-1/6">
-                        <a href="{{ route('image.show', ['image' => $image->pageName]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
-                            <h1 class="items-center justify-between h-16 p-3 px-4 text-lg leading-tight rounded-t bg-gray-50 dark:text-gray-300 dark:bg-forest lg:flex">{{ $image->title ?? '‌‌' }} <small class="dark:text-gray-400">@if($image->is_public) Public @else Private @endif</small></h1>
-                            <img class="w-full rounded-b" src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="{{ $image->title ?? $user->username }}">
-                        </a>
-                    </div>
-                    @endisNotPublic
+            <div class="grid gap-4 xs:lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+                @foreach ($allImages as $img)
+                    <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
+                        <div class="h-56 max-w-xs mx-2 my-2 overflow-hidden rounded-lg shadow-lg dark:bg-forest bg-gray-50">
+                            <h2 class="pt-2 mx-4 font-semibold text-gray-800 truncate dark:text-gray-100" title="{{ $img->title }}">
+                            {{ $img->title }}
+                            </h2>
+                            <p class="flex justify-end px-2 mb-2 mr-2 text-sm text-gray-100">
+                            {{ $img->created_at->format('d/m/Y') }} 
+                            by {{ $img->user->username }}
+                            </p>
+                            <img src="{{ route('image.show', ['image' => $img->fullname]) }}" alt="{{ $img->title ?? $img->user->username }}">
+                    
+                        </div>
+                    </a>
                 @endforeach
+            </div>
+            <div class="pt-5 text-center">
+                {{ $allImages->fragment('all')->links() }}
             </div>
         </div>
         <div x-show="tab === 'public'">
-            <div class="flex flex-wrap">
-                @foreach ($userImages as $image)
-                    @if ($image->is_public)
-                    <div class="p-3 md:w-1/2 lg:w-1/6">
-                        <a href="{{ route('image.show', ['image' => $image->pageName]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
-                            <h1 class="items-center justify-between h-16 p-3 px-4 text-lg leading-tight rounded-t bg-gray-50 dark:text-gray-300 dark:bg-forest lg:flex">{{ $image->title ?? '‌‌' }} <small class="dark:text-gray-400">@if($image->is_public) Public @else Private @endif</small></h1>
-                            <img class="w-full rounded-b" src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="{{ $image->title ?? $user->username }}">
-                        </a>
-                    </div>
-                    @endif
+            <div class="grid gap-4 xs:lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+                @foreach ($publicImages as $img)
+                    <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
+                        <div class="h-56 max-w-xs mx-2 my-2 overflow-hidden rounded-lg shadow-lg dark:bg-forest bg-gray-50">
+                            <h2 class="pt-2 mx-4 font-semibold text-gray-800 truncate dark:text-gray-100" title="{{ $img->title }}">
+                            {{ $img->title }}
+                            </h2>
+                            <p class="flex justify-end px-2 mb-2 mr-2 text-sm text-gray-100">
+                            {{ $img->created_at->format('d/m/Y') }} 
+                            by {{ $img->user->username }}
+                            </p>
+                            <img src="{{ route('image.show', ['image' => $img->fullname]) }}" alt="{{ $img->title ?? $img->user->username }}">
+                    
+                        </div>
+                    </a>
                 @endforeach
+            </div>
+            <div class="pt-5 text-center">
+                {{ $publicImages->fragment('public')->links() }}
             </div>
         </div>
         <div x-show="tab === 'private'">
-            <div class="flex flex-wrap">
-                @foreach ($userImages as $image)
-                    @if (!$image->is_public)
-                    <div class="p-3 md:w-1/2 lg:w-1/6">
-                        <a href="{{ route('image.show', ['image' => $image->pageName]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
-                            <h1 class="items-center justify-between h-16 p-3 px-4 text-lg leading-tight rounded-t bg-gray-50 dark:text-gray-300 dark:bg-forest lg:flex">{{ $image->title ?? '‌‌' }} <small class="dark:text-gray-400">@if($image->is_public) Public @else Private @endif</small></h1>
-                            <img class="w-full rounded-b" src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="{{ $image->title ?? $user->username }}">
-                        </a>
-                    </div>
-                    @endif
+            <div class="grid gap-4 xs:lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+                @foreach ($privateImages as $img)
+                    <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
+                        <div class="h-56 max-w-xs mx-2 my-2 overflow-hidden rounded-lg shadow-lg dark:bg-forest bg-gray-50">
+                            <h2 class="pt-2 mx-4 font-semibold text-gray-800 truncate dark:text-gray-100" title="{{ $img->title }}">
+                            {{ $img->title }}
+                            </h2>
+                            <p class="flex justify-end px-2 mb-2 mr-2 text-sm text-gray-100">
+                            {{ $img->created_at->format('d/m/Y') }} 
+                            by {{ $img->user->username }}
+                            </p>
+                            <img src="{{ route('image.show', ['image' => $img->fullname]) }}" alt="{{ $img->title ?? $img->user->username }}">
+                    
+                        </div>
+                    </a>
                 @endforeach
             </div>
-        </div>
-        <div class="pt-5 text-center">
-            {{ $userImages->links() }}
+            <div class="pt-5 text-center">
+                {{ $privateImages->fragment('private')->links() }}
+            </div>
         </div>
     </div>
     @else

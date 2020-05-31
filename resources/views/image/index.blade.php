@@ -12,16 +12,24 @@
   </div>
 </div>
 <br class="my-10">
-<div class="px-8 pt-6 pb-8 mx-4 bg-white rounded-lg shadow-md dark:bg-midnight sm:container sm:mx-auto sm:w-full">
-  <div class="flex flex-wrap">
-      @foreach ($images as $img)
-          <div class="px-0 py-3 md:py-3 md:px-3 md:w-1/2 lg:w-1/6">
-              <a href="{{ route('image.show', ['image' => $img->pageName]) }}" class="block h-56 overflow-hidden rounded-lg sm:shadow-lg">
-              <h1 class="items-center justify-between h-16 p-3 px-4 text-lg leading-tight truncate bg-white rounded-t dark:text-gray-300 dark:bg-forest lg:flex" title="{{ $img->title ?? '‌‌' }}">{{ $img->title ?? '‌‌' }} <small class="dark:text-gray-400">{{ $img->user->username }}</small></h1>
-                  <img class="w-full rounded-b" src="{{ route('image.show', ['image' => $img->fullname]) }}" alt="{{ $img->title ?? $user->username }}">
-              </a>
-          </div>
-      @endforeach
+<div class="px-8 pt-6 pb-8 bg-white rounded-lg shadow-md dark:bg-midnight sm:container sm:mx-auto sm:w-full">
+  <div class="grid gap-4 xs:lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+  {{-- <div class="flex flex-wrap"> --}}
+    @foreach ($images as $img)          
+      <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
+        <div class="flex-auto h-56 max-w-xs mx-2 my-2 overflow-hidden rounded-lg shadow-lg dark:bg-forest bg-gray-50">
+            <h2 class="pt-2 mx-4 font-semibold text-gray-800 truncate dark:text-gray-100" title="{{ $img->title }}">
+              {{ $img->title }}
+            </h2>
+            <p class="flex justify-end px-2 mb-2 mr-2 text-sm text-gray-100">
+              {{ $img->created_at->format('d/m/Y') }} 
+              by {{ $img->user->username }}
+            </p>
+            <img src="{{ route('image.show', ['image' => $img->fullname]) }}" alt="{{ $img->title ?? $img->user->username }}">
+     
+        </div>
+      </a>
+    @endforeach
   </div>
   <div class="pt-5 text-center">
       {{ $images->links() }}
