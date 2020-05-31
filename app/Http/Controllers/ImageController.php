@@ -133,7 +133,7 @@ class ImageController extends Controller
         $image->extension = $extension;
         $image->path = '/i/'.$newFullName;
         $image->user_id = $user->id;
-        $image->is_public = (! $user->always_public) ? 0 || (! Auth::check() || $user->always_public) : 1;
+        $image->is_public = ! Auth::check() == 1 || $request->has('is_public');
         $image->save();
 
         notify()->success('You have successfully upload image!');
