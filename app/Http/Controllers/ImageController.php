@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
 use App\User;
-use DiscordWebhooks\Client;
+use App\Image;
 use DiscordWebhooks\Embed;
+use DiscordWebhooks\Client;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Rules\ValidImageUrlRule;
+use Nubs\RandomNameGenerator\Vgng;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image as InterImage;
 use Nubs\RandomNameGenerator\Alliteration;
-use Nubs\RandomNameGenerator\Vgng;
+use Intervention\Image\Facades\Image as InterImage;
 
 class ImageController extends Controller
 {
@@ -50,9 +52,20 @@ class ImageController extends Controller
 
         $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
 
-        $pageName = str_replace(' ', '-', new Vgng()).'-'.Str::random(6);
-        $imageName = str_replace(' ', '-', new Alliteration()).'-'.str_replace(' ', '-',
-        new Vgng()).'-'.Str::random(6);
+        $pageName = (string) Str::of(new Vgng().'-'.Str::random(6))
+        ->replace('\'', '')
+        ->replace('.', '')
+        ->replace('/', '')
+        ->replace('\\', '')
+        ->replace(' ', '-');
+
+        $imageName = (string) Str::of(new Alliteration().'-'.new Vgng().'-'.Str::random(6))
+        ->replace('\'', '')
+        ->replace('.', '')
+        ->replace('/', '')
+        ->replace('\\', '')
+        ->replace(' ', '-');
+        
         $newFullName = $imageName.'.'.$request->file('image')->getClientOriginalExtension();
         $request->file('image')->move(('storage/images'), $newFullName);
 
@@ -67,6 +80,60 @@ class ImageController extends Controller
 
         $this->sendWebhook($user, $image);
 
+        notify()->success('You have successfully upload image!');
+
+        return redirect()->route('image.show', ['image' => $image->pageName]);
+    }
+
+    public function url_upload(Request $request)
+    {       
+        $rules = [
+            'url' => ['required', 'url', new ValidImageUrlRule],
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            notify()->error('Incorrect URL!');
+
+            return back();
+        }
+
+        $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
+
+        $url = $request->input('url');
+
+        $client = new \GuzzleHttp\Client();
+        $res = $client->get($url);
+        $content = (string) $res->getBody();
+        $extension = (string) Str::of($res->getHeaderLine('content-type'))->replace('image/', '');
+
+        $pageName = (string) Str::of(new Vgng().'-'.Str::random(6))
+        ->replace('\'', '')
+        ->replace('.', '')
+        ->replace('/', '')
+        ->replace('\\', '')
+        ->replace(' ', '-');
+
+        $imageName = (string) Str::of(new Alliteration().'-'.new Vgng().'-'.Str::random(6))
+        ->replace('\'', '')
+        ->replace('.', '')
+        ->replace('/', '')
+        ->replace('\\', '')
+        ->replace(' ', '-');
+
+        $newFullName = $imageName.'.'.$extension;
+        Storage::put('public/images/'.$newFullName, $content);
+
+        $image = new Image;
+        $image->pageName = $pageName;
+        $image->imageName = $imageName;
+        $image->extension = $extension;
+        $image->path = '/i/'.$newFullName;
+        $image->user_id = $user->id;
+        $image->is_public = (! $user->always_public) ? 0 || (! Auth::check() || $user->always_public) : 1;
+        $image->save(); 
+        
         notify()->success('You have successfully upload image!');
 
         return redirect()->route('image.show', ['image' => $image->pageName]);

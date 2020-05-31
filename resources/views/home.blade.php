@@ -3,9 +3,20 @@
 @section('content')
 <div class="px-8 pt-6 pb-8 mx-4 bg-white rounded-lg shadow-md dark:bg-midnight sm:container sm:mx-auto sm:w-full">
   <div class="text-black dark:text-gray-300">
-    <h2 class="text-2xl font-bold md:text-4xl">Drag And Drop</h2>
+    <h2 class="text-2xl font-bold md:text-3xl">Drag And Drop</h2>
     <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data" id="my-awesome-dropzone" class="max-w-lg text-lg font-medium border border-2 border-gray-300 border-dashed rounded-md cursor-pointer dark:bg-transparent dark:text-gray-100 dropzone">
       @csrf
+    </form>
+  </div>
+</div>
+
+<div class="px-8 pt-6 pb-8 mx-4 mt-4 bg-white rounded-lg shadow-md dark:bg-midnight sm:container sm:mx-auto sm:w-full">
+  <div class="text-black dark:text-gray-300">
+    <h2 class="text-2xl font-bold md:text-3xl">URL</h2>
+    <form action="{{ route('url_upload') }}" method="POST">
+      @csrf
+      <input type="text" name="url" class="w-1/4 p-2 text-gray-800 bg-gray-200 rounded focus:bg-white focus:outline-none">
+      <button class="px-4 py-2 bg-indigo-600 rounded hover:bg-indigo-700 focus:outline-none">Save</button>
     </form>
   </div>
 </div>
