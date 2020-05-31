@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Image;
-use DiscordWebhooks\Embed;
-use DiscordWebhooks\Client;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Rules\ValidImageUrlRule;
-use Nubs\RandomNameGenerator\Vgng;
+use App\User;
+use DiscordWebhooks\Client;
+use DiscordWebhooks\Embed;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Nubs\RandomNameGenerator\Alliteration;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as InterImage;
+use Nubs\RandomNameGenerator\Alliteration;
+use Nubs\RandomNameGenerator\Vgng;
 
 class ImageController extends Controller
 {
@@ -65,7 +65,7 @@ class ImageController extends Controller
         ->replace('/', '')
         ->replace('\\', '')
         ->replace(' ', '-');
-        
+
         $newFullName = $imageName.'.'.$request->file('image')->getClientOriginalExtension();
         $request->file('image')->move(('storage/images'), $newFullName);
 
@@ -86,7 +86,7 @@ class ImageController extends Controller
     }
 
     public function url_upload(Request $request)
-    {       
+    {
         $rules = [
             'url'       => ['required', 'url', new ValidImageUrlRule],
             'title'     => 'max:50'
@@ -133,7 +133,7 @@ class ImageController extends Controller
         $image->extension = $extension;
         $image->path = '/i/'.$newFullName;
         $image->user_id = $user->id;
-        $image->is_public = ! Auth::check() == 1 || $request->has('is_public');
+        $image->is_public = (! $user->always_public) ? 0 || (! Auth::check() || $user->always_public) : 1;
         $image->save();
 
         notify()->success('You have successfully upload image!');
