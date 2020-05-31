@@ -136,7 +136,9 @@ class ImageController extends Controller
         $image->is_public = ! Auth::check() == 1 || $request->has('is_public');
         $image->save();
 
-        notify()->success('You have successfully upload image!');
+        $this->sendWebhook($user, $image);
+
+        notify()->success('You have successfully upload image via URL!');
 
         return redirect()->route('image.show', ['image' => $image->pageName]);
     }
