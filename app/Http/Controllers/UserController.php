@@ -120,7 +120,7 @@ class UserController extends Controller
         $user->webhook_url = $request->input('webhook_url');
 
         $v = validator($user->toArray(), [
-            'webhook_url' => ['required', 'url', new ValidDiscordWebhookRule],
+            'webhook_url' => ['nullable', 'url', new ValidDiscordWebhookRule],
         ]);
 
         if ($v->fails()) {
