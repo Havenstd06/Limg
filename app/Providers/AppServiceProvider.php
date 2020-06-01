@@ -44,6 +44,10 @@ class AppServiceProvider extends ServiceProvider
             return auth()->user() && auth()->user()->id == $image->user->id;
         });
 
+        Blade::if('ownsAlbum', function ($album) {
+            return auth()->user() && auth()->user()->id == $album->user->id;
+        });
+
         Blade::if('isNotPublic', function ($image) {
             return $image->is_public == 0 && (! Auth::check() || auth()->user()->id != $image->user->id);
         });
