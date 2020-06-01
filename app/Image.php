@@ -15,6 +15,11 @@ class Image extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function album()
+    {
+        return $this->belongsToMany('App\Album');
+    }
+
     public function getFullNameAttribute()
     {
         return $this->imageName.'.'.$this->extension;
