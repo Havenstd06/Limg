@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Album;
-use App\Image;
 use Illuminate\Http\Request;
 
 class AlbumController extends Controller
@@ -52,7 +50,7 @@ class AlbumController extends Controller
 
         return view('album.show', [
             'user' => $user,
-            'album' => $album
+            'album' => $album,
         ]);
     }
 

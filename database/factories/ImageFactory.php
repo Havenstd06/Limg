@@ -16,7 +16,6 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(Image::class, function (Faker $faker) {
-
     $imagePool = [
         '/i/lNHJ8ot.png',
         '/i/gQHOGpS.png',
@@ -26,7 +25,7 @@ $factory->define(Image::class, function (Faker $faker) {
         '/i/HoJQtbq.png',
         '/i/fDYOALi.png',
     ];
-    
+
     return [
         'user_id' => 2,
         'title' => 'Limg default #3',
