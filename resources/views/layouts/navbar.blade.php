@@ -4,16 +4,6 @@
             <a href="{{ route('home') }}" data-turbolinks="false">
                 <img src="{{ url('images/logo-text-min-p.png') }}" alt="{{ config('app.name') }} Logo" class="h-10 rounded-lg">
             </a>
-            <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
-                @csrf 
-                <label class="flex items-center px-2 py-1 mt-1 ml-3 text-purple-700 transition duration-300 ease-out bg-white border border-purple-800 rounded-lg shadow-lg cursor-pointer hover:bg-purple-600 hover:text-white dark-hover:bg-purple-600 dark-hover:text-white" for="image-upload">
-                    <i class="ml-1 far fa-file-image"></i>
-                    <span class="ml-1 font-bold leading-normal text-center">
-                        Upload
-                    </span>
-                    <input class="hidden" id="image-upload" type="file" accept="image/*" name="image" aria-describedby="image" onChange="form.submit()"/>         
-                </label>
-            </form>
             <a href="{{ route('image.index') }}" class="flex items-center px-2 py-1 mt-1 ml-3 text-purple-700 transition duration-300 ease-out bg-white border border-purple-800 rounded-lg shadow-lg hover:bg-purple-600 hover:text-white dark-hover:bg-purple-600 dark-hover:text-white">
                 <i class="ml-1 far fa-images"></i>
                 <span class="ml-1 font-bold leading-normal text-center">
