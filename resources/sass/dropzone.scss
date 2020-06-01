@@ -354,6 +354,7 @@
 .dropzone .dz-preview .dz-details .dz-size {
     margin-bottom: 1em;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .dropzone .dz-preview .dz-details .dz-filename {
@@ -363,6 +364,7 @@
 .dropzone .dz-preview .dz-details .dz-filename:hover span {
     border: 1px solid rgba(200, 200, 200, 0.8);
     background-color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
 }
 
 .dropzone .dz-preview .dz-details .dz-filename:not(:hover) {
