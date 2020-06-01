@@ -47,7 +47,7 @@
             <form action="{{ route('url_upload') }}" method="POST">
               @csrf
               <textarea name="url" class="w-full p-2 border border-gray-300 border-dashed rounded-md h-41 bg-gray-50 focus:outline-none dark:bg-transparent dark:text-gray-100" style="resize: none;" 
-              placeholder="1 link per line. Example:
+              placeholder="1 link (max 10) per line. Example:
 https://limg.app/i/Amused-Ant-True-Crime:-Matador-Shootout-xFfLW9.jpg
 https://limg.app/i/Fantastic-Flamingo-Shrunken-Florist-Mania-pPCnYd.jpg"></textarea>
               <div class="flex justify-end">

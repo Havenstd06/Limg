@@ -95,6 +95,12 @@ class ImageController extends Controller
             'url' => 'required'
         ];
 
+        if (count($textAr) >= 10) {
+            notify()->error('Maximum 10 URLs!');
+
+            return back();
+        }
+
         foreach ($textAr as $key => $newValue) {
             $rules['url'] = new ValidImageUrlRule($newValue);
         }
