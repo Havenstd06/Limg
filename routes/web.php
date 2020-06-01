@@ -41,6 +41,7 @@ Route::post('/upload', 'ImageController@upload')->name('upload');
 Route::post('/url/upload', 'ImageController@url_upload')->name('url_upload');
 Route::post('/api/upload', 'ImageController@api_upload')->name('api_upload');
 
+
 Route::prefix('/i')->group(function () {
     Route::get('/', 'ImageController@index')->name('image.index');
 
@@ -51,6 +52,14 @@ Route::prefix('/i')->group(function () {
         Route::get('/delete', 'ImageController@delete')->name('image.delete');
         Route::get('/download', 'ImageController@download')->name('image.download');
         Route::get('/{size}', 'ImageController@build');
+    });
+});
+
+Route::prefix('/a')->group(function () {
+    Route::get('/', 'AlbumController@index')->name('album.index');
+    
+    Route::prefix('/{album}')->group(function () {
+        Route::get('/', 'AlbumController@show')->name('album.show');
     });
 });
 
