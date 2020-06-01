@@ -3,7 +3,12 @@
 @section('content')
 <section class="container flex items-center justify-center min-h-full py-5 mx-auto -mt-10 lg:justify-start ">
   <div class="flex flex-wrap items-center -mx-2 text-center lg:text-left">
-    <div class="hidden px-2 mx-auto lg:block lg:w-1/2"><img src="/images/home/image-bg.svg" alt="Limg"></div>
+    <div class="hidden px-2 mx-auto lg:block lg:w-1/2">      
+      <img src="/images/home/image-bg.svg" alt="Limg">     
+      <div class="mt-3 text-2xl font-bold text-center text-gray-800 dark:text-gray-50">
+        Already <span class="text-indigo-500">{{ App\Image::count() }}</span> Images Uploaded !
+      </div>
+    </div> 
     <div class="min-h-full px-2 mt-10 lg:w-1/2 lg:pl-16 lg:mt-0 ">
       <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-50">
         <span class="text-indigo-500">Limg</span>.App
@@ -12,9 +17,9 @@
         <a href="https://github.com/Havenstd06/Limg" target="_nofollow" class="text-gray-600 dark:text-gray-400 dark-hover:text-gray-500 hover:text-gray-700">Open Source</a> Image Hosting
       </h2>
       <h4 class="mt-2 mb-4 text-xl leading-tight text-gray-800 font-heading dark:text-gray-50">
-        Upload png, jpeg, jpg, gif, bmp and tiff
+        Upload png, jpeg, jpg, gif, bmp and tiff now !
       </h4>
-      <div class="w-full max-w-lg mx-auto lg:mx-0 " x-data="{ tab: 'drop' }">
+      <div class="max-w-lg mx-auto lg:mx-0 " x-data="{ tab: 'drop' }">
         <div class="mb-3 md:mb-0">
           <nav class="flex mb-3">
             <button @click="tab = 'drop'" class="px-3 py-2 ml-4 text-sm font-medium leading-5 rounded-md focus:outline-none"
@@ -76,7 +81,7 @@
               @auth 
               Download the <a href="https://getsharex.com/" target="no_follow" class="text-indigo-500 hover:text-indigo-600">ShareX</a> configuration linked to your account via a token.
               @else 
-              Download the <a href="https://getsharex.com/" target="no_follow" class="text-indigo-500 hover:text-indigo-600">ShareX</a> public configuration, <a href="{{ route('register') }}" class="text-indigo-500 hover:text-indigo-600">create an accout now</a>.
+              Download the <a href="https://getsharex.com/" target="no_follow" class="text-indigo-500 hover:text-indigo-600">ShareX</a> public image configuration, <a href="{{ route('register') }}" class="text-indigo-500 hover:text-indigo-600">create an accout now</a>.
               @endauth
             </p>
           </div>
