@@ -96,7 +96,7 @@ class ImageController extends Controller
         ];
 
         if (count($textAr) >= 10) {
-            notify()->error('Maximum 10 URLs!');
+            notify()->error('Maximum 10 URL!');
 
             return back();
         }
