@@ -121,16 +121,15 @@
             @endif
         </nav>
         <div x-show="tab === 'all'">
-            <div class="grid gap-4 xs:lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            <div class="gap-4 sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                 @foreach ($allImages as $img)
                     <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
-                        <div class="h-56 mx-2 mt-2 overflow-hidden rounded-lg shadow-lg md:mt-0 md:my-2 dark:bg-forest bg-gray-50">
+                        <div class="w-full h-56 mx-auto my-5 overflow-hidden rounded-lg shadow-lg md:w-full md:my-2 dark:bg-forest bg-gray-50">
                             <h2 class="pt-2 mx-4 font-semibold text-gray-800 truncate dark:text-gray-100" title="{{ $img->title }}">
                             {{ $img->title }}
                             </h2>
                             <p class="flex justify-end px-2 mb-2 mr-2 text-sm text-gray-100">
-                            {{ $img->created_at->format('d/m/Y') }} 
-                            by {{ $img->user->username }}
+                            {{ $img->created_at->format('d/m/Y') }}
                             </p>
                             <img src="{{ route('image.show', ['image' => $img->fullname]) }}" alt="{{ $img->title ?? $img->user->username }}">
                         </div>
@@ -142,16 +141,15 @@
             </div>
         </div>
         <div x-show="tab === 'public'">
-            <div class="grid gap-4 xs:lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            <div class="gap-4 sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                 @foreach ($publicImages as $img)
                     <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
-                        <div class="h-56 mx-2 mt-2 overflow-hidden rounded-lg shadow-lg md:mt-0 md:my-2 dark:bg-forest bg-gray-50">
+                        <div class="w-full h-56 mx-auto my-5 overflow-hidden rounded-lg shadow-lg md:w-full md:my-2 dark:bg-forest bg-gray-50">
                             <h2 class="pt-2 mx-4 font-semibold text-gray-800 truncate dark:text-gray-100" title="{{ $img->title }}">
                             {{ $img->title }}
                             </h2>
                             <p class="flex justify-end px-2 mb-2 mr-2 text-sm text-gray-100">
-                            {{ $img->created_at->format('d/m/Y') }} 
-                            by {{ $img->user->username }}
+                            {{ $img->created_at->format('d/m/Y') }}
                             </p>
                             <img src="{{ route('image.show', ['image' => $img->fullname]) }}" alt="{{ $img->title ?? $img->user->username }}">
                         </div>
@@ -163,16 +161,15 @@
             </div>
         </div>
         <div x-show="tab === 'private'">
-            <div class="grid gap-4 xs:lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            <div class="gap-4 sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                 @foreach ($privateImages as $img)
                     <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
-                        <div class="h-56 mx-2 mt-2 overflow-hidden rounded-lg shadow-lg md:mt-0 md:my-2 dark:bg-forest bg-gray-50">
+                        <div class="w-full h-56 mx-auto my-5 overflow-hidden rounded-lg shadow-lg md:w-full md:my-2 dark:bg-forest bg-gray-50">
                             <h2 class="pt-2 mx-4 font-semibold text-gray-800 truncate dark:text-gray-100" title="{{ $img->title }}">
                             {{ $img->title }}
                             </h2>
                             <p class="flex justify-end px-2 mb-2 mr-2 text-sm text-gray-100">
-                            {{ $img->created_at->format('d/m/Y') }} 
-                            by {{ $img->user->username }}
+                            {{ $img->created_at->format('d/m/Y') }}
                             </p>
                             <img src="{{ route('image.show', ['image' => $img->fullname]) }}" alt="{{ $img->title ?? $img->user->username }}">
                         </div>
