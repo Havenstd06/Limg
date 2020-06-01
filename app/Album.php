@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Album extends Model
 {
     protected $fillable = [
-        'name', 'slug','user_id',
+        'name', 'slug', 'user_id',
     ];
 
     public function getRouteKeyName()
