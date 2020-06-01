@@ -124,7 +124,7 @@
             <div class="grid gap-4 xs:lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                 @foreach ($allImages as $img)
                     <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
-                        <div class="h-56 max-w-xs mx-2 my-2 overflow-hidden rounded-lg shadow-lg dark:bg-forest bg-gray-50">
+                        <div class="h-56 mx-2 mt-2 overflow-hidden rounded-lg shadow-lg md:mt-0 md:my-2 dark:bg-forest bg-gray-50">
                             <h2 class="pt-2 mx-4 font-semibold text-gray-800 truncate dark:text-gray-100" title="{{ $img->title }}">
                             {{ $img->title }}
                             </h2>
@@ -133,7 +133,6 @@
                             by {{ $img->user->username }}
                             </p>
                             <img src="{{ route('image.show', ['image' => $img->fullname]) }}" alt="{{ $img->title ?? $img->user->username }}">
-                    
                         </div>
                     </a>
                 @endforeach
@@ -146,7 +145,7 @@
             <div class="grid gap-4 xs:lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                 @foreach ($publicImages as $img)
                     <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
-                        <div class="h-56 max-w-xs mx-2 my-2 overflow-hidden rounded-lg shadow-lg dark:bg-forest bg-gray-50">
+                        <div class="h-56 mx-2 mt-2 overflow-hidden rounded-lg shadow-lg md:mt-0 md:my-2 dark:bg-forest bg-gray-50">
                             <h2 class="pt-2 mx-4 font-semibold text-gray-800 truncate dark:text-gray-100" title="{{ $img->title }}">
                             {{ $img->title }}
                             </h2>
@@ -155,7 +154,6 @@
                             by {{ $img->user->username }}
                             </p>
                             <img src="{{ route('image.show', ['image' => $img->fullname]) }}" alt="{{ $img->title ?? $img->user->username }}">
-                    
                         </div>
                     </a>
                 @endforeach
@@ -168,7 +166,7 @@
             <div class="grid gap-4 xs:lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                 @foreach ($privateImages as $img)
                     <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
-                        <div class="h-56 max-w-xs mx-2 my-2 overflow-hidden rounded-lg shadow-lg dark:bg-forest bg-gray-50">
+                        <div class="h-56 mx-2 mt-2 overflow-hidden rounded-lg shadow-lg md:mt-0 md:my-2 dark:bg-forest bg-gray-50">
                             <h2 class="pt-2 mx-4 font-semibold text-gray-800 truncate dark:text-gray-100" title="{{ $img->title }}">
                             {{ $img->title }}
                             </h2>
@@ -177,7 +175,6 @@
                             by {{ $img->user->username }}
                             </p>
                             <img src="{{ route('image.show', ['image' => $img->fullname]) }}" alt="{{ $img->title ?? $img->user->username }}">
-                    
                         </div>
                     </a>
                 @endforeach
