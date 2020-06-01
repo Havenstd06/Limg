@@ -12,11 +12,11 @@
   </div>
 </div>
 <br class="my-10">
-<div class="px-4 pt-6 pb-8 bg-white rounded-lg shadow-md lg:px-8 dark:bg-midnight sm:container sm:mx-auto sm:w-full">
+<div class="px-4 pt-6 pb-2 bg-white rounded-lg shadow-md md:pb-8 lg:px-8 dark:bg-midnight sm:container sm:mx-auto sm:w-full">
   <div class="gap-4 sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
     @foreach ($images as $img)          
       <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
-        <div class="w-full h-56 mx-2 mx-auto mt-2 overflow-hidden rounded-lg shadow-lg md:w-full md:mt-0 md:my-2 dark:bg-forest bg-gray-50">
+        <div class="w-full h-56 mx-auto my-5 overflow-hidden rounded-lg shadow-lg md:w-full md:my-2 dark:bg-forest bg-gray-50">
             <h2 class="pt-2 mx-4 font-semibold text-gray-800 truncate dark:text-gray-100" title="{{ $img->title }}">
               {{ $img->title }}
             </h2>
