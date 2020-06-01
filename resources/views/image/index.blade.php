@@ -16,7 +16,7 @@
   <div class="grid gap-4 xs:lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
     @foreach ($images as $img)          
       <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
-        <div class="h-56 mx-2 mt-2 overflow-hidden rounded-lg shadow-lg md:mt-0 md:my-2 dark:bg-forest bg-gray-50">
+        <div class="w-11/12 h-56 mx-2 mx-auto mt-2 overflow-hidden rounded-lg shadow-lg md:w-full md:mt-0 md:my-2 dark:bg-forest bg-gray-50">
             <h2 class="pt-2 mx-4 font-semibold text-gray-800 truncate dark:text-gray-100" title="{{ $img->title }}">
               {{ $img->title }}
             </h2>
