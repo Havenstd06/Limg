@@ -13,7 +13,7 @@
 ## Features
 - Upload and share your image with privacy
 - Manage your image (custom title, public or private, delete, custom size...)
-- (new) Upload your image on ShareX
+- (new) Upload your image via file, url or ShareX !
 - (new) Custom Domain (be sure to add a redirect from the new domain to the main domain)
 - (new) Discord Webhook
 - (new) Admin Panel (ready to use)
@@ -28,6 +28,7 @@
 - Custom Domain (27/05/2020)
 - Discord Webhook (29/05/2020)
 - New Landing Page (31/05/2020)
+- Support for multiple URLs with validation (01/06/2020)
 
 ## Requirement
 - [**PHP**](https://php.net) 7.2+ (**7.4** preferred)

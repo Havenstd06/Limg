@@ -6,14 +6,16 @@ use Illuminate\Contracts\Validation\Rule;
 
 class ValidImageUrlRule implements Rule
 {
+    protected $newValue;
+
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($newValue)
     {
-        //
+        $this->newValue = $newValue;
     }
 
     /**
@@ -25,28 +27,31 @@ class ValidImageUrlRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        $client = new \GuzzleHttp\Client();
-
-        try {
-            $r = $client->request('GET', $value);
-        } catch (\Exception $e) {
+        if (filter_var($this->newValue, FILTER_VALIDATE_URL) === false) {
             return false;
-        }
+        } else {
+            $client = new \GuzzleHttp\Client();
 
-        if ($r->getStatusCode() != 200) {
-            return false;
-        }
+            try {
+                $r = $client->request('GET', $this->newValue);
+            } catch (\Exception $e) {
+                return false;
+            }
 
-        if ($r->getStatusCode() == 200) {
-            $c = $r->getHeaderLine('content-type');
-            if ($c == 'image/png' || $c == 'image/jpeg' || $c == 'image/jpg' || $c == 'image/svg' || $c == 'image/gif'
-            || $c == 'image/bmp' || $c == 'image/tiff') {
-                return true;
+            if ($r->getStatusCode() != 200) {
+                return false;
+            }
+
+            if ($r->getStatusCode() == 200) {
+                $c = $r->getHeaderLine('content-type');
+                if ($c == 'image/png' || $c == 'image/jpeg' || $c == 'image/jpg' || $c == 'image/svg' || $c == 'image/gif') {
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
-        } else {
-            return false;
         }
     }
 

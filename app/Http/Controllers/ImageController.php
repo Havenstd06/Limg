@@ -87,10 +87,17 @@ class ImageController extends Controller
 
     public function url_upload(Request $request)
     {
+        $text = $_POST['url']; 
+        $textAr = explode("\n", str_replace("\r", "", $text)); 
+        $textAr = array_filter($textAr,'trim'); 
+
         $rules = [
-            'url'       => ['required', 'url', new ValidImageUrlRule],
-            'title'     => 'max:50',
+            'url' => 'required'
         ];
+
+        foreach ($textAr as $key => $newValue) {
+            $rules['url'] = new ValidImageUrlRule($newValue);
+        }
 
         $validator = Validator::make($request->all(), $rules);
 
@@ -100,47 +107,47 @@ class ImageController extends Controller
             return back();
         }
 
-        $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
+        foreach ($textAr as $line) {
 
-        $url = $request->input('url');
+            $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
 
-        $client = new \GuzzleHttp\Client();
-        $res = $client->get($url);
-        $content = (string) $res->getBody();
-        $extension = (string) Str::of($res->getHeaderLine('content-type'))->replace('image/', '');
+            $client = new \GuzzleHttp\Client();
+            $res = $client->get($line);
+            $content = (string) $res->getBody();
+            $extension = (string) Str::of($res->getHeaderLine('content-type'))->replace('image/', '');
 
-        $pageName = (string) Str::of(new Vgng().'-'.Str::random(6))
-        ->replace('\'', '')
-        ->replace('.', '')
-        ->replace('/', '')
-        ->replace('\\', '')
-        ->replace(' ', '-');
+            $pageName = (string) Str::of(new Vgng().'-'.Str::random(6))
+            ->replace('\'', '')
+            ->replace('.', '')
+            ->replace('/', '')
+            ->replace('\\', '')
+            ->replace(' ', '-');
 
-        $imageName = (string) Str::of(new Alliteration().'-'.new Vgng().'-'.Str::random(6))
-        ->replace('\'', '')
-        ->replace('.', '')
-        ->replace('/', '')
-        ->replace('\\', '')
-        ->replace(' ', '-');
+            $imageName = (string) Str::of(new Alliteration().'-'.new Vgng().'-'.Str::random(6))
+            ->replace('\'', '')
+            ->replace('.', '')
+            ->replace('/', '')
+            ->replace('\\', '')
+            ->replace(' ', '-');
 
-        $newFullName = $imageName.'.'.$extension;
-        Storage::put('public/images/'.$newFullName, $content);
+            $newFullName = $imageName.'.'.$extension;
+            Storage::put('public/images/'.$newFullName, $content);
 
-        $image = new Image;
-        $image->title = $request->input('title');
-        $image->pageName = $pageName;
-        $image->imageName = $imageName;
-        $image->extension = $extension;
-        $image->path = '/i/'.$newFullName;
-        $image->user_id = $user->id;
-        $image->is_public = ! Auth::check() == 1 || $request->has('is_public');
-        $image->save();
+            $image = new Image;
+            $image->pageName = $pageName;
+            $image->imageName = $imageName;
+            $image->extension = $extension;
+            $image->path = '/i/'.$newFullName;
+            $image->user_id = $user->id;
+            $image->is_public = ! Auth::check() == 1 || $request->has('is_public');
+            $image->save();
 
-        $this->sendWebhook($user, $image);
+            $this->sendWebhook($user, $image);
+        }
 
         notify()->success('You have successfully upload image via URL!');
 
-        return redirect()->route('image.show', ['image' => $image->pageName]);
+        return back();
     }
 
     public function api_upload(Request $request)

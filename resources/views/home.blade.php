@@ -17,7 +17,7 @@
         <a href="https://github.com/Havenstd06/Limg" target="_nofollow" class="text-gray-600 dark:text-gray-400 dark-hover:text-gray-500 hover:text-gray-700">Open Source</a> Image Hosting
       </h2>
       <h4 class="mt-2 mb-4 text-xl leading-tight text-gray-800 font-heading dark:text-gray-50">
-        Upload png, jpeg, jpg, gif, bmp and tiff now !
+        Upload png, jpeg, jpg and gif now !
       </h4>
       <div class="max-w-lg mx-auto lg:mx-0 " x-data="{ tab: 'drop' }">
         <div class="mb-3 md:mb-0">
@@ -46,22 +46,24 @@
           <div x-cloak x-show="tab === 'url'">
             <form action="{{ route('url_upload') }}" method="POST">
               @csrf
-              <textarea name="url" class="w-full p-2 border border-gray-300 border-dashed rounded-md h-41 bg-gray-50 focus:outline-none dark:bg-transparent dark:text-gray-100" style="resize: none;" placeholder="https://limg.app/i/gQHOGpS.png"></textarea>
-              <div class="flex">
-                <input type="text" name="title" placeholder="Give a title to your image (optional)" class="w-full p-2 text-gray-800 bg-gray-200 rounded focus:bg-white focus:outline-none">
+              <textarea name="url" class="w-full p-2 border border-gray-300 border-dashed rounded-md h-41 bg-gray-50 focus:outline-none dark:bg-transparent dark:text-gray-100" style="resize: none;" 
+              placeholder="1 link per line. Example:
+https://limg.app/i/Amused-Ant-True-Crime:-Matador-Shootout-xFfLW9.jpg
+https://limg.app/i/Fantastic-Flamingo-Shrunken-Florist-Mania-pPCnYd.jpg"></textarea>
+              <div class="flex justify-end">
                 @auth
-                <div class="flex flex-auto text-gray-800 dark:text-gray-50">
+                <div class="flex text-gray-800 dark:text-gray-50">
                   <input type="checkbox" name="is_public" title="Is Public" value="{{ $user->always_public ? '1' : '0' }}" {{ $user->always_public ? 'checked' : '' }} class="w-4 h-4 mt-3 ml-2 text-indigo-600 transition duration-150 ease-in-out rounded-full form-checkbox">
                   <p class="mt-2 ml-2">Public</p>
                 </div>
                 @endauth
-                <div class="flex-auto">
+                <div class="">
                   <button class="px-4 py-2 ml-3 transition duration-300 ease-out bg-indigo-600 rounded text-gray-50 hover:bg-indigo-700 focus:outline-none">Send</button>
                 </div>
               </div>
             </form>
             <p class="mt-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-              Paste your image link to start upload images. 15 MB per image.
+              Paste image links to start uploading images. 15 MB per image.
             </p>
           </div>
           <div x-cloak x-show="tab === 'sharex'">
