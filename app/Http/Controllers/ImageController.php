@@ -28,7 +28,7 @@ class ImageController extends Controller
     {
         $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
 
-        $images = Image::orderBy('created_at', 'desc')->where('is_public', '=', 1)->paginate(12);
+        $images = Image::orderBy('created_at', 'desc')->where('is_public', '=', 1)->paginate(20);
 
         return view('image.index', [
             'user' => $user,
@@ -38,6 +38,7 @@ class ImageController extends Controller
 
     public function upload(Request $request)
     {
+
         $rules = [
             'image' => 'required | mimes:jpeg,jpg,png,svg,gif,bmp,tiff | max:15000',
         ];
@@ -80,9 +81,8 @@ class ImageController extends Controller
 
         $this->sendWebhook($user, $image);
 
-        notify()->success('You have successfully upload image!');
-
-        return redirect()->route('image.show', ['image' => $image->pageName]);
+        return route('image.show', ['image' => $image->pageName]);
+        
     }
 
     public function url_upload(Request $request)

@@ -94,17 +94,14 @@
     paramName: "image",
     maxFilesize: 15,
     acceptedFiles: 'image/*',
-    @auth
     init: function() {
       myDropzone = this;
-      this.on('addedfile', function(file) {
+      this.on('success', function(file, response) {
         file.previewElement.addEventListener("click", function () {
-            window.location.replace('{{ route('user.gallery', ['user' => auth()->user()]) }}');
+            window.location.replace(response);
         });
       })
-      console.log('error')
     }
-    @endauth
   };
 </script>
 <script>
