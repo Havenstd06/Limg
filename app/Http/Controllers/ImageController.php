@@ -38,7 +38,6 @@ class ImageController extends Controller
 
     public function upload(Request $request)
     {
-
         $rules = [
             'image' => 'required | mimes:jpeg,jpg,png,svg,gif,bmp,tiff | max:15000',
         ];
@@ -82,7 +81,6 @@ class ImageController extends Controller
         $this->sendWebhook($user, $image);
 
         return route('image.show', ['image' => $image->pageName]);
-        
     }
 
     public function url_upload(Request $request)
