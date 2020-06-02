@@ -206,4 +206,15 @@ class UserController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function albums(Request $request, $username)
+    {
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($user == $request->user(), 403);
+
+        return view('user.albums', [
+            'user' => $user,
+        ]);
+    }
 }
