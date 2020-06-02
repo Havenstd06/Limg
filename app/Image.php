@@ -37,6 +37,8 @@ class Image extends Model
 
     public static function search($query, $user)
     {
+        // join('users', 'user_id', '=', 'users.id')
+        // ->where('users.username', 'LIKE', '%'.$query.'%')
         return empty($query) ? static::where('user_id', $user->id) :
             static::where([
                 ['user_id', $user->id],
@@ -66,5 +68,9 @@ class Image extends Model
                 ['user_id', $user->id],
                 ['is_public', 'LIKE', '%'.$query.'%'],
             ]);
+            
+            // ->select('users.*')
+            // ->join('users', 'user_id', '=', 'users.id')
+            // ->where('users.email', 'LIKE', '%'.$query.'%');
     }
 }
