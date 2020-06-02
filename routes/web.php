@@ -24,6 +24,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::prefix('p/{user}')->group(function () {
     Route::get('/', 'UserController@profile')->name('user.profile');
     Route::get('/gallery', 'UserController@gallery')->name('user.gallery');
+    Route::get('/albums', 'UserController@albums')->name('user.albums');
     Route::name('settings.')->prefix('settings')->group(function () {
         Route::get('/', 'UserController@settings')->name('index');
         Route::post('update/style', 'UserController@update_style')->name('update.style');
@@ -56,6 +57,7 @@ Route::prefix('/i')->group(function () {
 
 Route::prefix('/a')->group(function () {
     Route::get('/', 'AlbumController@index')->name('album.index');
+    Route::get('/new', 'AlbumController@create')->name('album.create');
 
     Route::prefix('/{album}')->group(function () {
         Route::get('/', 'AlbumController@show')->name('album.show');
