@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Album;
+use App\Image;
 use Illuminate\Http\Request;
 
 class AlbumController extends Controller
@@ -14,7 +15,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        //
+        return view('album.index');
     }
 
     /**
@@ -24,7 +25,7 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        //
+        return view('album.create');
     }
 
     /**
@@ -46,10 +47,7 @@ class AlbumController extends Controller
      */
     public function show(Album $album)
     {
-        $user = auth()->user();
-
         return view('album.show', [
-            'user' => $user,
             'album' => $album,
         ]);
     }

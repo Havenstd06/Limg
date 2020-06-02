@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- {{ $album->name }}
-
-@foreach ($album->images as $i)
-    <img src="{{ $i->path }}" alt="{{ $i->title }}">
-@endforeach --}}
 <div class="px-8 pt-6 pb-8 mx-4 bg-white rounded-lg shadow-md max-w-7xl dark:bg-midnight sm:container sm:mx-auto sm:w-full">
 <h3 class="mb-4 text-4xl truncate dark:text-gray-300">{{ $album->name }}</h3>
   <div class="container mx-auto">
@@ -43,19 +38,23 @@
       </a>
     </div>
     <div class="gap-4 sm:grid sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3">
-      @foreach ($album->images as $i)
-      <a href="{{ route('image.show', ['image' => $i->pageName]) }}">
-        <div class="w-full h-56 mx-auto my-5 overflow-hidden rounded-lg shadow-lg md:h-96 xl:h-64 md:w-full md:my-2 dark:bg-forest bg-gray-50">
-            <h2 class="pt-2 mx-4 font-semibold text-gray-800 truncate dark:text-gray-100" title="{{ $i->title }}">
-              {{ $i->title }}
-            </h2>
-            <p class="flex justify-end px-2 mb-2 mr-2 text-sm text-gray-100">
-              {{ $i->created_at->format('d/m/Y') }} 
-              by {{ $i->user->username }}
-            </p>
-            <img src="{{ route('image.show', ['image' => $i->fullname]) }}" alt="{{ $i->title ?? $i->user->username }}">
+      @foreach ($album->images as $img)
+        <div class="rounded-lg dark:bg-forest bg-gray-50">
+          <h2 class="h-10 pt-2 mx-4 my-4 font-semibold text-gray-800 truncate md:my-0 dark:text-gray-100" title="{{ $img->title }}">
+            {{ $img->title ?? '' }}
+          </h2>
+          <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
+            <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
+            style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+          </a>
+          <p class="flex justify-end px-2 py-1 mr-2 text-sm font-medium text-gray-800 dark:text-gray-100">
+            {{ $img->created_at->format('d/m/Y') }} 
+            by&nbsp;
+            <a href="{{ route('user.profile', ['user' => $img->user->username]) }}" class="text-indigo-500 hover:text-indigo-400">
+              {{ $img->user->username }}
+            </a>
+          </p>
         </div>
-      </a>
       @endforeach
     </div>
   </div>
