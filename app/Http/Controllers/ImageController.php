@@ -26,14 +26,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
-
-        $images = Image::orderBy('created_at', 'desc')->where('is_public', '=', 1)->paginate(20);
-
-        return view('image.index', [
-            'user' => $user,
-            'images' => $images,
-        ]);
+        return view('image.index');
     }
 
     public function upload(Request $request)
