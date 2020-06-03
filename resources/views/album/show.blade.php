@@ -80,7 +80,7 @@
               {{ $img->title ?? '' }}
             </h2>
           @ownsAlbum($album)
-            <a href="{{ route('album.remove', ['album' => $album, 'image' => $img]) }}" title="Remove from this album" data-turbolinks="false">
+            <a href="{{ route('album.remove', ['album' => $album, 'image' => $img]) }}" title="Remove this image from this album" data-turbolinks="false">
               <span class="absolute block px-1 text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full right-2 top-1">
                 <i class="far fa-trash-alt fa-sm" style="margin-bottom:6px;margin-left:3px;margin-right:3px;"></i>
               </span>
