@@ -61,6 +61,9 @@ Route::prefix('/a')->group(function () {
 
     Route::prefix('/{album}')->group(function () {
         Route::get('/', 'AlbumController@show')->name('album.show');
+
+        Route::post('/updates', 'AlbumController@infos')->name('album.infos');
+        Route::get('/delete', 'AlbumController@delete')->name('album.delete');
     });
 });
 
