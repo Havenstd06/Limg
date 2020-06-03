@@ -74,6 +74,7 @@
       </div>
       <div class="md:mx-8">
         <h3 class="pb-3 mt-5 -ml-2 text-2xl font-medium text-center text-gray-900 dark:text-gray-100 md:mt-0">Image Tools</h3>
+          @auth
           <form action="{{ route('image.add_to_album', ['image' => $image->pageName]) }}">
             <div class="w-full mb-4 rounded-md shadow-sm">
               <select name="album" class="block w-full transition duration-150 ease-in-out form-select sm:text-sm sm:leading-5" onChange="form.submit()">
@@ -84,6 +85,7 @@
               </select>
             </div>
           </form>
+          @endauth
           <div class="w-full mt-3 mb-4 sm:mt-0 sm:mr-3 custom-number-input">
             <div class="relative flex flex-row w-full bg-transparent rounded-lg">
               <input type="number" id="userInput" placeholder="Size" class="flex items-center w-full max-w-full font-semibold text-center text-gray-800 bg-gray-200 outline-none focus:outline-none text-md hover:text-black focus:text-black md:text-basecursor-default">
