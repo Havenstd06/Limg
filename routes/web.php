@@ -50,6 +50,7 @@ Route::prefix('/i')->group(function () {
 
         Route::post('/updates', 'ImageController@infos')->name('image.infos');
         Route::get('/delete', 'ImageController@delete')->name('image.delete');
+        Route::get('/addtoalbum', 'ImageController@add_to_album')->name('image.add_to_album');
         Route::get('/download', 'ImageController@download')->name('image.download');
         Route::get('/{size}', 'ImageController@build');
     });

@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
-use App\Rules\ValidImageUrlRule;
 use App\User;
-use DiscordWebhooks\Client;
+use App\Album;
+use App\Image;
 use DiscordWebhooks\Embed;
+use DiscordWebhooks\Client;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Rules\ValidImageUrlRule;
+use Nubs\RandomNameGenerator\Vgng;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image as InterImage;
 use Nubs\RandomNameGenerator\Alliteration;
-use Nubs\RandomNameGenerator\Vgng;
+use Intervention\Image\Facades\Image as InterImage;
 
 class ImageController extends Controller
 {
@@ -234,7 +235,7 @@ class ImageController extends Controller
         }
     }
 
-    public function get($image)
+    public function get(Request $request, $image)
     {
         if (strpos($image, '.') !== false) { // Afficher la page avec l'extension
             $imageLink = Image::where('path', '/i/'.$image)->firstOrFail();
@@ -245,9 +246,12 @@ class ImageController extends Controller
             $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
             $pageImage = Image::where('pageName', pathinfo($image, PATHINFO_FILENAME))->firstOrFail();
 
+            $userAlbums = Album::where('user_id', '=', $request->user()->id)->get();
+
             return view('image.show', [
                 'user' => $user,
                 'image' => $pageImage,
+                'albums' => $userAlbums,
             ]);
         }
     }
@@ -290,6 +294,22 @@ class ImageController extends Controller
         notify()->success('You have successfully delete your image!');
 
         return redirect()->route('home');
+    }
+
+    public function add_to_album(Request $request, Image $image)
+    {
+        $user = $request->user();
+
+        $selectValue = $request->input('album');
+        $album = Album::where('id', '=', $selectValue)->first();
+
+        abort_unless(Auth::check() && $user->id == $album->user->id, 403);
+
+        $image->album()->attach($selectValue);
+
+        notify()->success('You have successfully add this image to your album!');
+
+        return redirect()->route('album.show', ['album' => $album->slug]);
     }
 
     public function download(Image $image)
