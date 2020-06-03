@@ -39,8 +39,7 @@ class Image extends Model
     {
         // join('users', 'user_id', '=', 'users.id')
         // ->where('users.username', 'LIKE', '%'.$query.'%')
-        return static::where('id', 'LIKE', '%'.$query.'%')
-            ->orWhere('title', 'LIKE', '%'.$query.'%')
+        return static::where('title', 'LIKE', '%'.$query.'%')
             ->orWhere('created_at', 'LIKE', '%'.$query.'%')
             ->orWhere('extension', 'LIKE', '%'.$query.'%')
             ->orWhere('pageName', 'LIKE', '%'.$query.'%')
@@ -54,8 +53,6 @@ class Image extends Model
 
     public static function userSearch($query, $user)
     {
-        // join('users', 'user_id', '=', 'users.id')
-        // ->where('users.username', 'LIKE', '%'.$query.'%')
         return empty($query) ? static::where('user_id', $user->id) :
             static::where([
                 ['user_id', $user->id],
@@ -85,9 +82,5 @@ class Image extends Model
                 ['user_id', $user->id],
                 ['is_public', 'LIKE', '%'.$query.'%'],
             ]);
-
-        // ->select('users.*')
-            // ->join('users', 'user_id', '=', 'users.id')
-            // ->where('users.email', 'LIKE', '%'.$query.'%');
     }
 }

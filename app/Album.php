@@ -27,8 +27,7 @@ class Album extends Model
 
     public static function search($query)
     {
-        return static::where('id', 'LIKE', '%'.$query.'%')
-            ->orWhere('name', 'LIKE', '%'.$query.'%')
+        return static::where('name', 'LIKE', '%'.$query.'%')
             ->orWhere('slug', 'LIKE', '%'.$query.'%')
             ->orWhere('created_at', 'LIKE', '%'.$query.'%');
     }
