@@ -28,7 +28,7 @@ class CreateAlbum extends Component
 
         return redirect()->route('album.show', ['album' => $album->slug]);
     }
-    
+
     public function render()
     {
         return view('livewire.create-album');

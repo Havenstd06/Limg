@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Image;
-use DiscordWebhooks\Embed;
-use DiscordWebhooks\Client;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Rules\ValidImageUrlRule;
-use Nubs\RandomNameGenerator\Vgng;
-use Illuminate\Support\Facades\URL;
+use App\User;
+use DiscordWebhooks\Client;
+use DiscordWebhooks\Embed;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
-use Nubs\RandomNameGenerator\Alliteration;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as InterImage;
+use Nubs\RandomNameGenerator\Alliteration;
+use Nubs\RandomNameGenerator\Vgng;
 
 class ImageController extends Controller
 {
@@ -241,7 +241,6 @@ class ImageController extends Controller
 
             return response()->download($imageLink->fullpath, null, [], null);
         } else { // Afficher le view image
-
 
             $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
             $pageImage = Image::where('pageName', pathinfo($image, PATHINFO_FILENAME))->firstOrFail();

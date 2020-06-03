@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Album;
 use App\Image;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
