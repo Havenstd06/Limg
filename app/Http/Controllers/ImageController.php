@@ -246,7 +246,7 @@ class ImageController extends Controller
             $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
             $pageImage = Image::where('pageName', pathinfo($image, PATHINFO_FILENAME))->firstOrFail();
 
-            $userAlbums = Album::where('user_id', '=', $request->user()->id)->get();
+            $userAlbums = Album::where('user_id', '=', $user->id)->get();
 
             return view('image.show', [
                 'user' => $user,
@@ -306,7 +306,7 @@ class ImageController extends Controller
         abort_unless(Auth::check() && $user->id == $album->user->id, 403);
 
         if ($album->images()->where('image_id', $image->id)->exists()) {
-            notify()->error('Image is already on this album!');
+            notify()->error('This image is already on the selected album!');
 
             return back();
         }
