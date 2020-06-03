@@ -75,9 +75,18 @@
     <div class="gap-4 sm:grid sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3">
       @foreach ($album->images as $img)
         <div class="rounded-lg dark:bg-forest bg-gray-50">
-          <h2 class="h-10 pt-2 mx-4 my-4 font-semibold text-gray-800 truncate md:my-0 dark:text-gray-100" title="{{ $img->title }}">
-            {{ $img->title ?? '' }}
-          </h2>
+          <div class="relative flex">
+            <h2 class="h-10 pt-2 mx-4 my-4 font-semibold text-gray-800 truncate md:my-0 dark:text-gray-100" title="{{ $img->title }}">
+              {{ $img->title ?? '' }}
+            </h2>
+          @ownsAlbum($album)
+            <a href="{{ route('album.remove', ['album' => $album, 'image' => $img]) }}" title="Remove from this album" data-turbolinks="false">
+              <span class="absolute block px-1 text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full right-2 top-1">
+                <i class="far fa-trash-alt fa-sm" style="margin-bottom:6px;margin-left:3px;margin-right:3px;"></i>
+              </span>
+            </a>
+          @endownsAlbum
+          </div>
           <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
             <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
             style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Album;
+use App\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -84,11 +85,24 @@ class AlbumController extends Controller
         $user = $request->user();
         abort_unless(Auth::check() && $user->id == $album->user->id, 403);
 
+        $album->images()->detach();
         $album->delete();
 
         notify()->success('You have successfully delete your album!');
 
         return redirect()->route('album.index');
+    }
+
+    public function remove(Request $request, Album $album, Image $image)
+    {
+        $user = $request->user();
+        abort_unless(Auth::check() && $user->id == $album->user->id, 403);
+
+        $album->images()->detach($image);
+
+        notify()->success('You have successfully remove this image from this album!');
+
+        return redirect()->back();
     }
 
     /**
