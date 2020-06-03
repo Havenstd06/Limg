@@ -305,6 +305,12 @@ class ImageController extends Controller
 
         abort_unless(Auth::check() && $user->id == $album->user->id, 403);
 
+        if ($album->images()->where('image_id', $image->id)->exists()) {
+            notify()->error('Image is already on this album!');
+
+            return back();
+        }
+
         $image->album()->attach($selectValue);
 
         notify()->success('You have successfully add this image to your album!');
