@@ -35,7 +35,24 @@ class Image extends Model
         return storage_path('app/public/images/'.$this->fullname);
     }
 
-    public static function search($query, $user)
+    public static function search($query)
+    {
+        // join('users', 'user_id', '=', 'users.id')
+        // ->where('users.username', 'LIKE', '%'.$query.'%')
+        return static::where('id', 'LIKE', '%'.$query.'%')
+            ->orWhere('title', 'LIKE', '%'.$query.'%')
+            ->orWhere('created_at', 'LIKE', '%'.$query.'%')
+            ->orWhere('extension', 'LIKE', '%'.$query.'%')
+            ->orWhere('pageName', 'LIKE', '%'.$query.'%')
+            ->orWhere('imageName', 'LIKE', '%'.$query.'%')
+            ->orWhere('is_public', 'LIKE', '%'.$query.'%');
+
+        // ->select('users.*')
+            // ->join('users', 'user_id', '=', 'users.id')
+            // ->where('users.email', 'LIKE', '%'.$query.'%');
+    }
+
+    public static function userSearch($query, $user)
     {
         // join('users', 'user_id', '=', 'users.id')
         // ->where('users.username', 'LIKE', '%'.$query.'%')

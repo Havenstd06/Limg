@@ -25,7 +25,15 @@ class Album extends Model
         return $this->belongsToMany('App\Image');
     }
 
-    public static function search($query, $user)
+    public static function search($query)
+    {
+        return static::where('id', 'LIKE', '%'.$query.'%')
+            ->orWhere('name', 'LIKE', '%'.$query.'%')
+            ->orWhere('slug', 'LIKE', '%'.$query.'%')
+            ->orWhere('created_at', 'LIKE', '%'.$query.'%');
+    }
+
+    public static function userSearch($query, $user)
     {
         return empty($query) ? static::where('user_id', $user->id) :
             static::where([
