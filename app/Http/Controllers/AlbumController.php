@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class AlbumController extends Controller
 {
@@ -49,6 +52,44 @@ class AlbumController extends Controller
         return view('album.show', [
             'album' => $album,
         ]);
+    }
+
+    public function infos(Request $request, Album $album)
+    {
+        $user = $request->user();
+        abort_unless(Auth::check() && $user->id == $album->user->id, 403);
+
+        $rules = [
+            'name' => 'max:50',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            notify()->error('The name must contain maximum 50 characters!');
+
+            return back();
+        }
+
+        $album->name = $request->input('name');
+        $album->is_public = $request->has('is_public');
+        $album->save();
+
+        notify()->success('You have successfully updated your image!');
+
+        return redirect(route('album.show', ['album' => $album->slug]));
+    }
+
+    public function delete(Request $request, Album $album)
+    {
+        $user = $request->user();
+        abort_unless(Auth::check() && $user->id == $album->user->id, 403);
+
+        $album->delete();
+
+        notify()->success('You have successfully delete your album!');
+
+        return redirect()->route('album.index');
     }
 
     /**
