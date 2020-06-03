@@ -95,7 +95,6 @@
                                     <div class="flex-shrink-0 w-10 h-auto">
                                         <img class="w-10 h-auto rounded" src="{{ route('image.show', ['image' => $album->images->first()->fullname]) }}" alt="" />
                                     </div>
-                                    <div class="ml-4 text-sm font-medium leading-5 text-gray-900">{{ $album->title ? $album->title : '' }}</div>
                                 </div>
                             </a>
                         </td>

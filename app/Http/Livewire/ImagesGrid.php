@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire;
 
+use App\User;
 use App\Image;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Livewire\WithPagination;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ImagesGrid extends Component
 {
@@ -75,8 +76,9 @@ class ImagesGrid extends Component
 
     private function getAllImages(): Collection
     {
-        $base = Image::search($this->search,
-        auth()->user())->get()->where('is_public', '=', '1');
+        $base = Image::search($this->search)
+            ->get()
+            ->where('is_public', '=', '1');
         if (! empty(trim($this->search))) {
             $this->page = 1;
         }

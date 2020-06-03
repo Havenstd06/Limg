@@ -77,7 +77,7 @@ class UserGallery extends Component
 
     private function getAllImages(): Collection
     {
-        $base = Image::search($this->search, auth()->user())->get();
+        $base = Image::userSearch($this->search, auth()->user())->get();
         if (! empty(trim($this->search))) {
             $this->page = 1;
         }

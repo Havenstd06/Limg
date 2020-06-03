@@ -77,7 +77,7 @@ class UserAlbums extends Component
 
     private function getAllAlbums(): Collection
     {
-        $base = Album::search($this->search, auth()->user())->get();
+        $base = Album::userSearch($this->search, auth()->user())->get();
         if (! empty(trim($this->search))) {
             $this->page = 1;
         }

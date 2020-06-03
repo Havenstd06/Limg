@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire;
 
+use App\User;
 use App\Album;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Livewire\WithPagination;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AlbumsGrid extends Component
 {
@@ -74,8 +75,9 @@ class AlbumsGrid extends Component
 
     private function getAllAlbums(): Collection
     {
-        $base = Album::search($this->search,
-        auth()->user())->get();
+        $base = Album::search($this->search)
+            ->get()
+            ->where('is_public', '=', '1');
         if (! empty(trim($this->search))) {
             $this->page = 1;
         }
