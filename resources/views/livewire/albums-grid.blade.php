@@ -1,12 +1,8 @@
 <div>
     <div class="items-center justify-between pt-2 lg:flex">
         <div class="md:flex">
-            <div wire:click.prevent="sortBy('id')" role="button" href="#" class="w-full px-3 py-2 mx-2 mt-2 text-center bg-gray-700 rounded-md md:w-24 hover:bg-gray-800 text-gray-50">
-                ID
-                @include('includes._sort-icon', ['given_field' => 'id'])
-            </div>
             <div wire:click.prevent="sortBy('name')" role="button" href="#" class="w-full px-3 py-2 mx-2 mt-2 text-center bg-gray-700 rounded-md md:w-24 hover:bg-gray-800 text-gray-50">
-                Album
+                Name
                 @include('includes._sort-icon', ['given_field' => 'name'])
             </div>
             <div wire:click.prevent="sortBy('created_at')" role="button" href="#" class="w-full px-3 py-2 mx-2 mt-2 text-center bg-gray-700 rounded-md md:w-24 hover:bg-gray-800 text-gray-50">
@@ -28,7 +24,6 @@
     @if ($albums->count() > 0)
     <div class="gap-4 mt-4 sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
         @foreach ($albums as $album)
-        {{-- {{ dd(route('image.show', ['image' => $album->images->first()->fullname])) }} --}}
             <div wire:loading.remove class="mt-2 transition duration-300 ease-out bg-center bg-cover border rounded-lg dark:bg-forest bg-gray-50 hover:border-gray-50 border-midnight">
             <h2 class="h-10 pt-2 mx-4 my-4 font-semibold text-gray-800 truncate md:my-0 dark:text-gray-100" title="{{ $album->name }}">
                 {{ $album->name ?? '' }}
