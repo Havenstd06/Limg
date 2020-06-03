@@ -6,7 +6,7 @@
     <div class="hidden px-2 mx-auto lg:block lg:w-1/2">      
       <img src="/images/home/image-bg.svg" alt="Limg">     
       <div class="mt-3 text-2xl font-bold text-center text-gray-800 dark:text-gray-50">
-        Already <span class="text-indigo-500">{{ App\Image::count() }}</span> Images and <span class="text-indigo-500">{{ App\Album::count() }}</span> Albums uploaded
+        @livewire('home-stats')
       </div>
     </div> 
     <div class="min-h-full px-2 mt-10 lg:w-1/2 lg:pl-16 lg:mt-0 ">
