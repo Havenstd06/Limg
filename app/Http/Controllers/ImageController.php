@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
-use App\Rules\ValidImageUrlRule;
 use App\User;
-use DiscordWebhooks\Client;
+use App\Image;
 use DiscordWebhooks\Embed;
+use DiscordWebhooks\Client;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Rules\ValidImageUrlRule;
+use Nubs\RandomNameGenerator\Vgng;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image as InterImage;
 use Nubs\RandomNameGenerator\Alliteration;
-use Nubs\RandomNameGenerator\Vgng;
+use Intervention\Image\Facades\Image as InterImage;
 
 class ImageController extends Controller
 {
@@ -50,14 +51,14 @@ class ImageController extends Controller
         ->replace('.', '')
         ->replace('/', '')
         ->replace('\\', '')
-        ->replace(' ', '-');
+        ->replace(' ', '');
 
         $imageName = (string) Str::of(new Alliteration().'-'.new Vgng().'-'.Str::random(6))
         ->replace('\'', '')
         ->replace('.', '')
         ->replace('/', '')
         ->replace('\\', '')
-        ->replace(' ', '-');
+        ->replace(' ', '');
 
         $newFullName = $imageName.'.'.$request->file('image')->getClientOriginalExtension();
         $request->file('image')->move(('storage/images'), $newFullName);
@@ -117,14 +118,14 @@ class ImageController extends Controller
             ->replace('.', '')
             ->replace('/', '')
             ->replace('\\', '')
-            ->replace(' ', '-');
+            ->replace(' ', '');
 
             $imageName = (string) Str::of(new Alliteration().'-'.new Vgng().'-'.Str::random(6))
             ->replace('\'', '')
             ->replace('.', '')
             ->replace('/', '')
             ->replace('\\', '')
-            ->replace(' ', '-');
+            ->replace(' ', '');
 
             $newFullName = $imageName.'.'.$extension;
             Storage::put('public/images/'.$newFullName, $content);
@@ -241,10 +242,11 @@ class ImageController extends Controller
             return response()->download($imageLink->fullpath, null, [], null);
         } else { // Afficher le view image
 
+
             $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
             $pageImage = Image::where('pageName', pathinfo($image, PATHINFO_FILENAME))->firstOrFail();
 
-            return view('image.image', [
+            return view('image.show', [
                 'user' => $user,
                 'image' => $pageImage,
             ]);
