@@ -80,7 +80,7 @@
                             </button>
                         </div>
                         <div>                                
-                            <input wire:model="search" type="text" placeholder="Image ID, Title, User, Date..." class="w-full px-2 py-2 mt-3 leading-normal bg-white border border-gray-300 rounded-lg appearance-none lg:mt-0 focus:outline-none lg:mr-2">
+                            <input wire:model="search" type="text" placeholder="Image Title, User, Date..." class="w-full px-2 py-2 mt-3 leading-normal bg-white border border-gray-300 rounded-lg appearance-none lg:mt-0 focus:outline-none lg:mr-2">
                         </div>
                     </div>
                     @if ($images->count() > 0)
@@ -106,15 +106,9 @@
                                 </div>
                             </label>
                         @endforeach
-                        {{-- @foreach ($images as $img)
-                        <div wire:loading.remove class="w-32 h-32 mx-auto my-1 overflow-hidden transition duration-300 ease-out bg-transparent bg-center bg-cover border rounded-md hover:border-gray-50 border-midnight dark:bg-forest bg-gray-50"
-                        style="background-image: url({{ $img->path }})" title='{{ $img->title ? '"'.$img->title.'"': '' }} by {{ $img->user->username }}'>
-                        </div>
-                        @endforeach --}}
                     </div>
                     <div class="mt-4">
-                        {{-- {!! $images->links() !!} --}}
-                        {!! $images->appends(Request::all())->links() !!}
+                        {{ $images->links() }}
                     </div>
                     @elseif ($search != null)
                     <p class="mt-2 italic text-gray-800 dark:text-gray-50">Oops! We can't find any image by the name "{{ $search }}"</p>

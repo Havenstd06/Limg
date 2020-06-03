@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="w-full lg:w-1/3">                                
-            <input wire:model="search" class="w-full px-2 py-2 mt-3 leading-normal bg-white border border-gray-300 rounded-lg appearance-none lg:mt-0 focus:outline-none lg:mr-2" type="text" placeholder="Image ID, Title, User, Date...">
+            <input wire:model="search" class="w-full px-2 py-2 mt-3 leading-normal bg-white border border-gray-300 rounded-lg appearance-none lg:mt-0 focus:outline-none lg:mr-2" type="text" placeholder="Image Title, User, Date...">
         </div>
     </div>
     @if ($images->count() > 0)
