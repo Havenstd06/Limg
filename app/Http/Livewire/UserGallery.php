@@ -123,13 +123,7 @@ class UserGallery extends Component
 
     public function render()
     {
-        $images = (config('app.env') != 'local') ? Cache::remember(
-            'imagegallery.search.'.Str::of(auth()->user()->id.$this->search.$this->field.(($this->asc) ? 'true' : 'false').$this->page.$this->perPage)->slug(),
-            now()->addMinutes(5),
-            function () {
-                return $this->paginate($this->getAllImages(), $this->perPage);
-            }
-        ) : $this->paginate($this->getAllImages(), $this->perPage);
+        $images = $this->paginate($this->getAllImages(), $this->perPage);
 
         return view('livewire.user-gallery', ['images' => $images]);
     }

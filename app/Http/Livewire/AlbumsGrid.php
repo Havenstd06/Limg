@@ -103,13 +103,7 @@ class AlbumsGrid extends Component
 
     public function render()
     {
-        $albums = (config('app.env') != 'local') ? Cache::remember(
-            'albumgrid.search.'.Str::of((auth()->user()) ? auth()->user()->id : User::findOrFail(1)->id.$this->search.$this->field.(($this->asc) ? 'true' : 'false').$this->page.$this->perPage)->slug(),
-            now()->addMinutes(5),
-            function () {
-                return $this->paginate($this->getAllAlbums(), $this->perPage);
-            }
-        ) : $this->paginate($this->getAllAlbums(), $this->perPage);
+        $albums = $this->paginate($this->getAllAlbums(), $this->perPage);
 
         return view('livewire.albums-grid', ['albums' => $albums]);
     }
