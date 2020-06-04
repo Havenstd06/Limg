@@ -1,5 +1,5 @@
 <div>
-    <div class="px-4 pt-6 pb-2 bg-white rounded-lg shadow-md md:pb-8 lg:px-8 dark:bg-midnight">
+    <div class="px-4 pt-6 pb-2 bg-white rounded-lg shadow-md md:pb-8 lg:px-8 dark:bg-midnight" data-turbolinks="false">
         <div>
             <form action="" method="POST">
                 @if(count($errors) > 0)
@@ -12,15 +12,19 @@
                         </div>
                         <div class="ml-3">
                         <h3 class="text-sm font-medium leading-5 text-red-800">
-                            There were {{ $errors->count() }} error(s) with your submission
+                            There is some errors with your submission
                         </h3>
                         <div class="mt-2 text-sm leading-5 text-red-700">
                             <ul class="pl-5 list-disc">
-                            @foreach($errors->all() as $error)
-                                <li class="mt-1">
-                                    {{ $error }}
-                                </li>
-                            @endforeach
+                                @error('name')
+                                    <li class="mt-1">{{ $message }}</li>
+                                @enderror
+                                @error('selectedImage')
+                                    <li class="mt-1">{{ $message }}</li>
+                                @enderror
+                                @error('selectedImage.*')
+                                    <li class="mt-1">{{ $message }}</li>
+                                @enderror
                             </ul>
                         </div>
                         </div>
@@ -84,7 +88,7 @@
                         </div>
                     </div>
                     @if ($images->count() > 0)
-                    <div class="gap-4 sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
+                    <div class="gap-4 sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
                         <div class="mt-2 ml-2 text-4xl text-gray-700 dark:text-gray-50" wire:loading wire:target="search, resetTable, gotoPage, previousPage, nextPage">
                             <i class="relative fas fa-circle-notch fa-spin"></i>
                         </div>
@@ -95,11 +99,11 @@
                                     <h2 class="h-10 pt-2 mx-4 my-4 font-semibold text-gray-800 truncate md:my-0 dark:text-gray-100" title="{{ $img->title }}">
                                         {{ $img->title ?? '' }}
                                     </h2>
-                                    <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg" style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
-                                    <p class="flex justify-end px-2 py-1 mr-2 text-sm font-medium text-gray-800 dark:text-gray-100">
+                                    <div class="w-full h-40 mx-auto overflow-hidden bg-center bg-cover shadow-lg" style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+                                    <p class="flex justify-end px-2 py-1 mr-1 text-sm font-medium text-gray-800 dark:text-gray-100">
                                         {{ $img->created_at->format('d/m/Y') }} 
                                         by&nbsp;
-                                        <a href="{{ route('user.profile', ['user' => $img->user->username]) }}" class="text-indigo-500 hover:text-indigo-400">
+                                        <a href="{{ route('user.profile', ['user' => $img->user->username]) }}" class="text-indigo-500 hover:text-indigo-400" data-turbolinks="false">
                                         {{ $img->user->username }}
                                         </a>
                                     </p>

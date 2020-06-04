@@ -4,14 +4,15 @@ namespace App\Http\Livewire;
 
 use App\Album;
 use App\Image;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
+use Livewire\Component;
+use Illuminate\Support\Str;
+use Livewire\WithPagination;
 use Illuminate\Support\Collection;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
-use Livewire\Component;
-use Livewire\WithPagination;
+use App\Rules\ArrayAtLeastOneRequired;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CreateAlbum extends Component
 {
@@ -110,12 +111,13 @@ class CreateAlbum extends Component
 
     public function create()
     {
+        $result = array_keys(array_filter($this->selectedImage));
+
         $this->validate([
             'name'          => 'required|min:1|max:70',
             'selectedImage' => 'required',
+            'selectedImage.*' => [new ArrayAtLeastOneRequired($result)],
         ]);
-
-        $result = array_keys(array_filter($this->selectedImage));
 
         $album = new Album();
         $album->name = $this->name;
