@@ -27,7 +27,7 @@ class ArrayAtLeastOneRequired implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (!isset($this->result[0])) {
+        if (! isset($this->result[0])) {
             return false;
         }
 
