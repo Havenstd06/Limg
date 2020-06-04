@@ -27,9 +27,12 @@ class Album extends Model
 
     public static function search($query)
     {
-        return static::where('name', 'LIKE', '%'.$query.'%')
+        return static::select('albums.*')
+            ->join('users', 'user_id', '=', 'users.id')
+            ->where('users.username', 'LIKE', '%'.$query.'%')
+            ->orWhere('name', 'LIKE', '%'.$query.'%')
             ->orWhere('slug', 'LIKE', '%'.$query.'%')
-            ->orWhere('created_at', 'LIKE', '%'.$query.'%');
+            ->orWhere('albums.created_at', 'LIKE', '%'.$query.'%');
     }
 
     public static function userSearch($query, $user)
