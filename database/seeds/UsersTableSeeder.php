@@ -14,12 +14,12 @@ class UsersTableSeeder extends Seeder
         factory(App\User::class)->create([
             'username' => 'Anonymous',
             'email' => 'anonymous@example.com',
-            'password' => bcrypt(env('ANON_PASSWORD'))
+            'password' => bcrypt(env('ANON_PASSWORD')),
         ])->save();
 
         factory(App\User::class)->create([
             'username' => 'Havens',
-            'email' => 'me@hvs.cx'
+            'email' => 'me@hvs.cx',
         ])->save();
 
         factory(App\User::class, 10)->create();
