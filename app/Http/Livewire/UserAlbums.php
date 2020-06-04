@@ -124,7 +124,7 @@ class UserAlbums extends Component
     public function render()
     {
         $albums = (config('app.env') != 'local') ? Cache::remember(
-            'image.search.'.Str::of(auth()->user()->id.$this->search.$this->field.(($this->asc) ? 'true' : 'false').$this->page.$this->perPage)->slug(),
+            'useralbum.search.'.Str::of(auth()->user()->id.$this->search.$this->field.(($this->asc) ? 'true' : 'false').$this->page.$this->perPage)->slug(),
             now()->addMinutes(5),
             function () {
                 return $this->paginate($this->getAllAlbums(), $this->perPage);

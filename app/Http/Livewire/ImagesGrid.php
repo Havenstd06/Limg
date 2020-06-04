@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire;
 
+use App\User;
 use App\Image;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Livewire\WithPagination;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ImagesGrid extends Component
 {
@@ -104,7 +105,7 @@ class ImagesGrid extends Component
     public function render()
     {
         $images = (config('app.env') != 'local') ? Cache::remember(
-            'image.search.'.Str::of(auth()->user()->id.$this->search.$this->field.(($this->asc) ? 'true' : 'false').$this->page.$this->perPage)->slug(),
+            'imagegrid.search.'.Str::of((auth()->user()) ? auth()->user()->id : User::findOrFail(1)->id.$this->search.$this->field.(($this->asc) ? 'true' : 'false').$this->page.$this->perPage)->slug(),
             now()->addMinutes(5),
             function () {
                 return $this->paginate($this->getAllImages(), $this->perPage);

@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire;
 
+use App\User;
 use App\Album;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Livewire\WithPagination;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AlbumsGrid extends Component
 {
@@ -103,7 +104,7 @@ class AlbumsGrid extends Component
     public function render()
     {
         $albums = (config('app.env') != 'local') ? Cache::remember(
-            'album.search.'.Str::of(auth()->user()->id.$this->search.$this->field.(($this->asc) ? 'true' : 'false').$this->page.$this->perPage)->slug(),
+            'albumgrid.search.'.Str::of((auth()->user()) ? auth()->user()->id : User::findOrFail(1)->id.$this->search.$this->field.(($this->asc) ? 'true' : 'false').$this->page.$this->perPage)->slug(),
             now()->addMinutes(5),
             function () {
                 return $this->paginate($this->getAllAlbums(), $this->perPage);
