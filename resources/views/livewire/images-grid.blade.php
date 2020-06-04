@@ -2,7 +2,7 @@
     <div class="items-center justify-between pt-2 lg:flex">
         <div class="md:flex">
             <div wire:click.prevent="sortBy('title')" role="button" href="#" class="w-full px-3 py-2 mx-2 mt-2 text-center bg-gray-700 rounded-md md:w-24 hover:bg-gray-800 text-gray-50">
-                Image
+                Title
                 @include('includes._sort-icon', ['given_field' => 'title'])
             </div>
             <div wire:click.prevent="sortBy('created_at')" role="button" href="#" class="w-full px-3 py-2 mx-2 mt-2 text-center bg-gray-700 rounded-md md:w-24 hover:bg-gray-800 text-gray-50">
