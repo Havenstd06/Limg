@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class DropVoyagerTables extends Migration
@@ -31,7 +30,7 @@ class DropVoyagerTables extends Migration
         Schema::dropIfExists('permissions');
 
         Schema::dropIfExists('translations');
-        
+
         Schema::dropIfExists('user_roles');
         Schema::dropIfExists('roles');
     }
