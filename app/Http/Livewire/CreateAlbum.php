@@ -4,13 +4,14 @@ namespace App\Http\Livewire;
 
 use App\Album;
 use App\Image;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Livewire\WithPagination;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CreateAlbum extends Component
 {
@@ -131,6 +132,8 @@ class CreateAlbum extends Component
 
     public function render()
     {
+        abort_unless(Auth::check(), 403);
+
         $images = (config('app.env') != 'local') ? Cache::remember(
             'image.search.'.Str::of(auth()->user()->id.$this->search.$this->field.(($this->asc) ? 'true' : 'false').$this->page.$this->perPage)->slug(),
             now()->addMinutes(5),

@@ -11,8 +11,6 @@
 |
 */
 
-// Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-
 Auth::routes();
 
 Route::get('login/discord', 'Auth\LoginController@redirectToProvider')->name('login.discord');
