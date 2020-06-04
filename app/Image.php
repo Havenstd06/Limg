@@ -37,7 +37,8 @@ class Image extends Model
 
     public static function search($query)
     {
-        return static::select('images.*')->join('users', 'user_id', '=', 'users.id')
+        return static::select('images.*')
+            ->join('users', 'user_id', '=', 'users.id')
             ->where('users.username', 'LIKE', '%'.$query.'%')
             ->orWhere('title', 'LIKE', '%'.$query.'%')
             ->orWhere('images.created_at', 'LIKE', '%'.$query.'%')
