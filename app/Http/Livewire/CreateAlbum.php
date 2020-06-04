@@ -21,7 +21,7 @@ class CreateAlbum extends Component
     public $name;
     public $selectedImage = [];
     public $search = '';
-    public $perPage = 32;
+    public $perPage = 28;
     public $field = 'id';
     public $asc = false;
 
@@ -68,7 +68,7 @@ class CreateAlbum extends Component
      *
      * @return LengthAwarePaginator
      */
-    public function paginate($items, $perPage = 32, $page = null, $options = [])
+    public function paginate($items, $perPage = 28, $page = null, $options = [])
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
 
