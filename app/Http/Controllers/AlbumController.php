@@ -6,6 +6,7 @@ use App\Album;
 use App\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class AlbumController extends Controller
@@ -98,9 +99,13 @@ class AlbumController extends Controller
         $user = $request->user();
         abort_unless(Auth::check() && $user->id == $album->user->id, 403);
 
-        $album->images()->detach($image);
+        if ($album->images()->count() == 1) {
+            Session::flash('error', 'You must have at least 1 image in your album.');
+        } else {
+            $album->images()->detach($image);
 
-        notify()->success('You have successfully remove this image from this album!');
+            notify()->success('You have successfully remove this image from this album!');
+        }
 
         return redirect()->back();
     }

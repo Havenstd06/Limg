@@ -56,6 +56,14 @@
         @include('layouts.navbar')
     </header>
     <div id="content" class="flex-1 w-full p-3 bg-gray-50 dark:bg-asphalt sm:p-8">
+        @if (session('error'))
+            <div class="flex justify-center mb-4">
+                <div class="relative w-1/2 px-4 py-3 mb-4 text-red-700 bg-red-100 border border-red-400 rounded">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block sm:inline">{{ session('error') }}</span>
+                </div>
+            </div>
+        @endif
         @yield('content')
     </div> 
     @include('layouts.footer')
