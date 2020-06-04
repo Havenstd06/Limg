@@ -2,6 +2,16 @@
 
 @section('head')
     <title>Create albums — {{ config('app.name', 'Laravel') }} — {{ config('app.description') }}</title>
+    <style>
+    :checked+label #border {
+        transform: scale(1.03);
+        box-shadow: 0 0 5px #333;
+        z-index: -1;
+        --border-opacity: 1;
+        border-color: #f9fafb;
+        border-color: rgba(249, 250, 251, var(--border-opacity));
+    }
+    </style>
 @endsection
 
 @section('content')
