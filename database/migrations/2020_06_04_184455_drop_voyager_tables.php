@@ -13,7 +13,6 @@ class DropVoyagerTables extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('roles');
         if (Schema::hasColumn('users', 'role_id')) {
             Schema::table('users', function ($table) {
                 $table->dropForeign('users_role_id_foreign');
@@ -34,6 +33,7 @@ class DropVoyagerTables extends Migration
         Schema::dropIfExists('translations');
         
         Schema::dropIfExists('user_roles');
+        Schema::dropIfExists('roles');
     }
 
     /**
