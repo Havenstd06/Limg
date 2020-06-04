@@ -66,7 +66,3 @@ Route::prefix('/a')->group(function () {
         Route::get('/remove/{image:pageName}', 'AlbumController@remove')->name('album.remove');
     });
 });
-
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
-});

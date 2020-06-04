@@ -123,7 +123,5 @@ class ImagesTableSeeder extends Seeder
                 'user_id' => 2,
             ],
         ]);
-        // factory(App\Image::class, 50)->create([
-        // ]);
     }
 }

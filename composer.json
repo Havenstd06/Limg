@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.5",
         "honeybadger-io/honeybadger-laravel": "^3.1",
@@ -21,7 +22,6 @@
         "nopjmp/discord-webhooks": "^0.3.1",
         "nubs/random-name-generator": "^2.1",
         "socialiteproviders/discord": "^2.0",
-        "tcg/voyager": "^1.4",
         "yoeunes/notify": "^1.0"
     },
     "require-dev": {
@@ -70,11 +70,5 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
-    },
-    "repositories": {
-        "hooks": {
-            "type": "composer",
-            "url": "https://larapack.io"
-        }
     }
 }
