@@ -2,15 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use App\User;
 use App\Image;
-use Livewire\Component;
-use Illuminate\Support\Str;
-use Livewire\WithPagination;
-use Illuminate\Support\Collection;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Cache;
+use App\User;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class ImagesGrid extends Component
 {
