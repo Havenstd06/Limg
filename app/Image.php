@@ -37,18 +37,14 @@ class Image extends Model
 
     public static function search($query)
     {
-        // join('users', 'user_id', '=', 'users.id')
-        // ->where('users.username', 'LIKE', '%'.$query.'%')
-        return static::where('title', 'LIKE', '%'.$query.'%')
-            ->orWhere('created_at', 'LIKE', '%'.$query.'%')
+        return static::select('images.*')->join('users', 'user_id', '=', 'users.id')
+            ->where('users.username', 'LIKE', '%'.$query.'%')
+            ->orWhere('title', 'LIKE', '%'.$query.'%')
+            ->orWhere('images.created_at', 'LIKE', '%'.$query.'%')
             ->orWhere('extension', 'LIKE', '%'.$query.'%')
             ->orWhere('pageName', 'LIKE', '%'.$query.'%')
             ->orWhere('imageName', 'LIKE', '%'.$query.'%')
             ->orWhere('is_public', 'LIKE', '%'.$query.'%');
-
-        // ->select('users.*')
-            // ->join('users', 'user_id', '=', 'users.id')
-            // ->where('users.email', 'LIKE', '%'.$query.'%');
     }
 
     public static function userSearch($query, $user)
