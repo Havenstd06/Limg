@@ -16,13 +16,23 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(Image::class, function (Faker $faker) {
+    $imagePool = [
+        '/i/lNHJ8ot.png',
+        '/i/gQHOGpS.png',
+        '/i/ANVbpsT.png',
+        '/i/Ujo5lMZ.png',
+        '/i/GsTcFDd.png',
+        '/i/HoJQtbq.png',
+        '/i/fDYOALi.png',
+    ];
+
     return [
         'user_id' => 2,
         'title' => 'Limg default #3',
         'pageName' => $faker->slug(3),
         'imageName' => $faker->slug(3),
         'extension' => 'png',
-        'path' => '/i/fDYOALi.png',
+        'path' => $faker->randomElement($imagePool),
         'is_public' => 1,
     ];
 });

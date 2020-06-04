@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Image;
+use App\Album;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class UserGallery extends Component
+class UserAlbums extends Component
 {
     use WithPagination;
 
@@ -75,9 +75,9 @@ class UserGallery extends Component
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
-    private function getAllImages(): Collection
+    private function getAllAlbums(): Collection
     {
-        $base = Image::userSearch($this->search, auth()->user())->get();
+        $base = Album::userSearch($this->search, auth()->user())->get();
         if (! empty(trim($this->search))) {
             $this->page = 1;
         }
@@ -108,29 +108,29 @@ class UserGallery extends Component
 
     public function destroy($id)
     {
-        Image::destroy($id);
+        Album::destroy($id);
     }
 
     public function destroyAll()
     {
         $user = request()->user();
-        $images = Image::where('user_id', '=', $user->id)->get();
+        $albums = Album::where('user_id', '=', $user->id)->get();
 
-        foreach ($images as $image) {
-            $image->delete();
+        foreach ($albums as $album) {
+            $album->delete();
         }
     }
 
     public function render()
     {
-        $images = (config('app.env') != 'local') ? Cache::remember(
+        $albums = (config('app.env') != 'local') ? Cache::remember(
             'image.search.'.Str::of(auth()->user()->id.$this->search.$this->field.(($this->asc) ? 'true' : 'false').$this->page.$this->perPage)->slug(),
             now()->addMinutes(5),
             function () {
-                return $this->paginate($this->getAllImages(), $this->perPage);
+                return $this->paginate($this->getAllAlbums(), $this->perPage);
             }
-        ) : $this->paginate($this->getAllImages(), $this->perPage);
+        ) : $this->paginate($this->getAllAlbums(), $this->perPage);
 
-        return view('livewire.user-gallery', ['images' => $images]);
+        return view('livewire.user-albums', ['albums' => $albums]);
     }
 }

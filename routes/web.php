@@ -11,8 +11,6 @@
 |
 */
 
-// Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-
 Auth::routes();
 
 Route::get('login/discord', 'Auth\LoginController@redirectToProvider')->name('login.discord');
@@ -24,6 +22,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::prefix('p/{user}')->group(function () {
     Route::get('/', 'UserController@profile')->name('user.profile');
     Route::get('/gallery', 'UserController@gallery')->name('user.gallery');
+    Route::get('/albums', 'UserController@albums')->name('user.albums');
     Route::name('settings.')->prefix('settings')->group(function () {
         Route::get('/', 'UserController@settings')->name('index');
         Route::post('update/style', 'UserController@update_style')->name('update.style');
@@ -49,8 +48,22 @@ Route::prefix('/i')->group(function () {
 
         Route::post('/updates', 'ImageController@infos')->name('image.infos');
         Route::get('/delete', 'ImageController@delete')->name('image.delete');
+        Route::get('/addtoalbum', 'ImageController@add_to_album')->name('image.add_to_album');
         Route::get('/download', 'ImageController@download')->name('image.download');
         Route::get('/{size}', 'ImageController@build');
+    });
+});
+
+Route::prefix('/a')->group(function () {
+    Route::get('/', 'AlbumController@index')->name('album.index');
+    Route::get('/new', 'AlbumController@create')->name('album.create');
+
+    Route::prefix('/{album}')->group(function () {
+        Route::get('/', 'AlbumController@show')->name('album.show');
+
+        Route::post('/updates', 'AlbumController@infos')->name('album.infos');
+        Route::get('/delete', 'AlbumController@delete')->name('album.delete');
+        Route::get('/remove/{image:pageName}', 'AlbumController@remove')->name('album.remove');
     });
 });
 

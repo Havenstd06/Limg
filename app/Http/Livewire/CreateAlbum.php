@@ -2,8 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Album;
 use App\Image;
-use Illuminate\Http\Request;
+use App\Rules\ArrayAtLeastOneRequired;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -13,15 +14,16 @@ use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class UserGallery extends Component
+class CreateAlbum extends Component
 {
     use WithPagination;
 
+    public $name;
+    public $selectedImage = [];
     public $search = '';
-    public $perPage = 20;
+    public $perPage = 28;
     public $field = 'id';
     public $asc = false;
-    public $confirming;
 
     protected $updatesQueryString = [
         'search' => ['except' => ''],
@@ -45,7 +47,7 @@ class UserGallery extends Component
     {
         $this->fill([
             'search' => '',
-            'perPage' => 20,
+            'perPage' => 32,
             'field' => 'id',
             'asc' => false,
         ]);
@@ -66,7 +68,7 @@ class UserGallery extends Component
      *
      * @return LengthAwarePaginator
      */
-    public function paginate($items, $perPage = 20, $page = null, $options = [])
+    public function paginate($items, $perPage = 28, $page = null, $options = [])
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
 
@@ -77,7 +79,8 @@ class UserGallery extends Component
 
     private function getAllImages(): Collection
     {
-        $base = Image::userSearch($this->search, auth()->user())->get();
+        $base = Image::search($this->search,
+        auth()->user())->get()->where('is_public', '=', '1');
         if (! empty(trim($this->search))) {
             $this->page = 1;
         }
@@ -101,28 +104,38 @@ class UserGallery extends Component
         $this->page = 1;
     }
 
-    public function confirmDestroy($id)
+    public function getSelectedOptionsProperty()
     {
-        $this->confirming = $id;
+        return array_keys(array_filter($this->selectedImage));
     }
 
-    public function destroy($id)
+    public function create()
     {
-        Image::destroy($id);
-    }
+        $result = array_keys(array_filter($this->selectedImage));
 
-    public function destroyAll()
-    {
-        $user = request()->user();
-        $images = Image::where('user_id', '=', $user->id)->get();
+        $this->validate([
+            'name'          => 'required|min:1|max:70',
+            'selectedImage' => 'required',
+            'selectedImage.*' => [new ArrayAtLeastOneRequired($result)],
+        ]);
 
-        foreach ($images as $image) {
-            $image->delete();
-        }
+        $album = new Album();
+        $album->name = $this->name;
+        $album->slug = Str::random(6);
+        $album->user_id = auth()->user()->id;
+        $album->save();
+
+        $album->images()->attach($result);
+
+        notify()->success('Album successfully created!');
+
+        return redirect()->route('album.show', ['album' => $album->slug]);
     }
 
     public function render()
     {
+        abort_unless(Auth::check(), 403);
+
         $images = (config('app.env') != 'local') ? Cache::remember(
             'image.search.'.Str::of(auth()->user()->id.$this->search.$this->field.(($this->asc) ? 'true' : 'false').$this->page.$this->perPage)->slug(),
             now()->addMinutes(5),
@@ -131,6 +144,6 @@ class UserGallery extends Component
             }
         ) : $this->paginate($this->getAllImages(), $this->perPage);
 
-        return view('livewire.user-gallery', ['images' => $images]);
+        return view('livewire.create-album', ['images' => $images]);
     }
 }

@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->seed('PermissionRoleTableSeeder');
         $this->call(ImagesTableSeeder::class);
         $this->call(DomainsTableSeeder::class);
+        $this->call(AlbumsSeeder::class);
     }
 }

@@ -6,7 +6,7 @@
     <div class="hidden px-2 mx-auto lg:block lg:w-1/2">      
       <img src="/images/home/image-bg.svg" alt="Limg">     
       <div class="mt-3 text-2xl font-bold text-center text-gray-800 dark:text-gray-50">
-        Already <span class="text-indigo-500">{{ App\Image::count() }}</span> Images Uploaded !
+        @livewire('home-stats')
       </div>
     </div> 
     <div class="min-h-full px-2 mt-10 lg:w-1/2 lg:pl-16 lg:mt-0 ">
@@ -40,7 +40,7 @@
               @csrf
             </form>
             <p class="mt-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-              Drag and drop files inside the box to start upload images. 15 MB per image.
+              Drag and drop files inside the box to start upload images. Max 10 files.
             </p>
           </div>
           <div x-cloak x-show="tab === 'url'">
@@ -100,6 +100,7 @@ https://limg.app/i/Fantastic-Flamingo-Shrunken-Florist-Mania-pPCnYd.jpg"></texta
     dictDefaultMessage: '<i class="mb-1 text-gray-900 dark:text-gray-300 far fa-file-image fa-3x"></i> <p class="mt-1 text-sm text-gray-800 dark:text-gray-300"> <span class="font-medium text-indigo-500 transition duration-150 ease-in-out hover:text-indigo-400 focus:outline-none focus:underline">Upload a file</span> or drag and drop </p> <p class="mt-1 text-xs text-gray-800 dark:text-gray-300">PNG, JPG, GIF up to 15MB</p> ',
     paramName: "image",
     maxFilesize: 15,
+    maxFiles: 10,
     acceptedFiles: 'image/*',
     init: function() {
       myDropzone = this;

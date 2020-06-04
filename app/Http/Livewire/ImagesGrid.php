@@ -3,25 +3,23 @@
 namespace App\Http\Livewire;
 
 use App\Image;
-use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class UserGallery extends Component
+class ImagesGrid extends Component
 {
     use WithPagination;
 
+    public $name;
     public $search = '';
     public $perPage = 20;
     public $field = 'id';
     public $asc = false;
-    public $confirming;
 
     protected $updatesQueryString = [
         'search' => ['except' => ''],
@@ -77,7 +75,9 @@ class UserGallery extends Component
 
     private function getAllImages(): Collection
     {
-        $base = Image::userSearch($this->search, auth()->user())->get();
+        $base = Image::search($this->search)
+            ->get()
+            ->where('is_public', '=', '1');
         if (! empty(trim($this->search))) {
             $this->page = 1;
         }
@@ -101,26 +101,6 @@ class UserGallery extends Component
         $this->page = 1;
     }
 
-    public function confirmDestroy($id)
-    {
-        $this->confirming = $id;
-    }
-
-    public function destroy($id)
-    {
-        Image::destroy($id);
-    }
-
-    public function destroyAll()
-    {
-        $user = request()->user();
-        $images = Image::where('user_id', '=', $user->id)->get();
-
-        foreach ($images as $image) {
-            $image->delete();
-        }
-    }
-
     public function render()
     {
         $images = (config('app.env') != 'local') ? Cache::remember(
@@ -131,6 +111,6 @@ class UserGallery extends Component
             }
         ) : $this->paginate($this->getAllImages(), $this->perPage);
 
-        return view('livewire.user-gallery', ['images' => $images]);
+        return view('livewire.images-grid', ['images' => $images]);
     }
 }

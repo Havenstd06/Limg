@@ -15,6 +15,11 @@ class Image extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function album()
+    {
+        return $this->belongsToMany('App\Album');
+    }
+
     public function getFullNameAttribute()
     {
         return $this->imageName.'.'.$this->extension;
@@ -30,7 +35,20 @@ class Image extends Model
         return storage_path('app/public/images/'.$this->fullname);
     }
 
-    public static function search($query, $user)
+    public static function search($query)
+    {
+        return static::select('images.*')
+            ->join('users', 'user_id', '=', 'users.id')
+            ->where('users.username', 'LIKE', '%'.$query.'%')
+            ->orWhere('title', 'LIKE', '%'.$query.'%')
+            ->orWhere('images.created_at', 'LIKE', '%'.$query.'%')
+            ->orWhere('extension', 'LIKE', '%'.$query.'%')
+            ->orWhere('pageName', 'LIKE', '%'.$query.'%')
+            ->orWhere('imageName', 'LIKE', '%'.$query.'%')
+            ->orWhere('is_public', 'LIKE', '%'.$query.'%');
+    }
+
+    public static function userSearch($query, $user)
     {
         return empty($query) ? static::where('user_id', $user->id) :
             static::where([

@@ -50,6 +50,11 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasMany('App\Image');
     }
 
+    public function albums()
+    {
+        return $this->hasMany('App\Album');
+    }
+
     public function isSocialite()
     {
         return (! $this->password) ? true : false;

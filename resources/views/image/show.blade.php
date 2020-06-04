@@ -21,9 +21,9 @@
 @endsection
 
 @section('content')
-<div class="container mx-auto mt-10">
-  @isNotPublic($image)
-  <div class="container w-1/2 mx-auto lg:w-1/3">
+<div class="max-w-6xl px-8 pt-6 pb-8 mx-4 bg-white rounded-lg shadow-md dark:bg-midnight sm:container sm:mx-auto sm:w-full">
+  @imageIsNotPublic($image)
+  <div class="container w-1/2 mx-auto lg:w-2/4">
     <div class="px-4 py-3 text-teal-900 bg-teal-100 border-t-4 border-teal-500 rounded-b shadow-md" role="alert">
       <div class="flex">
         <div class="py-1 pr-3">
@@ -37,9 +37,8 @@
     </div>
   </div>
   @else 
-  <div class="max-w-6xl px-8 pt-6 pb-8 mx-4 bg-white rounded-lg shadow-md dark:bg-midnight sm:container sm:mx-auto sm:w-full">
   @if ($image->title != null)
-    <h3 class="mb-4 text-4xl dark:text-gray-300">{{ $image->title }}</h3>
+    <h3 class="mb-4 text-2xl md:text-4xl dark:text-gray-300" title="{{ $image->title }}">{{ $image->title }}</h3>
   @endif
   @ownsImage($image)
     <form role="form" method="POST" action="{{ route('image.infos', ['image' => $image->pageName]) }}">
@@ -75,6 +74,18 @@
       </div>
       <div class="md:mx-8">
         <h3 class="pb-3 mt-5 -ml-2 text-2xl font-medium text-center text-gray-900 dark:text-gray-100 md:mt-0">Image Tools</h3>
+          @auth
+          <form action="{{ route('image.add_to_album', ['image' => $image->pageName]) }}">
+            <div class="w-full mb-4 rounded-md shadow-sm">
+              <select name="album" class="block w-full transition duration-150 ease-in-out form-select sm:text-sm sm:leading-5" onChange="form.submit()">
+                <option>Add to album</option>
+                @foreach ($albums as $album)
+                  <option value="{{ $album->id }}">{{ $album->name }}</option>
+                @endforeach
+              </select>
+            </div>
+          </form>
+          @endauth
           <div class="w-full mt-3 mb-4 sm:mt-0 sm:mr-3 custom-number-input">
             <div class="relative flex flex-row w-full bg-transparent rounded-lg">
               <input type="number" id="userInput" placeholder="Size" class="flex items-center w-full max-w-full font-semibold text-center text-gray-800 bg-gray-200 outline-none focus:outline-none text-md hover:text-black focus:text-black md:text-basecursor-default">
@@ -108,6 +119,25 @@
                   </div>
               </div>
           </div>
+          <div>
+            <ul class="flex items-center justify-center p-2 mt-2">
+              <li>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ URL::current() }}" target="no_follow" class="px-3 py-2 transition duration-300 ease-in-out bg-blue-600 rounded-full text-gray-50 hover:bg-blue-700">
+                  <span class="fab fa-facebook"></span>
+                </a>
+            </li>
+              <li>
+                <a href="https://twitter.com/intent/tweet?url={{ URL::current() }}" target="no_follow" class="px-3 py-2 ml-2 transition duration-300 ease-in-out bg-blue-500 rounded-full text-gray-50 hover:bg-blue-600">
+                  <span class="fab fa-twitter"></span>
+                </a>
+              </li>
+              <li>
+                <a href="http://www.reddit.com/submit?url={{ URL::current() }}" target="no_follow" class="px-3 py-2 ml-2 transition duration-300 ease-in-out bg-orange-500 rounded-full hover:bg-orange-600 text-gray-50">
+                  <span class="fab fa-reddit-alien"></span>
+                </a>
+              </li> 
+            </ul>
+          </div>
           @if ($image->user->id == 1)	
           <a class="flex items-center justify-center pt-6" href="{{ route('register') }}">	
             <img class="w-10 h-10 mr-4 rounded-full" src="{{ url($image->user->avatar) }}" alt="Anonyme User">	
@@ -128,7 +158,7 @@
         </div>
       </div>
     </div>
-  @endisNotPublic
+  @endimageIsNotPublic
 </div>
 @endsection
 

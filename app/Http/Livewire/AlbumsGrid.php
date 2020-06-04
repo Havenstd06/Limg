@@ -2,18 +2,16 @@
 
 namespace App\Http\Livewire;
 
-use App\Image;
-use Illuminate\Http\Request;
+use App\Album;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class UserGallery extends Component
+class AlbumsGrid extends Component
 {
     use WithPagination;
 
@@ -21,7 +19,6 @@ class UserGallery extends Component
     public $perPage = 20;
     public $field = 'id';
     public $asc = false;
-    public $confirming;
 
     protected $updatesQueryString = [
         'search' => ['except' => ''],
@@ -75,9 +72,11 @@ class UserGallery extends Component
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
-    private function getAllImages(): Collection
+    private function getAllAlbums(): Collection
     {
-        $base = Image::userSearch($this->search, auth()->user())->get();
+        $base = Album::search($this->search)
+            ->get()
+            ->where('is_public', '=', '1');
         if (! empty(trim($this->search))) {
             $this->page = 1;
         }
@@ -101,36 +100,16 @@ class UserGallery extends Component
         $this->page = 1;
     }
 
-    public function confirmDestroy($id)
-    {
-        $this->confirming = $id;
-    }
-
-    public function destroy($id)
-    {
-        Image::destroy($id);
-    }
-
-    public function destroyAll()
-    {
-        $user = request()->user();
-        $images = Image::where('user_id', '=', $user->id)->get();
-
-        foreach ($images as $image) {
-            $image->delete();
-        }
-    }
-
     public function render()
     {
-        $images = (config('app.env') != 'local') ? Cache::remember(
-            'image.search.'.Str::of(auth()->user()->id.$this->search.$this->field.(($this->asc) ? 'true' : 'false').$this->page.$this->perPage)->slug(),
+        $albums = (config('app.env') != 'local') ? Cache::remember(
+            'album.search.'.Str::of(auth()->user()->id.$this->search.$this->field.(($this->asc) ? 'true' : 'false').$this->page.$this->perPage)->slug(),
             now()->addMinutes(5),
             function () {
-                return $this->paginate($this->getAllImages(), $this->perPage);
+                return $this->paginate($this->getAllAlbums(), $this->perPage);
             }
-        ) : $this->paginate($this->getAllImages(), $this->perPage);
+        ) : $this->paginate($this->getAllAlbums(), $this->perPage);
 
-        return view('livewire.user-gallery', ['images' => $images]);
+        return view('livewire.albums-grid', ['albums' => $albums]);
     }
 }
