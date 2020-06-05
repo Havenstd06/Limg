@@ -12,16 +12,12 @@ class AlbumsSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
-
-        for ($i = 0; $i < 1; $i++) {
-            Album::create([
-                'name' => 'Brand Logo!',
-                'slug' => 'brand-logo',
-                'user_id' => 2,
-            ])->images()->attach([
-                1, 2, 3, 4, 5, 6, 7, 8, 9,
-            ]);
-        }
+        Album::create([
+            'name' => 'Brand Logo!',
+            'slug' => 'brand-logo',
+            'user_id' => 2,
+        ])->images()->attach([
+            1, 2, 3, 4, 5, 6, 7, 8, 9
+        ]);
     }
 }
