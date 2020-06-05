@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UserRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class UserCrudController
- * @package App\Http\Controllers\Admin
+ * Class UserCrudController.
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class UserCrudController extends CrudController
@@ -22,7 +20,7 @@ class UserCrudController extends CrudController
     public function setup()
     {
         $this->crud->setModel('App\Models\User');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/user');
+        $this->crud->setRoute(config('backpack.base.route_prefix').'/user');
         $this->crud->setEntityNameStrings('user', 'users');
     }
 
