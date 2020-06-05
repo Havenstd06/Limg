@@ -26,7 +26,6 @@ class UserCrudController extends CrudController
 
     protected function setupListOperation()
     {
-
         $this->crud->addColumn([
             'name' => 'avatar', // The db column name
             'label' => 'Avatar', // Table column heading
