@@ -32,6 +32,14 @@ class ImageCrudController extends CrudController
             'type'      => 'image',
         ]);
 
+        $this->crud->addColumn([
+            'label'     => 'Username', // Table column heading
+            'type'      => 'select',
+            'name'      => 'user_id', // the column that contains the ID of that connected entity;
+            'entity'    => 'user', // the method that defines the relationship in your Model
+            'attribute' => 'username', // foreign key attribute that is shown to user
+        ]);
+
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         $this->crud->setFromDb();
     }
