@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "backpack/crud": "4.1.*",
+        "backpack/filemanager": "^1.1",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.5",
