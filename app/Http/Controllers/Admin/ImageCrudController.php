@@ -28,6 +28,12 @@ class ImageCrudController extends CrudController
 
     protected function setupListOperation()
     {
+        $this->crud->addColumn([
+            'name'      => 'path', // The db column name
+            'label'     => 'Image', // Table column heading
+            'type'      => 'image',
+        ]);
+
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         $this->crud->setFromDb();
     }
@@ -35,10 +41,6 @@ class ImageCrudController extends CrudController
     protected function setupCreateOperation()
     {
         $this->crud->setValidation(ImageRequest::class);
-
-        $this->crud->addField([
-            'image' => $this->getFullPathAttribute(),
-        ]);
 
         // TODO: remove setFromDb() and manually define Fields
         $this->crud->setFromDb();
