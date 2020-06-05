@@ -46,6 +46,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getUserAvatar()
+    {
+        return config('app.url').'/'.$this->avatar;
+    }
+
     public function images()
     {
         return $this->hasMany('App\Image');
