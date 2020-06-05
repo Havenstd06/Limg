@@ -20,8 +20,9 @@ class UsersTableSeeder extends Seeder
         factory(App\User::class)->create([
             'username' => 'Havens',
             'email' => 'me@hvs.cx',
+            'role' => 1,
         ])->save();
 
-        factory(App\User::class, 10)->create();
+        factory(App\User::class, 3)->create();
     }
 }
