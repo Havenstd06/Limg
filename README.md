@@ -16,8 +16,8 @@
 - (new) Upload your image via file, url or ShareX !
 - (new) Custom Domain (be sure to add a redirect from the new domain to the main domain)
 - (new) Discord Webhook
-- (new) Admin Panel (ready to use)
 - (new) Image Album (add image into your album, delete, privacy)
+- (new) Backpack Admin Panel (ready to use)
 
 ## Soon
 - User profile & Images design refactor
@@ -57,6 +57,9 @@
 * paste on `.env` (`CLIENT ID` => `DISCORD_KEY` & `CLIENT SECRET` => `DISCORD_SECRET`)
 * go on OAuth2 page and add redirect link : `https://YourApp.Domain/login/discord/callback` 
 * add this redirect link in `.env` => `DISCORD_REDIRECT_URI`
+
+## Backpack Admin Panel
+This software uses Backpack for Laravel as a dependency. So when you use this in production, you'll need a Backpack license. You can get a free non-commercial license here, but if your project is for commercial purposes you need to pay 69 EUR for a license.
 
 <hr>  
 
