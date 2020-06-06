@@ -37,9 +37,9 @@
     </div>
   </div>
   @else 
-  <div class="items-center justify-between md:flex">
+  <div class="items-center justify-between mb-4 md:flex">
     @if ($image->title != null)
-      <h3 class="mb-4 text-2xl md:text-4xl dark:text-gray-300" title="{{ $image->title }}">{{ $image->title }}</h3>
+      <h3 class="text-2xl md:text-4xl dark:text-gray-300" title="{{ $image->title }}">{{ $image->title }}</h3>
     @endif
     <div class="flex items-center">
       @if ($image->liked())
