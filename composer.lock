@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "681f565ac4618face08e2e8dd68f8675",
+    "content-hash": "ca287e4b0b53196b606c77635f9b5cd7",
     "packages": [
         {
             "name": "backpack/backupmanager",
@@ -3012,6 +3012,70 @@
                 "uuid"
             ],
             "time": "2020-03-29T20:13:32+00:00"
+        },
+        {
+            "name": "rtconner/laravel-likeable",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rtconner/laravel-likeable.git",
+                "reference": "9c065dd204453103588910675c7f4e841ca2b811"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rtconner/laravel-likeable/zipball/9c065dd204453103588910675c7f4e841ca2b811",
+                "reference": "9c065dd204453103588910675c7f4e841ca2b811",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": ">=5.0|^6.0|^7.0",
+                "illuminate/support": ">=5.0|^6.0|^7.0",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "1.*",
+                "orchestra/testbench": "5.*",
+                "phpunit/phpunit": "8.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Conner\\Likeable\\LikeableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Conner\\Likeable\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robert Conner",
+                    "email": "rtconner@smarter.bz"
+                }
+            ],
+            "description": "Trait for Laravel Eloquent models to allow easy implementation of a 'like' or 'favorite' or 'remember' feature.",
+            "homepage": "https://smartersoftware.net/packages/laravel-likeable-favorite",
+            "keywords": [
+                "Follow",
+                "eloquent",
+                "favorite",
+                "favourite",
+                "laravel",
+                "laravel5",
+                "likable",
+                "like",
+                "likeable",
+                "remember",
+                "trait"
+            ],
+            "time": "2020-03-02T19:04:50+00:00"
         },
         {
             "name": "sixlive/dotenv-editor",

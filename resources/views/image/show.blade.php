@@ -37,9 +37,31 @@
     </div>
   </div>
   @else 
-  @if ($image->title != null)
-    <h3 class="mb-4 text-2xl md:text-4xl dark:text-gray-300" title="{{ $image->title }}">{{ $image->title }}</h3>
-  @endif
+  <div class="items-center justify-between md:flex">
+    @if ($image->title != null)
+      <h3 class="mb-4 text-2xl md:text-4xl dark:text-gray-300" title="{{ $image->title }}">{{ $image->title }}</h3>
+    @endif
+    <div class="flex items-center">
+      @if ($image->liked())
+        <form action="{{ route('image.unlike', ['image' => $image->pageName]) }}" method="post">
+          @csrf
+          <button type="submit" class="px-3 py-2 mr-2 transition duration-300 ease-in-out bg-red-600 rounded-full focus:outline-none text-gray-50 hover:bg-red-700">
+            <i class="far fa-thumbs-down"></i>
+          </button>
+        </form>
+      @else
+        <form action="{{ route('image.like', ['image' => $image->pageName]) }}" method="post">
+          @csrf
+          <button type="submit" class="px-3 py-2 mr-2 transition duration-300 ease-in-out bg-green-600 rounded-full focus:outline-none text-gray-50 hover:bg-green-700">
+            <i class="far fa-thumbs-up"></i>
+          </button>
+        </form>
+      @endif
+      <span class="inline-flex items-center px-2.5 py-1 rounded-full text-sm font-medium leading-4 bg-green-100 text-green-800">
+        {{ $image->likeCount }} like(s)
+      </span>
+    </div>
+  </div>
   @ownsImage($image)
     <form role="form" method="POST" action="{{ route('image.infos', ['image' => $image->pageName]) }}">
       @csrf
@@ -122,18 +144,18 @@
           <div>
             <ul class="flex items-center justify-center p-2 mt-2">
               <li>
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ URL::current() }}" target="no_follow" class="px-3 py-2 transition duration-300 ease-in-out bg-blue-600 rounded-full text-gray-50 hover:bg-blue-700">
-                  <span class="fab fa-facebook"></span>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ URL::current() }}" target="no_follow" class="px-3 py-2 ml-2 transition duration-300 ease-in-out bg-blue-600 rounded-full text-gray-50 hover:bg-blue-700">
+                  <i class="fab fa-facebook"></i>
                 </a>
-            </li>
+              </li>
               <li>
                 <a href="https://twitter.com/intent/tweet?url={{ URL::current() }}" target="no_follow" class="px-3 py-2 ml-2 transition duration-300 ease-in-out bg-blue-500 rounded-full text-gray-50 hover:bg-blue-600">
-                  <span class="fab fa-twitter"></span>
+                  <i class="fab fa-twitter"></i>
                 </a>
               </li>
               <li>
                 <a href="http://www.reddit.com/submit?url={{ URL::current() }}" target="no_follow" class="px-3 py-2 ml-2 transition duration-300 ease-in-out bg-orange-500 rounded-full hover:bg-orange-600 text-gray-50">
-                  <span class="fab fa-reddit-alien"></span>
+                  <i class="fab fa-reddit-alien"></i>
                 </a>
               </li> 
             </ul>

@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Conner\Likeable\Likeable;
 use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
+    use Likeable;
+
     protected $guarded = [];
 
     protected $fillable = ['title', 'is_public'];

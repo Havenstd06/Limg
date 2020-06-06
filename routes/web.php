@@ -45,6 +45,8 @@ Route::prefix('/i')->group(function () {
 
     Route::prefix('/{image}')->group(function () {
         Route::get('/', 'ImageController@get')->name('image.show');
+        Route::post('/like', 'ImageController@like')->name('image.like');
+        Route::post('/unlike', 'ImageController@unlike')->name('image.unlike');
 
         Route::post('/updates', 'ImageController@infos')->name('image.infos');
         Route::get('/delete', 'ImageController@delete')->name('image.delete');

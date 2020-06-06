@@ -25,6 +25,7 @@
         "livewire/livewire": "^1.1",
         "nopjmp/discord-webhooks": "^0.3.1",
         "nubs/random-name-generator": "^2.1",
+        "rtconner/laravel-likeable": "~3.0",
         "socialiteproviders/discord": "^2.0",
         "yoeunes/notify": "^1.0"
     },

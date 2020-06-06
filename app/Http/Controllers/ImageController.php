@@ -318,6 +318,28 @@ class ImageController extends Controller
         return redirect()->route('album.show', ['album' => $album->slug]);
     }
 
+    public function like(Request $request, Image $image)
+    {
+        $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
+
+        $image->like($user->id);
+
+        notify()->success('You have successfully like this image!');
+
+        return redirect()->back();
+    }
+
+    public function unlike(Request $request, Image $image)
+    {
+        $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
+
+        $image->unlike($user->id);
+
+        notify()->success('You have successfully unlike this image!');
+
+        return redirect()->back();
+    }
+
     public function download(Image $image)
     {
         return ($image->title) ? response()->download($image->fullpath, Str::slug($image->title, '-').'.'.$image->extension) : response()->download($image->fullpath);
