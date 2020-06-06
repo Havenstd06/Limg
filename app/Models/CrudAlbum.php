@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Album extends Model
+class CrudAlbum extends Model
 {
     use CrudTrait;
 

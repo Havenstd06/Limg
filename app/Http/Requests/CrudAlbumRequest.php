@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ImageRequest extends FormRequest
+class CrudAlbumRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

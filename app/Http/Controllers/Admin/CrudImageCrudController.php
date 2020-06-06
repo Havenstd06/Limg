@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ImageRequest;
+use App\Http\Requests\CrudImageRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class ImageCrudController.
+ * Class ImageCrudController
+ * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class ImageCrudController extends CrudController
+class CrudImageCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -19,9 +21,9 @@ class ImageCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Models\Image');
-        $this->crud->setRoute(config('backpack.base.route_prefix').'/image');
-        $this->crud->setEntityNameStrings('image', 'images');
+        $this->crud->setModel('App\Models\CrudImage');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/crud-image');
+        $this->crud->setEntityNameStrings('crud-image', 'crud-images');
 
         $this->crud->addColumn([
             'name'      => 'path', // The db column name
@@ -48,7 +50,7 @@ class ImageCrudController extends CrudController
 
     protected function setupCreateOperation()
     {
-        $this->crud->setValidation(ImageRequest::class);
+        $this->crud->setValidation(CrudImageRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
         $this->crud->setFromDb();

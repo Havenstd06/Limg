@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\AlbumRequest;
+use App\Http\Requests\CrudAlbumRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class AlbumCrudController.
+ * Class CrudAlbumCrudController
+ * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class AlbumCrudController extends CrudController
+class CrudAlbumCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -19,9 +21,9 @@ class AlbumCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Models\Album');
-        $this->crud->setRoute(config('backpack.base.route_prefix').'/album');
-        $this->crud->setEntityNameStrings('album', 'albums');
+        $this->crud->setModel('App\Models\CrudAlbum');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/crud-album');
+        $this->crud->setEntityNameStrings('crud-album', 'crud-albums');
 
         $this->crud->addColumn([
             'label'     => 'Username', // Table column heading
@@ -40,7 +42,7 @@ class AlbumCrudController extends CrudController
 
     protected function setupCreateOperation()
     {
-        $this->crud->setValidation(AlbumRequest::class);
+        $this->crud->setValidation(CrudAlbumRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
         $this->crud->setFromDb();
