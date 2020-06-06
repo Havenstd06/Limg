@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CrudImageRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class ImageCrudController
- * @package App\Http\Controllers\Admin
+ * Class ImageCrudController.
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class CrudImageCrudController extends CrudController
@@ -22,7 +20,7 @@ class CrudImageCrudController extends CrudController
     public function setup()
     {
         $this->crud->setModel('App\Models\CrudImage');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/crud-image');
+        $this->crud->setRoute(config('backpack.base.route_prefix').'/crud-image');
         $this->crud->setEntityNameStrings('crud-image', 'crud-images');
 
         $this->crud->addColumn([
