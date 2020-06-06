@@ -30,8 +30,6 @@ class AlbumCrudController extends CrudController
             'entity'    => 'user', // the method that defines the relationship in your Model
             'attribute' => 'username', // foreign key attribute that is shown to user
         ]);
-
-        
     }
 
     protected function setupListOperation()

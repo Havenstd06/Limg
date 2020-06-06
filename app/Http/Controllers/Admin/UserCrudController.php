@@ -30,8 +30,6 @@ class UserCrudController extends CrudController
             'height' => '50px',
             'width' => '50px',
         ]);
-
-        
     }
 
     protected function setupListOperation()
