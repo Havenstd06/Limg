@@ -22,10 +22,7 @@ class AlbumCrudController extends CrudController
         $this->crud->setModel('App\Models\Album');
         $this->crud->setRoute(config('backpack.base.route_prefix').'/album');
         $this->crud->setEntityNameStrings('album', 'albums');
-    }
 
-    protected function setupListOperation()
-    {
         $this->crud->addColumn([
             'label'     => 'Username', // Table column heading
             'type'      => 'select',
@@ -34,6 +31,11 @@ class AlbumCrudController extends CrudController
             'attribute' => 'username', // foreign key attribute that is shown to user
         ]);
 
+        
+    }
+
+    protected function setupListOperation()
+    {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         $this->crud->setFromDb();
     }

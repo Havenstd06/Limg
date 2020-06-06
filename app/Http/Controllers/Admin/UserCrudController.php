@@ -22,16 +22,20 @@ class UserCrudController extends CrudController
         $this->crud->setModel('App\Models\User');
         $this->crud->setRoute(config('backpack.base.route_prefix').'/user');
         $this->crud->setEntityNameStrings('user', 'users');
-    }
 
-    protected function setupListOperation()
-    {
         $this->crud->addColumn([
             'name' => 'avatar', // The db column name
             'label' => 'Avatar', // Table column heading
             'type' => 'image',
+            'height' => '50px',
+            'width' => '50px',
         ]);
 
+        
+    }
+
+    protected function setupListOperation()
+    {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         $this->crud->setFromDb();
     }

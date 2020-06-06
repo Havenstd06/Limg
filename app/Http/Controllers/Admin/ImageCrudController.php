@@ -22,14 +22,13 @@ class ImageCrudController extends CrudController
         $this->crud->setModel('App\Models\Image');
         $this->crud->setRoute(config('backpack.base.route_prefix').'/image');
         $this->crud->setEntityNameStrings('image', 'images');
-    }
 
-    protected function setupListOperation()
-    {
         $this->crud->addColumn([
             'name'      => 'path', // The db column name
             'label'     => 'Image', // Table column heading
             'type'      => 'image',
+            'height' => '100px',
+            'width' => '100px',
         ]);
 
         $this->crud->addColumn([
@@ -39,7 +38,10 @@ class ImageCrudController extends CrudController
             'entity'    => 'user', // the method that defines the relationship in your Model
             'attribute' => 'username', // foreign key attribute that is shown to user
         ]);
+    }
 
+    protected function setupListOperation()
+    {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         $this->crud->setFromDb();
     }
