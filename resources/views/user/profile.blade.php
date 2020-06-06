@@ -110,7 +110,7 @@
             <button class="px-1 py-4 ml-8 font-medium leading-5 whitespace-no-wrap border-b-2 focus:outline-none" 
             :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'public', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'public'}"
             @click="tab = 'public'">
-                <i class="fas fa-globe-europe"></i> Public
+                <i class="fas fa-images"></i> @if (Auth::check() && auth()->user()->id == $user->id) Public @else Images @endif
             </button>
             @if (Auth::check() && auth()->user()->id == $user->id)
             <button class="px-1 py-4 ml-8 font-medium leading-5 whitespace-no-wrap border-b-2 focus:outline-none" 
@@ -119,6 +119,11 @@
                 <i class="fas fa-user-lock"></i> Private
             </button>
             @endif
+            <button class="px-1 py-4 ml-8 font-medium leading-5 whitespace-no-wrap border-b-2 focus:outline-none" 
+            :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'liked', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'liked'}"
+            @click="tab = 'liked'">
+                <i class="far fa-thumbs-up"></i> Liked
+            </button>
         </nav>
         <div x-show="tab === 'all'">
             <div class="gap-4 sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
@@ -193,6 +198,31 @@
             </div>
             <div class="pt-5 text-center">
                 {{ $privateImages->links() }}
+            </div>
+        </div>
+        <div x-show="tab === 'liked'">
+            <div class="gap-4 sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+                @foreach ($imagesLiked as $img)
+                    <div class="rounded-lg dark:bg-forest bg-gray-50">
+                        <h2 class="h-10 pt-2 mx-4 my-4 font-semibold text-gray-800 truncate md:my-0 dark:text-gray-100" title="{{ $img->title }}">
+                            {{ $img->title ?? '' }}
+                        </h2>
+                        <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
+                            <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
+                            style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+                        </a>
+                        <p class="flex justify-end px-2 py-1 mr-2 text-sm font-medium text-gray-800 dark:text-gray-100">
+                            {{ $img->created_at->format('d/m/Y') }} 
+                            by&nbsp;
+                            <a href="{{ route('user.profile', ['user' => $img->user->username]) }}" class="text-indigo-500 hover:text-indigo-400">
+                            {{ $img->user->username }}
+                            </a>
+                        </p>
+                    </div>
+                @endforeach
+            </div>
+            <div class="pt-5 text-center">
+                {{ $imagesLiked->links() }}
             </div>
         </div>
     </div>
