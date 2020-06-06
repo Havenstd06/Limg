@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CrudAlbumRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class CrudAlbumCrudController
- * @package App\Http\Controllers\Admin
+ * Class CrudAlbumCrudController.
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class CrudAlbumCrudController extends CrudController
@@ -22,7 +20,7 @@ class CrudAlbumCrudController extends CrudController
     public function setup()
     {
         $this->crud->setModel('App\Models\CrudAlbum');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/crud-album');
+        $this->crud->setRoute(config('backpack.base.route_prefix').'/crud-album');
         $this->crud->setEntityNameStrings('crud-album', 'crud-albums');
 
         $this->crud->addColumn([
