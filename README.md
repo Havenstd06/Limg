@@ -18,6 +18,7 @@
 - (new) Discord Webhook
 - (new) Image Album (add image into your album, delete, privacy)
 - (new) Backpack Admin Panel (ready to use)
+- (new) Like System
 
 ## Soon
 - User profile & Images design refactor
@@ -30,6 +31,8 @@
 - New Landing Page (31/05/2020)
 - Support for multiple URLs with validation (01/06/2020)
 - Image Album (04/06/2020)
+- Add Backpack Admin Panel (05/06/2020)
+- Add like system (06/06/2020)
 
 ## Requirement
 - [**PHP**](https://php.net) 7.2+ (**7.4** preferred)
