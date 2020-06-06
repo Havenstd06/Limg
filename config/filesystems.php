@@ -63,7 +63,7 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
         ],
-        
+
         // used for Backpack/LogManager
         'storage' => [
             'driver' => 'local',
