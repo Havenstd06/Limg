@@ -17,6 +17,9 @@ return [
 
     'description' => 'Image Hosting Made In Laravel',
 
+    // Logs
+    'log' => env('APP_LOG', 'daily'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

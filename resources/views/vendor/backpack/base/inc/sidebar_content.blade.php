@@ -4,3 +4,5 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('crud-image') }}'><i class='nav-icon la la-image'></i> Images</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('crud-album') }}'><i class='nav-icon las la-images'></i> Albums</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('domain') }}'><i class='nav-icon las la-network-wired '></i> Domains</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('backup') }}'><i class='nav-icon la la-hdd-o'></i> Backups</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('log') }}'><i class='nav-icon la la-terminal'></i> Logs</a></li>
