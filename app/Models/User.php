@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 
 class User extends Model
 {
@@ -52,4 +53,8 @@ class User extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+    public function setPasswordAttribute($value) {
+        $this->attributes['password'] = Hash::make($value);
+    }
 }
