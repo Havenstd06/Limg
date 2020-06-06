@@ -16,9 +16,9 @@ class AlbumController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function main()
     {
-        return view('album.index');
+        return view('album.main');
     }
 
     /**
@@ -91,7 +91,7 @@ class AlbumController extends Controller
 
         notify()->success('You have successfully delete your album!');
 
-        return redirect()->route('album.index');
+        return redirect()->route('album.main');
     }
 
     public function remove(Request $request, Album $album, Image $image)

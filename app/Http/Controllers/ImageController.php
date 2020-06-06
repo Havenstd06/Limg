@@ -26,9 +26,9 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function main()
     {
-        return view('image.index');
+        return view('image.main');
     }
 
     public function upload(Request $request)

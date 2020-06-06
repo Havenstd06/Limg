@@ -12,7 +12,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function main()
     {
         $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
 

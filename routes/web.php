@@ -16,7 +16,7 @@ Auth::routes();
 Route::get('login/discord', 'Auth\LoginController@redirectToProvider')->name('login.discord');
 Route::get('login/discord/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@main')->name('home');
 
 // Profile Route
 Route::prefix('p/{user}')->group(function () {
@@ -24,7 +24,7 @@ Route::prefix('p/{user}')->group(function () {
     Route::get('/gallery', 'UserController@gallery')->name('user.gallery');
     Route::get('/albums', 'UserController@albums')->name('user.albums');
     Route::name('settings.')->prefix('settings')->group(function () {
-        Route::get('/', 'UserController@settings')->name('index');
+        Route::get('/', 'UserController@settings')->name('main');
         Route::post('update/style', 'UserController@update_style')->name('update.style');
         Route::post('update/profile', 'UserController@update_profile')->name('update.profile');
         Route::post('update/password', 'UserController@update_password')->name('update.password');
@@ -41,7 +41,7 @@ Route::post('/url/upload', 'ImageController@url_upload')->name('url_upload');
 Route::post('/api/upload', 'ImageController@api_upload')->name('api_upload');
 
 Route::prefix('/i')->group(function () {
-    Route::get('/', 'ImageController@index')->name('image.index');
+    Route::get('/', 'ImageController@main')->name('image.main');
 
     Route::prefix('/{image}')->group(function () {
         Route::get('/', 'ImageController@get')->name('image.show');
@@ -55,7 +55,7 @@ Route::prefix('/i')->group(function () {
 });
 
 Route::prefix('/a')->group(function () {
-    Route::get('/', 'AlbumController@index')->name('album.index');
+    Route::get('/', 'AlbumController@main')->name('album.main');
     Route::get('/new', 'AlbumController@create')->name('album.create');
 
     Route::prefix('/{album}')->group(function () {
