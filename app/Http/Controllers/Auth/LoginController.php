@@ -69,7 +69,7 @@ class LoginController extends Controller
             //     Storage::disk('public')->put($name, $contents);
             //     $avatar = $name;
             // } else {
-                $avatar = 'storage/avatars/default.png';
+            $avatar = 'storage/avatars/default.png';
             // }
 
             $user->verified = ($user->user['verified']) ? Date::now() : null;
