@@ -61,16 +61,16 @@ class LoginController extends Controller
         $foundUser = User::where('email', '=', $user->email)->first();
 
         if (! $foundUser) {
-            if ($user->avatar != null) {
-                $url = $user->avatar.'?size=256';
-                $extension = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
-                $contents = file_get_contents($url);
-                $name = 'storage/avatars/'.strtolower($user->name.$user->user['discriminator']).".${extension}";
-                Storage::disk('public')->put($name, $contents);
-                $avatar = $name;
-            } else {
+            // if ($user->avatar != null) {
+            //     $url = $user->avatar.'?size=256';
+            //     $extension = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
+            //     $contents = file_get_contents($url);
+            //     $name = 'storage/avatars/'.strtolower($user->name.$user->user['discriminator']).".${extension}";
+            //     Storage::disk('public')->put($name, $contents);
+            //     $avatar = $name;
+            // } else {
                 $avatar = 'storage/avatars/default.png';
-            }
+            // }
 
             $user->verified = ($user->user['verified']) ? Date::now() : null;
 
@@ -82,12 +82,12 @@ class LoginController extends Controller
                 'api_token' => Str::random(20),
             ]);
 
-            if ($user->avatar != null) {
-                $location = storage_path('app/public/avatars/'.strtolower($user->name.$user->user['discriminator']).".${extension}");
-                InterImage::make($location)->resize(150, 150)->save($location);
-                $foundUser->avatar = $avatar;
-                $foundUser->save();
-            }
+            // if ($user->avatar != null) {
+            //     $location = storage_path('app/public/avatars/'.strtolower($user->name.$user->user['discriminator']).".${extension}");
+            //     InterImage::make($location)->resize(150, 150)->save($location);
+            //     $foundUser->avatar = $avatar;
+            //     $foundUser->save();
+            // }
         }
 
         Auth::login($foundUser, true);
