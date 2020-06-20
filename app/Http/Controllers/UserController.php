@@ -56,6 +56,7 @@ class UserController extends Controller
         abort_unless($user == $request->user(), 403);
 
         $user->always_public = $request->has('always_public');
+        $user->short_link = $request->has('short_link');
         $user->description = $request->input('description');
         $user->save();
 

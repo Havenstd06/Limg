@@ -195,23 +195,32 @@ class ImageController extends Controller
                     ->replace('\\', '')
                     ->replace(' ', '-');
 
-                    $imageName = (string) Str::of(new Alliteration().'-'.new Vgng().'-'.Str::random(6))
+                    $tempImageName = 'temp-'.Str::random(6);
+
+                    $image = new Image;
+                    $image->pageName = $pageName;
+                    $image->imageName = $tempImageName;
+                    $image->extension = pathinfo($tempImageName, PATHINFO_EXTENSION);
+                    $image->path = '/i/'.$tempImageName;
+                    $image->user_id = $user->id;
+                    $image->is_public = 0;
+                    $image->save();
+
+
+                    $finalImageName = $user->short_link == 0 ? (string) Str::of(new Alliteration().'-'.new
+                    Vgng().'-'.Str::random(6))
                     ->replace('\'', '')
                     ->replace('.', '')
                     ->replace('/', '')
                     ->replace('\\', '')
-                    ->replace(' ', '-');
+                    ->replace(' ', '-') : $image->id.Str::random(3);
 
-                    $imageFullName = $imageName.'.'.$file->getClientOriginalExtension();
-                    $file->move(('storage/images'), $imageFullName);
+                    $finalimageFullName = $finalImageName.'.'.$file->getClientOriginalExtension();
+                    $file->move(('storage/images'), $finalimageFullName);
 
-                    $image = new Image;
-                    $image->pageName = $pageName;
-                    $image->imageName = $imageName;
-                    $image->extension = pathinfo($imageFullName, PATHINFO_EXTENSION);
-                    $image->path = '/i/'.$imageFullName;
-                    $image->user_id = $user->id;
-                    $image->is_public = 0;
+                    $image->imageName = $finalImageName;
+                    $image->extension = pathinfo($finalimageFullName, PATHINFO_EXTENSION);
+                    $image->path = '/i/'.$finalimageFullName;
                     $image->save();
 
                     $this->sendWebhook($user, $image);
