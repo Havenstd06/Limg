@@ -152,10 +152,12 @@
           {{ __('Discord Webhook') }}
         </label>
         <div class="md:flex">
-          <input id="webhook" name="webhook_url" value="{{ $user->webhook_url }}" placeholder="No Discord webhook" class="w-full px-3 py-2 leading-tight text-gray-700 bg-gray-200 border-l rounded-l appearance-none md:w-0 md:flex-auto focus:outline-none" spellcheck="false">
-          <button type="button" onclick="clearFields()" class="pr-2 bg-gray-200 rounded-r focus:outline-none">
-            <i class="relative inline text-lg text-gray-700 fas fa-times"></i>
-          </button>
+          <div class="flex md:flex-1">
+            <input id="webhook" name="webhook_url" value="{{ $user->webhook_url }}" placeholder="No Discord webhook" class="w-full px-3 py-2 leading-tight text-gray-700 bg-gray-200 border-l rounded-l appearance-none md:w-0 md:flex-auto focus:outline-none" spellcheck="false">
+            <button type="button" onclick="clearFields()" class="pr-2 bg-gray-200 rounded-r focus:outline-none">
+              <i class="relative inline text-lg text-gray-700 fas fa-times"></i>
+            </button>
+          </div>
           <div class="flex justify-end">
             <button class="inline-flex items-center px-4 py-2 mt-3 font-bold text-white bg-indigo-700 rounded md:ml-2 md:mt-0 hover:border-indigo-600 hover:bg-indigo-800 hover:text-white">
               <i class="relative inline text-lg fas fa-save"></i> 
