@@ -206,7 +206,6 @@ class ImageController extends Controller
                     $image->is_public = 0;
                     $image->save();
 
-
                     $finalImageName = $user->short_link == 0 ? (string) Str::of(new Alliteration().'-'.new
                     Vgng().'-'.Str::random(6))
                     ->replace('\'', '')
