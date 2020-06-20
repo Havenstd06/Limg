@@ -18,6 +18,7 @@
 - Add image into an album (custom name, public or private, delete)
 - Backpack Admin Panel (ready to use)
 - Like System
+- Possibility to choose to generate shorter links for ShareX uploads
 
 ## Requirement
 - [**PHP**](https://php.net) 7.2+ (**7.4** preferred)
