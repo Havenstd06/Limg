@@ -19,17 +19,6 @@
 - Backpack Admin Panel (ready to use)
 - Like System
 
-## Changelog
-- ShareX Support & Admin Panel (22/05/2020)
-- Table with all images (25/05/2020)
-- Custom Domain (27/05/2020)
-- Discord Webhook (29/05/2020)
-- New Landing Page (31/05/2020)
-- Support for multiple URLs with validation (01/06/2020)
-- Image Album (04/06/2020)
-- Add Backpack Admin Panel (05/06/2020)
-- Add like system (06/06/2020)
-
 ## Requirement
 - [**PHP**](https://php.net) 7.2+ (**7.4** preferred)
 - PHP Extensions: openssl, mcrypt and mbstring, phpredis
