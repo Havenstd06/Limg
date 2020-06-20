@@ -11,17 +11,13 @@
 <hr>
 
 ## Features
-- Upload and share your image with privacy
+- Upload your image via file, url or ShareX !
 - Manage your image (custom title, public or private, delete, custom size...)
-- (new) Upload your image via file, url or ShareX !
-- (new) Custom Domain (be sure to add a redirect from the new domain to the main domain)
-- (new) Discord Webhook
-- (new) Image Album (add image into your album, delete, privacy)
-- (new) Backpack Admin Panel (ready to use)
-- (new) Like System
-
-## Soon
-- User profile & Images design refactor
+- Custom Domain for ShareX upload (be sure to add a redirect from the new domain to the main domain)
+- Discord Webhook for every new image uploaded
+- Add image into an album (custom name, public or private, delete)
+- Backpack Admin Panel (ready to use)
+- Like System
 
 ## Changelog
 - ShareX Support & Admin Panel (22/05/2020)
