@@ -56,7 +56,8 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
-    public function isItemPublic($item) {
+    public function isItemPublic($item)
+    {
         if ($item->is_public == 0) {
             if (! auth()->user()) {
                 return true;
@@ -69,8 +70,10 @@ class AppServiceProvider extends ServiceProvider
             if (auth()->user() && auth()->user()->role == 1) {
                 return false;
             }
+
             return true;
         }
+
         return false;
     }
 }
