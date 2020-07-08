@@ -267,7 +267,7 @@ class ImageController extends Controller
     public function infos(Request $request, Image $image)
     {
         $user = $request->user();
-        abort_unless(Auth::check() && $user->id == $image->user->id, 403);
+        abort_unless(Auth::check() && ($user->id == $image->user->id || $user->role == 1), 403);
 
         $rules = [
             'title' => 'max:50',
@@ -293,7 +293,7 @@ class ImageController extends Controller
     public function delete(Request $request, Image $image)
     {
         $user = $request->user();
-        abort_unless(Auth::check() && $user->id == $image->user->id, 403);
+        abort_unless(Auth::check() && ($user->id == $image->user->id || $user->role == 1), 403);
 
         if (File::exists($image->fullpath)) {
             File::delete($image->fullpath);

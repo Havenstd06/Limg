@@ -58,7 +58,7 @@ class AlbumController extends Controller
     public function infos(Request $request, Album $album)
     {
         $user = $request->user();
-        abort_unless(Auth::check() && $user->id == $album->user->id, 403);
+        abort_unless(Auth::check() && ($user->id == $album->user->id || $user->role == 1), 403);
 
         $rules = [
             'name' => 'max:50',
@@ -84,7 +84,7 @@ class AlbumController extends Controller
     public function delete(Request $request, Album $album)
     {
         $user = $request->user();
-        abort_unless(Auth::check() && $user->id == $album->user->id, 403);
+        abort_unless(Auth::check() && ($user->id == $album->user->id || $user->role == 1), 403);
 
         $album->images()->detach();
         $album->delete();
@@ -97,7 +97,7 @@ class AlbumController extends Controller
     public function remove(Request $request, Album $album, Image $image)
     {
         $user = $request->user();
-        abort_unless(Auth::check() && $user->id == $album->user->id, 403);
+        abort_unless(Auth::check() && ($user->id == $album->user->id || $user->role == 1), 403);
 
         if ($album->images()->count() == 1) {
             Session::flash('error', 'You must have at least 1 image in your album.');
@@ -108,39 +108,5 @@ class AlbumController extends Controller
         }
 
         return redirect()->back();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
