@@ -8,6 +8,7 @@
 /public/mix-manifest.json
 /public/vendor
 /public/storage
+/public/packages
 
 /storage/*.key
 /vendor
