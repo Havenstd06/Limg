@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Album;
 use App\Image;
-use App\Rules\ValidImageUrlRule;
-use App\User;
-use DiscordWebhooks\Client;
 use DiscordWebhooks\Embed;
+use DiscordWebhooks\Client;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Rules\ValidImageUrlRule;
+use Nubs\RandomNameGenerator\Vgng;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image as InterImage;
 use Nubs\RandomNameGenerator\Alliteration;
-use Nubs\RandomNameGenerator\Vgng;
+use Intervention\Image\Facades\Image as InterImage;
 
 class ImageController extends Controller
 {
@@ -370,7 +371,11 @@ class ImageController extends Controller
             });
         }
 
-        return $imageSize->response($imageLink->extension, '80');
+        $cacheName = 'resized-' . Str::of($imageLink->imageName)->slug() . '-' . $size;
+
+        return Cache::remember($cacheName, now()->addMinutes(5), function () use ($imageSize, $imageLink) {
+            return $imageSize->response($imageLink->extension, '80');
+        });
     }
 
     private function sendWebhook(User $user, Image $image): void
