@@ -24,7 +24,7 @@
 @section('content')
 <div class="container mx-auto mt-10">
   @if (auth()->user() == $user)
-  <div class="max-w-lg px-8 pt-6 pb-8 mx-4 bg-white rounded-lg shadow-md dark:bg-midnight sm:container sm:mx-auto sm:w-full">
+  <div class="max-w-lg px-8 pt-6 pb-8 mx-4 bg-white rounded-lg shadow-md dark:bg-midnight sm:mx-auto sm:w-full">
     <div class="flex items-center justify-center mb-8">
       <img class="ml-12 rounded-lg shadow-md sm:ml-14 w-38" src="{{ url($user->avatar) }}" alt="{{ $user->username }}">
       <form action="{{ route('settings.update.avatar', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="px-8 pt-6 pb-8 mx-4 bg-white rounded-lg shadow-md dark:bg-midnight sm:container sm:mx-auto sm:w-full">
+<div class="px-8 pt-6 pb-8 bg-white rounded-lg shadow-md dark:bg-midnight sm:mx-auto sm:w-full">
   <div class="text-black dark:text-gray-300">
     <div class="flex items-center">
       <h2 class="text-4xl font-bold">Albums</h2>
