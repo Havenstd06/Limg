@@ -74,6 +74,7 @@ return [
         'redis' => [
             'driver' => 'redis',
             'connection' => 'cache',
+            'client' => env('REDIS_CLIENT', 'predis'),
         ],
 
         'dynamodb' => [
