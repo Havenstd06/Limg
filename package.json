@@ -11,18 +11,18 @@
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.13.0",
+        "@tailwindcss/ui": "^0.3.0",
+        "alpinejs": "^2.6.0",
         "cross-env": "^7.0",
-        "laravel-mix": "^5.0.4",
+        "laravel-mix": "^5.0.5",
         "laravel-mix-purgecss": "^5.0.0",
         "resolve-url-loader": "^3.1.1",
         "sass": "^1.26.7",
         "sass-loader": "^8.0.2",
-        "tailwindcss": "^1.4.6",
-        "tailwindcss-dark-mode": "^1.1.4",
-        "vue-template-compiler": "^2.6.11",
-        "@tailwindcss/ui": "^0.3.0",
-        "alpinejs": "^2.3.5",
-        "turbolinks": "^5.2.0"
+        "tailwindcss": "^1.7.6",
+        "tailwindcss-dark-mode": "^1.1.6",
+        "turbolinks": "^5.2.0",
+        "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {}
 }
