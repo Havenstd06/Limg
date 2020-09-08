@@ -28,48 +28,6 @@ class ImageController extends Controller
     }
 
     /**
-     * Show all user images (api_token may required)
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function user(Request $request)
-    {
-        $images = Image::where('is_public', 1)->orderBy('created_at', 'DESC')->get();
-
-        $private_key = key($request->query());
-    
-        if ($private_key == null) {
-            return response()->json([
-                'success' => false,
-                'error' => 'Please give a api key to validate.',
-            ], 401);
-        }
-
-        $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
-
-        if (in_array($private_key, $keys)) {
-            $user = User::where('api_token', '=', $private_key)->first();
-
-            $images = Image::where('user_id', '=', $user->id)->orderBy('created_at', 'DESC')->get();
-
-            if ($images->count() > 0) {
-                return $images;
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'error' => 'No image found!',
-                ], 302);
-            }
-
-        } else {
-            return response()->json([
-                'success' => false,
-                'error' => 'Invalid key!',
-            ], 400);
-        }
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

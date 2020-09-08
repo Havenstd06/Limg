@@ -59,7 +59,6 @@
 
 ### Images
 * `/images/public` - Return all public images. 
-* `/images/user?{UserApiToken}` - Return all the images of the user who owns the "UserApiToken" (api key required).  
 * `/images/id?{ImageID}` - Return the image of the specified id (If public).  
 * `/images/id?{ImageID}?{UserApiToken}` - Return the image of the specified id (If private) (api key required).
 
