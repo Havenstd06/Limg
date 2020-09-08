@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\API;
 
-use App\User;
-use App\Image;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Image;
+use App\User;
+use DiscordWebhooks\Client;
+use DiscordWebhooks\Embed;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Nubs\RandomNameGenerator\Alliteration;
 use Nubs\RandomNameGenerator\Vgng;
-use DiscordWebhooks\Client;
-use DiscordWebhooks\Embed;
 
 class ImageController extends Controller
 {
     /**
-     * Private image (required api key)
+     * Private image (required api key).
      *
      * @return \Illuminate\Http\Response
      */
@@ -28,7 +28,7 @@ class ImageController extends Controller
     }
 
     /**
-     * Show all user images (api_token may required)
+     * Show all user images (api_token may required).
      *
      * @return \Illuminate\Http\Response
      */
@@ -37,7 +37,7 @@ class ImageController extends Controller
         $images = Image::where('is_public', 1)->orderBy('created_at', 'DESC')->get();
 
         $private_key = key($request->query());
-    
+
         if ($private_key == null) {
             return response()->json([
                 'success' => false,
@@ -60,7 +60,6 @@ class ImageController extends Controller
                     'error' => 'No image found!',
                 ], 302);
             }
-
         } else {
             return response()->json([
                 'success' => false,
@@ -180,9 +179,9 @@ class ImageController extends Controller
             }
         }
     }
-    
+
     /**
-     * Show specific image (api_token may required)
+     * Show specific image (api_token may required).
      *
      * @param  \App\Image  $image
      * @return \Illuminate\Http\Response
@@ -212,14 +211,12 @@ class ImageController extends Controller
                         'error' => 'It is not your image!',
                     ], 403);
                 }
-
             } else {
                 return response()->json([
                     'success' => false,
                     'error' => 'Invalid key!',
                 ], 401);
             }
-
         } else {
             return $image;
         }
