@@ -51,20 +51,20 @@
 `https://limg.app/api`
 
 ### Stats
-`/stats/global` - Return the number of images, albums and users.
+* `/stats/global` - Return the number of images, albums and users.
 
 ### User
-`/user/{Username}` - Return the user's public information.
-`/user/{Username}?{UserApiToken}` - Return the user's private information (api key required).
+* `/user/{Username}` - Return the user's public information.
+* `/user/{Username}?{UserApiToken}` - Return the user's private information (api key required).
 
 ### Images
-`/images/public` - Return all public images. 
-`/images/user?{UserApiToken}` - Return all the images of the user who owns the "UserApiToken" (api key required).
-`/images/id?{ImageID}` - Return the image of the specified id (If public).
-`/images/id?{ImageID}?{UserApiToken}` - Return the image of the specified id (If private) (api key required).
+* `/images/public` - Return all public images. 
+* `/images/user?{UserApiToken}` - Return all the images of the user who owns the "UserApiToken" (api key required).  
+* `/images/id?{ImageID}` - Return the image of the specified id (If public).  
+* `/images/id?{ImageID}?{UserApiToken}` - Return the image of the specified id (If private) (api key required).
 
 ### Upload
-`/upload` - ShareX Compatible API.
+* `/upload` - ShareX Compatible API.
 
 ## Backpack Admin Panel
 This software uses Backpack for Laravel as a dependency. So when you use this in production, you'll need a Backpack license. You can get a free non-commercial license here, but if your project is for commercial purposes you need to pay 69 EUR for a license.
