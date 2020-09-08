@@ -14,8 +14,9 @@ use Illuminate\Http\Request;
 */
 Route::prefix('/stats')->group(function () {
   Route::get('/global', 'API\StatsController@global'); // Return site stats
-  Route::get('/user/{username?}', 'API\StatsController@user'); // Return user stats
 });
+
+Route::get('/user/{username?}', 'API\StatsController@user'); // Return user stats
 
 Route::prefix('/images')->group(function () {
   Route::get('/public', 'API\ImageController@public'); // Show public public images
