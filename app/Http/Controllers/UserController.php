@@ -30,8 +30,7 @@ class UserController extends Controller
         'DESC')->paginate(20);
 
         $imagesLiked = Image::whereLikedBy($user->id)->with('likeCounter')->where('is_public', '=',
-        1)->orderBy('created_at',
-        'DESC')->paginate(20);
+        1)->orderBy('created_at', 'DESC')->paginate(20);
 
         return view('user.profile', [
             'user' => $user,

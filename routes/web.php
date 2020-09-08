@@ -38,7 +38,6 @@ Route::prefix('p/{user}')->group(function () {
 // Image Route
 Route::post('/upload', 'ImageController@upload')->name('upload');
 Route::post('/url/upload', 'ImageController@url_upload')->name('url_upload');
-Route::post('/api/upload', 'ImageController@api_upload')->name('api_upload');
 
 Route::prefix('/i')->group(function () {
     Route::get('/', 'ImageController@main')->name('image.main');
