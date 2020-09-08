@@ -50,7 +50,7 @@ class StatsController extends Controller
         }
 
         $public_stats = [
-            'images_count' => $user->images->->where('is_public', 1)->count(),
+            'images_count' => $user->images->where('is_public', 1)->count(),
             'albums_count' => $user->albums()->where('is_public', 1)->count()
         ];
 
