@@ -81,13 +81,8 @@ class StatsController extends Controller
                 'all_images_count'     => $user->images->count(),
                 'public_images_count'  => $user->images()->where('is_public', 1)->count(),
                 'private_images_count' => $user->images()->where('is_public', 0)->count(),
-<<<<<<< HEAD
                 'all_albums_count'     => $user->albums->count(),
                 'public_albums_count'  => $user->albums()->where('is_public', 1)->count(),
-=======
-                'all_albums_count' => $user->albums->count(),
-                'public_albums_count' => $user->albums()->where('is_public', 1)->count(),
->>>>>>> master
                 'private_albums_count' => $user->albums()->where('is_public', 0)->count(),
             ];
 
@@ -95,19 +90,11 @@ class StatsController extends Controller
                 'email'               => $user->email,
                 'domain'              => $user->domain,
                 'discord_webhook_url' => $user->webhook_url,
-<<<<<<< HEAD
                 'dark_theme'          => $user->style,
                 'always_public'       => $user->always_public,
                 'short_link'          => $user->short_link,
                 'private_images'      => $user->images()->where('is_public', 0)->orderBy('created_at', 'DESC')->get(),
                 'all_images'          => $user->images()->orderBy('created_at', 'DESC')->get(),
-=======
-                'dark_theme' => $user->style,
-                'always_public' => $user->always_public,
-                'short_link' => $user->short_link,
-                'private_images' => $user->images()->where('is_public', 0)->orderBy('created_at', 'DESC')->get(),
-                'all_images' => $user->images()->orderBy('created_at', 'DESC')->get(),
->>>>>>> master
             ];
 
             $data['private_stats'] = $private_stats;
