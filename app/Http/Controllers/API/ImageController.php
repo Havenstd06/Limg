@@ -16,7 +16,7 @@ use Nubs\RandomNameGenerator\Vgng;
 class ImageController extends Controller
 {
     /**
-     * Private image (required api key)
+     * Private image (required api key).
      *
      * @return \Illuminate\Http\Response
      */
@@ -138,9 +138,9 @@ class ImageController extends Controller
             }
         }
     }
-    
+
     /**
-     * Show specific image (api_token may required)
+     * Show specific image (api_token may required).
      *
      * @param \App\Image $image
      * @return \Illuminate\Http\Response
