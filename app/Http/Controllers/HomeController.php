@@ -19,7 +19,7 @@ class HomeController extends Controller
         $images = Image::orderBy('created_at', 'desc')->where('is_public', '=', 1)->paginate(12);
 
         return view('home', [
-            'user' => $user,
+            'user'   => $user,
             'images' => $images,
         ]);
     }

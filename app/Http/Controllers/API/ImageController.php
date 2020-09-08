@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\API;
 
-use App\User;
-use App\Image;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Image;
+use App\User;
+use DiscordWebhooks\Client;
+use DiscordWebhooks\Embed;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Nubs\RandomNameGenerator\Alliteration;
 use Nubs\RandomNameGenerator\Vgng;
-use DiscordWebhooks\Client;
-use DiscordWebhooks\Embed;
 
 class ImageController extends Controller
 {
@@ -30,7 +30,7 @@ class ImageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,14 +41,14 @@ class ImageController extends Controller
         if ($file == null) {
             return response()->json([
                 'success' => false,
-                'image' => [],
-                'error' => 'Please give a file to upload.',
+                'image'   => [],
+                'error'   => 'Please give a file to upload.',
             ], 400);
         } elseif ($upload_key == null) {
             return response()->json([
                 'success' => false,
-                'image' => [],
-                'error' => 'Please give a api key to validate.',
+                'image'   => [],
+                'error'   => 'Please give a api key to validate.',
             ], 401);
         } else {
             $postData = $request->only('file');
@@ -64,8 +64,8 @@ class ImageController extends Controller
             if ($validator->fails()) {
                 return response()->json([
                     'success' => false,
-                    'image' => [],
-                    'error' => 'File must be Image.',
+                    'image'   => [],
+                    'error'   => 'File must be Image.',
                 ], 422);
             } else {
                 $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
@@ -123,16 +123,16 @@ class ImageController extends Controller
 
                     return response()->json([
                         'success' => true,
-                        'image' => [
+                        'image'   => [
                             'url' => $user->domain.$image->path,
                         ],
                         'error' => '',
                     ], 201);
                 } else {
                     return response()->json([
-                        'success' => false,
+                        'success'    => false,
                         'screenshot' => [],
-                        'error' => 'Invalid key!',
+                        'error'      => 'Invalid key!',
                     ], 401);
                 }
             }
@@ -142,7 +142,7 @@ class ImageController extends Controller
     /**
      * Show specific image (api_token may required)
      *
-     * @param  \App\Image  $image
+     * @param \App\Image $image
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $id)
@@ -154,7 +154,7 @@ class ImageController extends Controller
             if ($private_key == null) {
                 return response()->json([
                     'success' => false,
-                    'error' => 'Private image, if you own the image please give your api key to validate.',
+                    'error'   => 'Private image, if you own the image please give your api key to validate.',
                 ], 401);
             }
 
@@ -167,17 +167,15 @@ class ImageController extends Controller
                 } else {
                     return response()->json([
                         'success' => false,
-                        'error' => 'It is not your image!',
+                        'error'   => 'It is not your image!',
                     ], 403);
                 }
-
             } else {
                 return response()->json([
                     'success' => false,
-                    'error' => 'Invalid key!',
+                    'error'   => 'Invalid key!',
                 ], 401);
             }
-
         } else {
             return $image;
         }

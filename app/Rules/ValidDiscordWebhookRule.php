@@ -19,8 +19,8 @@ class ValidDiscordWebhookRule implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
      */
     public function passes($attribute, $value)
@@ -31,6 +31,7 @@ class ValidDiscordWebhookRule implements Rule
 
         if (parse_url($value)['host'] == 'discordapp.com' || parse_url($value)['host'] == 'ptb.discordapp.com') {
             $client = new \GuzzleHttp\Client();
+
             try {
                 $r = $client->request('GET', $value);
             } catch (\Exception $e) {

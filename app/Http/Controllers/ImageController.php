@@ -163,8 +163,8 @@ class ImageController extends Controller
             $userAlbums = Album::where('user_id', '=', $user->id)->get();
 
             return view('image.show', [
-                'user' => $user,
-                'image' => $pageImage,
+                'user'   => $user,
+                'image'  => $pageImage,
                 'albums' => $userAlbums,
             ]);
         }

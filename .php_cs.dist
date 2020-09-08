@@ -1,0 +1,49 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->exclude('resources/views')
+    ->exclude('storage')
+    ->exclude('node_modules')
+    ->exclude('bootstrap/cache')
+    ->notPath('_ide_helper.php')
+    ->notPath('_ide_helper_models.php')
+    ->notPath('.phpstorm.meta.php')
+    ->in(__DIR__)
+;
+
+$rules = [
+    '@PSR2'                  => true,
+    'array_syntax'           => ['syntax' => 'short'],
+    'binary_operator_spaces' => [
+        'align_double_arrow' => true,
+    ],
+    'align_multiline_comment' => [
+        'comment_type' => 'all_multiline',
+    ],
+    'no_unused_imports' => true,
+    'phpdoc_align'      => [
+        'align' => 'left',
+    ],
+    'concat_space' => [
+        'spacing' => 'none',
+    ],
+    'ordered_imports' => [
+        'sort_algorithm' => 'alpha',
+    ],
+    'array_indentation'                     => true,
+    'no_trailing_comma_in_singleline_array' => true,
+    'trailing_comma_in_multiline_array'     => true,
+    'whitespace_after_comma_in_array'       => true,
+    'blank_line_after_namespace'            => true,
+    'blank_line_before_statement'           => true,
+    'braces'                                => [
+        'position_after_functions_and_oop_constructs' => 'next',
+    ],
+    'cast_spaces' => [
+        'space' => 'single',
+    ],
+];
+
+return PhpCsFixer\Config::create()
+    ->setRules($rules)
+    ->setFinder($finder);

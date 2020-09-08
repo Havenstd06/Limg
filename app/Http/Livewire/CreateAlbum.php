@@ -26,18 +26,18 @@ class CreateAlbum extends Component
 
     protected $updatesQueryString = [
         'search' => ['except' => ''],
-        'field' => ['except' => 'id'],
-        'asc' => ['except' => false],
-        'page' => ['except' => 1],
+        'field'  => ['except' => 'id'],
+        'asc'    => ['except' => false],
+        'page'   => ['except' => 1],
     ];
 
     public function mount()
     {
         $this->fill([
-            'search' => request()->query('search', $this->search),
+            'search'  => request()->query('search', $this->search),
             'perPage' => request()->query('perPage', $this->perPage),
-            'field' => request()->query('field', $this->field),
-            'asc' => request()->query('asc') ? false : true,
+            'field'   => request()->query('field', $this->field),
+            'asc'     => request()->query('asc') ? false : true,
         ]);
         $this->sortBy($this->field);
     }
@@ -45,10 +45,10 @@ class CreateAlbum extends Component
     public function resetTable()
     {
         $this->fill([
-            'search' => '',
+            'search'  => '',
             'perPage' => 32,
-            'field' => 'id',
-            'asc' => false,
+            'field'   => 'id',
+            'asc'     => false,
         ]);
     }
 
@@ -60,9 +60,9 @@ class CreateAlbum extends Component
     /**
      * Paginate collection.
      *
-     * @param array|Collection      $items
-     * @param int   $perPage
-     * @param int  $page
+     * @param array|Collection $items
+     * @param int $perPage
+     * @param int $page
      * @param array $options
      *
      * @return LengthAwarePaginator
@@ -78,8 +78,10 @@ class CreateAlbum extends Component
 
     private function getAllImages(): Collection
     {
-        $base = Image::search($this->search,
-        auth()->user())->get()->where('is_public', '=', '1');
+        $base = Image::search(
+            $this->search,
+            auth()->user()
+        )->get()->where('is_public', '=', '1');
         if (! empty(trim($this->search))) {
             $this->page = 1;
         }
@@ -113,8 +115,8 @@ class CreateAlbum extends Component
         $result = array_keys(array_filter($this->selectedImage));
 
         $this->validate([
-            'name'          => 'required|min:1|max:70',
-            'selectedImage' => 'required',
+            'name'            => 'required|min:1|max:70',
+            'selectedImage'   => 'required',
             'selectedImage.*' => [new ArrayAtLeastOneRequired($result)],
         ]);
 

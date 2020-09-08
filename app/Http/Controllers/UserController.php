@@ -23,21 +23,28 @@ class UserController extends Controller
 
         $allImages = Image::where('user_id', '=', $user->id)->orderBy('created_at', 'DESC')->paginate(20);
 
-        $publicImages = Image::where('user_id', '=', $user->id)->where('is_public', '=', 1)->orderBy('created_at',
-        'DESC')->paginate(20);
+        $publicImages = Image::where('user_id', '=', $user->id)->where('is_public', '=', 1)->orderBy(
+            'created_at',
+            'DESC'
+        )->paginate(20);
 
-        $privateImages = Image::where('user_id', '=', $user->id)->where('is_public', '=', 0)->orderBy('created_at',
-        'DESC')->paginate(20);
+        $privateImages = Image::where('user_id', '=', $user->id)->where('is_public', '=', 0)->orderBy(
+            'created_at',
+            'DESC'
+        )->paginate(20);
 
-        $imagesLiked = Image::whereLikedBy($user->id)->with('likeCounter')->where('is_public', '=',
-        1)->orderBy('created_at', 'DESC')->paginate(20);
+        $imagesLiked = Image::whereLikedBy($user->id)->with('likeCounter')->where(
+            'is_public',
+            '=',
+            1
+        )->orderBy('created_at', 'DESC')->paginate(20);
 
         return view('user.profile', [
-            'user' => $user,
-            'allImages' => $allImages,
-            'publicImages' => $publicImages,
+            'user'          => $user,
+            'allImages'     => $allImages,
+            'publicImages'  => $publicImages,
             'privateImages' => $privateImages,
-            'imagesLiked' => $imagesLiked,
+            'imagesLiked'   => $imagesLiked,
         ]);
     }
 
@@ -79,8 +86,8 @@ class UserController extends Controller
     public function update_password(Request $request)
     {
         $request->validate([
-            'current_password' => ['required', new MatchOldPassword],
-            'new_password' => ['required', 'string', 'min:8'],
+            'current_password'     => ['required', new MatchOldPassword],
+            'new_password'         => ['required', 'string', 'min:8'],
             'new_confirm_password' => ['same:new_password'],
         ]);
 

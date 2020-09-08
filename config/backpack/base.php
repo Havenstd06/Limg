@@ -9,7 +9,7 @@ return [
     |
     | Make it yours.
     |
-    */
+     */
 
     // Date & Datetime Format Syntax: https://carbon.nesbot.com/docs/#api-localization
     'default_date_format'     => 'D MMM YYYY',
@@ -161,7 +161,7 @@ return [
     | Register functions in AuthController.
     |
     | By default the registration is open only on localhost.
-    */
+     */
 
     'registration_open' => env('BACKPACK_REGISTRATION_OPEN', env('APP_ENV') === 'local'),
 
@@ -169,7 +169,7 @@ return [
     |--------------------------------------------------------------------------
     | Routing
     |--------------------------------------------------------------------------
-    */
+     */
 
     // The prefix used in all base routes (the 'admin' in admin/dashboard)
     // You can make sure all your URLs use this prefix by using the backpack_url() helper instead of url()
@@ -204,7 +204,7 @@ return [
     |--------------------------------------------------------------------------
     | Authentication
     |--------------------------------------------------------------------------
-    */
+     */
 
     // Fully qualified namespace of the User model
     'user_model_fqn' => App\User::class,
@@ -246,7 +246,7 @@ return [
     |--------------------------------------------------------------------------
     | Theme (User Interface)
     |--------------------------------------------------------------------------
-    */
+     */
     // Change the view namespace in order to load a different theme than the one Backpack provides.
     // You can create child themes yourself, by creating a view folder anywhere in your resources/views
     // and choosing that view_namespace instead of the default one. Backpack will load a file from there
@@ -262,7 +262,7 @@ return [
     |--------------------------------------------------------------------------
     | File System
     |--------------------------------------------------------------------------
-    */
+     */
 
     // Backpack\Base sets up its own filesystem disk, just like you would by
     // adding an entry to your config/filesystems.php. It points to the root
@@ -283,7 +283,7 @@ return [
     | More info and payment form on:
     | https://www.backpackforlaravel.com
     |
-    */
+     */
 
     'license_code' => env('BACKPACK_LICENSE', false),
 ];

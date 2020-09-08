@@ -6,7 +6,7 @@ return [
     |--------------------------------------------------------------------------
     | Backpack\CRUD preferences
     |--------------------------------------------------------------------------
-    */
+     */
 
     // --------------------------
     // Default operation settings
@@ -160,7 +160,7 @@ return [
     |-------------------
     | TRANSLATABLE CRUDS
     |-------------------
-    */
+     */
 
     'show_translatable_field_icon'     => true,
     'translatable_field_icon_position' => 'right', // left or right

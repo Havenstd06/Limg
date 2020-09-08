@@ -24,11 +24,11 @@ class UserCrudController extends CrudController
         $this->crud->setEntityNameStrings('user', 'users');
 
         $this->crud->addColumn([
-            'name' => 'avatar', // The db column name
-            'label' => 'Avatar', // Table column heading
-            'type' => 'image',
+            'name'   => 'avatar', // The db column name
+            'label'  => 'Avatar', // Table column heading
+            'type'   => 'image',
             'height' => '50px',
-            'width' => '50px',
+            'width'  => '50px',
         ]);
     }
 

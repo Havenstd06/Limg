@@ -189,7 +189,7 @@ return [
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumStorageInMegabytes::class => 5000,
             ],
         ],
-        */
+         */
     ],
 
     'cleanup' => [

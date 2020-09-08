@@ -20,18 +20,18 @@ class AlbumsGrid extends Component
 
     protected $updatesQueryString = [
         'search' => ['except' => ''],
-        'field' => ['except' => 'id'],
-        'asc' => ['except' => false],
-        'page' => ['except' => 1],
+        'field'  => ['except' => 'id'],
+        'asc'    => ['except' => false],
+        'page'   => ['except' => 1],
     ];
 
     public function mount()
     {
         $this->fill([
-            'search' => request()->query('search', $this->search),
+            'search'  => request()->query('search', $this->search),
             'perPage' => request()->query('perPage', $this->perPage),
-            'field' => request()->query('field', $this->field),
-            'asc' => request()->query('asc') ? false : true,
+            'field'   => request()->query('field', $this->field),
+            'asc'     => request()->query('asc') ? false : true,
         ]);
         $this->sortBy($this->field);
     }
@@ -39,10 +39,10 @@ class AlbumsGrid extends Component
     public function resetTable()
     {
         $this->fill([
-            'search' => '',
+            'search'  => '',
             'perPage' => 20,
-            'field' => 'id',
-            'asc' => false,
+            'field'   => 'id',
+            'asc'     => false,
         ]);
     }
 
@@ -54,9 +54,9 @@ class AlbumsGrid extends Component
     /**
      * Paginate collection.
      *
-     * @param array|Collection      $items
-     * @param int   $perPage
-     * @param int  $page
+     * @param array|Collection $items
+     * @param int $perPage
+     * @param int $page
      * @param array $options
      *
      * @return LengthAwarePaginator

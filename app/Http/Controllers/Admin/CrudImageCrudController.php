@@ -27,8 +27,8 @@ class CrudImageCrudController extends CrudController
             'name'      => 'path', // The db column name
             'label'     => 'Image', // Table column heading
             'type'      => 'image',
-            'height' => '100px',
-            'width' => '100px',
+            'height'    => '100px',
+            'width'     => '100px',
         ]);
 
         $this->crud->addColumn([

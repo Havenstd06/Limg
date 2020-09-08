@@ -13,8 +13,8 @@ class AlbumsSeeder extends Seeder
     public function run()
     {
         Album::create([
-            'name' => 'Brand Logo!',
-            'slug' => 'brand-logo',
+            'name'    => 'Brand Logo!',
+            'slug'    => 'brand-logo',
             'user_id' => 2,
         ])->images()->attach([
             1, 2, 3, 4, 5, 6, 7, 8, 9,

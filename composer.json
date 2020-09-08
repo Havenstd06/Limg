@@ -28,11 +28,13 @@
         "predis/predis": "^1.1",
         "rtconner/laravel-likeable": "~3.0",
         "socialiteproviders/discord": "^2.0",
-        "yoeunes/notify": "^1.0"
+        "yoeunes/notify": "^1.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "backpack/generators": "^3.1",
         "barryvdh/laravel-debugbar": "^3.2",
+        "barryvdh/laravel-ide-helper": "^2.8",
         "beyondcode/laravel-dump-server": "^1.3",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.4",
@@ -77,6 +79,17 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@php artisan ide-helper:generate --ansi",
+            "@php artisan ide-helper:meta --ansi",
+            "@php artisan ide-helper:eloquent --ansi",
+            "@php artisan ide-helper:models -N --ansi",
+            "@php artisan ide-helper:meta --ansi",
+            "@composer dump-autoload -o --ansi",
+            "@php artisan clear-compiled --ansi",
+            "@php artisan optimize:clear --ansi"
         ]
     }
 }

@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 | your application. Factories provide a convenient way to generate new
 | model instances for testing / seeding your application's database.
 |
-*/
+ */
 
 $factory->define(Image::class, function (Faker $faker) {
     $imagePool = [
@@ -27,12 +27,12 @@ $factory->define(Image::class, function (Faker $faker) {
     ];
 
     return [
-        'user_id' => 2,
-        'title' => 'Limg default #3',
-        'pageName' => $faker->slug(3),
+        'user_id'   => 2,
+        'title'     => 'Limg default #3',
+        'pageName'  => $faker->slug(3),
         'imageName' => $faker->slug(3),
         'extension' => 'png',
-        'path' => $faker->randomElement($imagePool),
+        'path'      => $faker->randomElement($imagePool),
         'is_public' => 1,
     ];
 });

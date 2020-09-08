@@ -26,7 +26,7 @@ class LoginController extends Controller
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
-    */
+     */
 
     use AuthenticatesUsers;
 
@@ -75,11 +75,11 @@ class LoginController extends Controller
             }
 
             $foundUser = User::create([
-                'username' => $user->name.$user->user['discriminator'],
-                'email' => $user->email,
+                'username'          => $user->name.$user->user['discriminator'],
+                'email'             => $user->email,
                 'email_verified_at' => ($user->user['verified']) ? Date::now() : null,
-                'avatar' => $avatar,
-                'api_token' => Str::random(20),
+                'avatar'            => $avatar,
+                'api_token'         => Str::random(20),
             ]);
 
             if ($user->avatar != null) {
