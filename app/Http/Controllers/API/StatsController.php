@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\User;
 use App\Album;
-use App\Image;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Image;
+use App\User;
+use Illuminate\Http\Request;
 
 class StatsController extends Controller
 {
@@ -42,7 +42,7 @@ class StatsController extends Controller
         $user = User::where('username', $username)->with('images')->first();
         $private_key = key($request->query());
 
-        if (!$user) {
+        if (! $user) {
             return response()->json([
                 'success' => false,
                 'error' => 'User not found!',
@@ -51,7 +51,7 @@ class StatsController extends Controller
 
         $public_stats = [
             'images_count' => $user->images()->where('is_public', 1)->count(),
-            'albums_count' => $user->albums()->where('is_public', 1)->count()
+            'albums_count' => $user->albums()->where('is_public', 1)->count(),
         ];
 
         $public_info = [
@@ -67,7 +67,7 @@ class StatsController extends Controller
         if ($private_key == null) {
             return $data;
         }
-        
+
         $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
         if (in_array($private_key, $keys)) {
             if ($user->api_token != $private_key) {
@@ -83,7 +83,7 @@ class StatsController extends Controller
                 'private_images_count' => $user->images()->where('is_public', 0)->count(),
                 'all_albums_count' => $user->albums->count(),
                 'public_albums_count' => $user->albums()->where('is_public', 1)->count(),
-                'private_albums_count' => $user->albums()->where('is_public', 0)->count()
+                'private_albums_count' => $user->albums()->where('is_public', 0)->count(),
             ];
 
             $private_info = [
@@ -94,7 +94,7 @@ class StatsController extends Controller
                 'always_public' => $user->always_public,
                 'short_link' => $user->short_link,
                 'private_images' => $user->images()->where('is_public', 0)->orderBy('created_at', 'DESC')->get(),
-                'all_images' => $user->images()->orderBy('created_at', 'DESC')->get()
+                'all_images' => $user->images()->orderBy('created_at', 'DESC')->get(),
             ];
 
             $data['private_stats'] = $private_stats;
