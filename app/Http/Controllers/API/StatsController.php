@@ -6,8 +6,6 @@ use App\Album;
 use App\Http\Controllers\Controller;
 use App\Image;
 use App\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class StatsController extends Controller
 {
