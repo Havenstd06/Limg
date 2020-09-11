@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as InterImage;
-use Nubs\RandomNameGenerator\Alliteration;
-use Nubs\RandomNameGenerator\Vgng;
 
 class ImageController extends Controller
 {
@@ -252,6 +250,7 @@ class ImageController extends Controller
 
         $this->sendWebhook($user, $image);
     }
+
     private function sendWebhook(User $user, Image $image): void
     {
         if ($user->webhook_url) {
