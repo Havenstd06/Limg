@@ -37,12 +37,15 @@ class UserController extends Controller
             'description'   => $user->description,
             'role'          => $user->role,
             'avatar'        => config('app.url').'/'.$user->avatar,
-            'public_images' => $user->images()->where('is_public', 1)->orderBy('created_at', 'DESC')->get(),
         ];
-        $data['public_stats'] = $public_stats;
-        $data['public_info'] = $public_info;
+
+        $public_images = $user->images()->where('is_public', 1)->orderBy('created_at', 'DESC')->get();
 
         if ($private_key == null) {
+            $data['public_stats'] = $public_stats;
+            $data['public_info'] = $public_info;
+            $data['public_images'] = $public_images;
+
             return $data;
         }
 
@@ -55,13 +58,16 @@ class UserController extends Controller
                 ], 403);
             }
 
-            $private_stats = [
-                'all_images_count'     => $user->images->count(),
-                'public_images_count'  => $user->images()->where('is_public', 1)->count(),
-                'private_images_count' => $user->images()->where('is_public', 0)->count(),
-                'all_albums_count'     => $user->albums->count(),
-                'public_albums_count'  => $user->albums()->where('is_public', 1)->count(),
-                'private_albums_count' => $user->albums()->where('is_public', 0)->count(),
+            $images = [
+                'all'     => $user->images->count(),
+                'public'  => $user->images()->where('is_public', 1)->count(),
+                'private' => $user->images()->where('is_public', 0)->count(),
+            ];
+
+            $albums = [
+                'all'     => $user->albums->count(),
+                'public'  => $user->albums()->where('is_public', 1)->count(),
+                'private' => $user->albums()->where('is_public', 0)->count(),
             ];
 
             $private_info = [
@@ -70,13 +76,18 @@ class UserController extends Controller
                 'discord_webhook_url' => $user->webhook_url,
                 'dark_theme'          => $user->style,
                 'always_public'       => $user->always_public,
-                'short_link'          => $user->short_link,
-                'private_images'      => $user->images()->where('is_public', 0)->orderBy('created_at', 'DESC')->get(),
-                'all_images'          => $user->images()->orderBy('created_at', 'DESC')->get(),
             ];
 
-            $data['private_stats'] = $private_stats;
+            $private_images = $user->images()->where('is_public', 0)->orderBy('created_at', 'DESC')->get();
+            $all_images = $user->images()->orderBy('created_at', 'DESC')->get();
+
+            $data['public_stats'] = $public_stats;
+            $data['private_stats']['images_count'] = $images;
+            $data['private_stats']['albums_count'] = $albums;
+            $data['public_info'] = $public_info;
             $data['private_info'] = $private_info;
+            $data['all_images'] = $all_images;
+            $data['private_images'] = $private_images;
         } else {
             return response()->json([
                 'success' => false,
