@@ -52,7 +52,10 @@ class ImageController extends Controller
         $newFullName = $imageName.'.'.$request->file('image')->getClientOriginalExtension();
         $request->file('image')->move(('storage/images'), $newFullName);
 
-        $this->createImage($user, $pageName, $imageName, $newFullName);
+        $image = new Image;
+        $this->createImage($user, $image, $pageName, $imageName, $newFullName);
+
+        return route('image.show', ['image' => $image->pageName]);
     }
 
     public function url_upload(Request $request)
@@ -95,7 +98,8 @@ class ImageController extends Controller
             $newFullName = $imageName.'.'.$extension;
             Storage::put('public/images/'.$newFullName, $content);
 
-            $this->createImage($user, $pageName, $imageName, $newFullName);
+            $image = new Image;
+            $this->createImage($user, $image, $pageName, $imageName, $newFullName);
         }
 
         notify()->success('You have successfully upload image via URL! Go to your profile to see them!');
@@ -237,9 +241,8 @@ class ImageController extends Controller
         });
     }
 
-    private function createImage(User $user, $pageName, $imageName, $newFullName): void
+    public function createImage(User $user, $image, $pageName, $imageName, $newFullName)
     {
-        $image = new Image;
         $image->pageName = $pageName;
         $image->imageName = $imageName;
         $image->extension = pathinfo($newFullName, PATHINFO_EXTENSION);
