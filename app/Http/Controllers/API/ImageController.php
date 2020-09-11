@@ -10,8 +10,6 @@ use DiscordWebhooks\Embed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Nubs\RandomNameGenerator\Alliteration;
-use Nubs\RandomNameGenerator\Vgng;
 
 class ImageController extends Controller
 {
@@ -41,13 +39,11 @@ class ImageController extends Controller
         if ($file == null) {
             return response()->json([
                 'success' => false,
-                'image'   => [],
                 'error'   => 'Please give a file to upload.',
             ], 400);
         } elseif ($upload_key == null) {
             return response()->json([
                 'success' => false,
-                'image'   => [],
                 'error'   => 'Please give a api key to validate.',
             ], 401);
         } else {
@@ -64,7 +60,6 @@ class ImageController extends Controller
             if ($validator->fails()) {
                 return response()->json([
                     'success' => false,
-                    'image'   => [],
                     'error'   => 'File must be Image.',
                 ], 422);
             } else {
@@ -73,38 +68,19 @@ class ImageController extends Controller
                 if (in_array($upload_key, $keys)) {
                     $user = User::where('api_token', '=', $upload_key)->first();
 
-                    $pageName = (string) Str::of(new Vgng().'-'.Str::random(6))
-                    ->replace('\'', '')
-                    ->replace('.', '')
-                    ->replace('/', '')
-                    ->replace('\\', '')
-                    ->replace(' ', '-');
+                    $pageName = Str::random(6);
+                    $imageName = Str::random(6);
 
-                    $tempImageName = 'temp-'.Str::random(6);
+                    $newFullName = $imageName.'.'.$file->getClientOriginalExtension();
+                    $file->move(('storage/images'), $newFullName);
 
                     $image = new Image;
                     $image->pageName = $pageName;
-                    $image->imageName = $tempImageName;
-                    $image->extension = pathinfo($tempImageName, PATHINFO_EXTENSION);
-                    $image->path = '/i/'.$tempImageName;
+                    $image->imageName = $imageName;
+                    $image->extension = pathinfo($newFullName, PATHINFO_EXTENSION);
+                    $image->path = '/i/'.$newFullName;
                     $image->user_id = $user->id;
-                    $image->is_public = 0;
-                    $image->save();
-
-                    $finalImageName = $user->short_link == 0 ? (string) Str::of(new Alliteration().'-'.new
-                    Vgng().'-'.Str::random(6))
-                    ->replace('\'', '')
-                    ->replace('.', '')
-                    ->replace('/', '')
-                    ->replace('\\', '')
-                    ->replace(' ', '-') : $image->id.Str::random(3);
-
-                    $finalimageFullName = $finalImageName.'.'.$file->getClientOriginalExtension();
-                    $file->move(('storage/images'), $finalimageFullName);
-
-                    $image->imageName = $finalImageName;
-                    $image->extension = pathinfo($finalimageFullName, PATHINFO_EXTENSION);
-                    $image->path = '/i/'."$finalimageFullName";
+                    $image->is_public = (! $user->always_public) ? 0 || $user->always_public : 1;
                     $image->save();
 
                     if ($user->webhook_url) {
@@ -131,7 +107,6 @@ class ImageController extends Controller
                 } else {
                     return response()->json([
                         'success'    => false,
-                        'screenshot' => [],
                         'error'      => 'Invalid key!',
                     ], 401);
                 }

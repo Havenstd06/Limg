@@ -56,14 +56,6 @@
                             </div>
                             <span class="pl-4 text-sm font-bold text-gray-700 md:text-base dark:text-gray-300">Always Upload Image in public</span>
                         </label>
-                        <label for="short_link" class="flex items-center justify-center pt-6 pb-3 cursor-pointer">
-                            <div class="relative">
-                                <input name="short_link" id="short_link" type="checkbox" class="hidden" value="{{ $user->short_link ? '1' : '0' }}" {{ $user->short_link ? 'checked' : '' }} onChange="form.submit()"/>
-                                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner toggle__line"></div>
-                                <div class="absolute inset-y-0 left-0 w-6 h-6 bg-white rounded-full shadow toggle__dot"></div>
-                            </div>
-                            <span class="pl-4 text-sm font-bold text-gray-700 md:text-base dark:text-gray-300">Short Image Link for ShareX (less secure)</span>
-                        </label>
                     </form>
                 @endif
             </div>

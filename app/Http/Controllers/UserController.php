@@ -42,12 +42,12 @@ class UserController extends Controller
         )->orderBy('created_at', 'DESC')->paginate(20);
 
         return view('user.profile', [
-            'user'                => $user,
-            'allImages'           => $allImages,
-            'publicImages'        => $publicImages,
+            'user'                 => $user,
+            'allImages'            => $allImages,
+            'publicImages'         => $publicImages,
             'public_images_count'  => $public_images_count,
-            'privateImages'       => $privateImages,
-            'imagesLiked'         => $imagesLiked,
+            'privateImages'        => $privateImages,
+            'imagesLiked'          => $imagesLiked,
         ]);
     }
 
@@ -65,7 +65,6 @@ class UserController extends Controller
         abort_unless($user == $request->user(), 403);
 
         $user->always_public = $request->has('always_public');
-        $user->short_link = $request->has('short_link');
         $user->description = $request->input('description');
         $user->save();
 

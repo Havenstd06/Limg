@@ -3,12 +3,12 @@
 @section('content')
 <section class="container flex items-center justify-center min-h-full py-5 mx-auto -mt-10 lg:justify-start ">
   <div class="flex flex-wrap items-center -mx-2 text-center lg:text-left">
-    <div class="hidden px-2 mx-auto lg:block lg:w-1/2">      
-      <img src="/images/home/image-bg.svg" alt="Limg">     
+    <div class="hidden px-2 mx-auto lg:block lg:w-1/2">
+      <img src="/images/home/image-bg.svg" alt="Limg">
       <div class="mt-3 text-2xl font-bold text-center text-gray-800 dark:text-gray-50">
         @livewire('home-stats')
       </div>
-    </div> 
+    </div>
     <div class="min-h-full px-2 mt-10 lg:w-1/2 lg:pl-16 lg:mt-0 ">
       <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-50">
         <span class="text-indigo-500">Limg</span>.App
@@ -46,18 +46,12 @@
           <div x-cloak x-show="tab === 'url'">
             <form action="{{ route('url_upload') }}" method="POST">
               @csrf
-              <textarea name="url" class="w-full p-2 border border-gray-300 border-dashed rounded-md h-41 bg-gray-50 focus:outline-none dark:bg-transparent dark:text-gray-100" style="resize: none;" 
+              <textarea name="url" class="w-full p-2 border border-gray-300 border-dashed rounded-md h-41 bg-gray-50 focus:outline-none dark:bg-transparent dark:text-gray-100" style="resize: none;"
               placeholder="1 link (max 10) per line. Example:
-https://limg.app/i/Amused-Ant-True-Crime:-Matador-Shootout-xFfLW9.jpg
-https://limg.app/i/Fantastic-Flamingo-Shrunken-Florist-Mania-pPCnYd.jpg"></textarea>
+https://limg.app/i/1645Vc6.png
+https://limg.app/i/1633umO.png"></textarea>
               <div class="flex justify-end">
-                @auth
-                <div class="flex text-gray-800 dark:text-gray-50">
-                  <input type="checkbox" name="is_public" title="Is Public" value="{{ $user->always_public ? '1' : '0' }}" {{ $user->always_public ? 'checked' : '' }} class="w-4 h-4 mt-3 ml-2 text-indigo-600 transition duration-150 ease-in-out rounded-full form-checkbox">
-                  <p class="mt-2 ml-2">Public</p>
-                </div>
-                @endauth
-                <div class="">
+                <div>
                   <button class="px-4 py-2 ml-3 transition duration-300 ease-out bg-indigo-600 rounded text-gray-50 hover:bg-indigo-700 focus:outline-none">Send</button>
                 </div>
               </div>
@@ -80,9 +74,9 @@ https://limg.app/i/Fantastic-Flamingo-Shrunken-Florist-Mania-pPCnYd.jpg"></texta
 }</textarea>
             <button class="px-4 py-2 transition duration-300 ease-out bg-indigo-600 rounded text-gray-50 hover:bg-indigo-700 focus:outline-none" onclick=saveShareXFile(sharex.value,'ShareX-{{ config('app.name') }}.sxcu')>Download</button>
             <p class="mt-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-              @auth 
+              @auth
               Download the <a href="https://getsharex.com/" target="no_follow" class="text-indigo-500 hover:text-indigo-600">ShareX</a> configuration linked to your account via a token.
-              @else 
+              @else
               Download the <a href="https://getsharex.com/" target="no_follow" class="text-indigo-500 hover:text-indigo-600">ShareX</a> public image configuration, <a href="{{ route('register') }}" class="text-indigo-500 hover:text-indigo-600">create an accout now</a>.
               @endauth
             </p>
@@ -115,7 +109,7 @@ https://limg.app/i/Fantastic-Flamingo-Shrunken-Florist-Mania-pPCnYd.jpg"></texta
 <script>
    function saveShareXFile(textToWrite, fileNameToSaveAs)
     {
-    	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'}); 
+    	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
     	var downloadLink = document.createElement("a");
     	downloadLink.download = fileNameToSaveAs;
     	downloadLink.innerHTML = "Download File";
@@ -130,7 +124,7 @@ https://limg.app/i/Fantastic-Flamingo-Shrunken-Florist-Mania-pPCnYd.jpg"></texta
     		downloadLink.style.display = "none";
     		document.body.appendChild(downloadLink);
     	}
-    
+
     	downloadLink.click();
     }
 </script>
