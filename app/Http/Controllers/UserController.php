@@ -28,6 +28,8 @@ class UserController extends Controller
             'DESC'
         )->paginate(20);
 
+        $public_images_count = $user->images()->where('is_public', 1)->count();
+
         $privateImages = Image::where('user_id', '=', $user->id)->where('is_public', '=', 0)->orderBy(
             'created_at',
             'DESC'
@@ -40,11 +42,12 @@ class UserController extends Controller
         )->orderBy('created_at', 'DESC')->paginate(20);
 
         return view('user.profile', [
-            'user'          => $user,
-            'allImages'     => $allImages,
-            'publicImages'  => $publicImages,
-            'privateImages' => $privateImages,
-            'imagesLiked'   => $imagesLiked,
+            'user'                => $user,
+            'allImages'           => $allImages,
+            'publicImages'        => $publicImages,
+            'public_images_count'  => $public_images_count,
+            'privateImages'       => $privateImages,
+            'imagesLiked'         => $imagesLiked,
         ]);
     }
 
