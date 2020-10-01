@@ -38,7 +38,7 @@ class ImageController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            notify()->error('Image format must be jpeg, jpg, png, svg, gif, bmp, tiff!');
+            notify()->error($validator->errors());
 
             return back();
         }

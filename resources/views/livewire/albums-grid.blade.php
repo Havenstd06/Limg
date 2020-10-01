@@ -17,7 +17,7 @@
                 <i class="relative fas fa-circle-notch fa-spin" style="top: 2px;"></i>
             </div>
         </div>
-        <div class="w-full lg:w-1/3">                                
+        <div class="w-full lg:w-1/3">
             <input wire:model="search" class="w-full px-2 py-2 mt-3 leading-normal bg-white border border-gray-300 rounded-lg appearance-none lg:mt-0 focus:outline-none lg:mr-2" type="text" placeholder="Album Title, User, Date...">
         </div>
     </div>
@@ -28,13 +28,20 @@
             <h2 class="h-10 pt-2 mx-4 my-4 font-semibold text-gray-800 truncate md:my-0 dark:text-gray-100" title="{{ $album->name }}">
                 {{ $album->name ?? '' }}
             </h2>
-            
+
             <a href="{{ route('album.show', ['album' => $album->slug]) }}">
-                <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
-                style="background-image: url({{ route('image.show', ['image' => $album->images->first()->fullname]) }})"></div>
+                @if($album->images->first()->extension == "mp4")
+                    <video autoplay loop class="w-full h-48 mx-auto overflow-hidden shadow-lg">
+                        <source src="{{ route('image.show', ['image' => $album->images->first()->fullname]) }}" type="video/mp4">
+                        Your browser does not support HTML5 video.
+                    </video>
+                @else
+                    <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
+                         style="background-image: url({{ route('image.show', ['image' => $album->images->first()->fullname]) }})"></div>
+                @endif
             </a>
             <p class="flex justify-end px-2 py-1 mr-2 text-sm font-medium text-gray-800 dark:text-gray-100">
-                {{ $album->created_at->format('d/m/Y') }} 
+                {{ $album->created_at->format('d/m/Y') }}
                 by&nbsp;
                 <a href="{{ route('user.profile', ['user' => $album->user->username]) }}" class="text-indigo-500 hover:text-indigo-400">
                 {{ $album->user->username }}

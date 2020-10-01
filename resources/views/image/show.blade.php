@@ -36,7 +36,7 @@
       </div>
     </div>
   </div>
-  @else 
+  @else
   <div class="items-center justify-between mb-4 md:flex">
     @if ($image->title != null)
       <h3 class="text-2xl md:text-4xl dark:text-gray-300" title="{{ $image->title }}">{{ $image->title }}</h3>
@@ -67,7 +67,7 @@
       @csrf
       <div class="my-6 sm:flex sm:items-center">
         <label class="mr-4">
-          <input type="text" name="title" value="{{ $image->title }}" placeholder="Give a title to your image" 
+          <input type="text" name="title" value="{{ $image->title }}" placeholder="Give a title to your image"
           class="block w-64 px-4 py-3 leading-tight text-gray-700 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500">
         </label>
         <label class="flex custom-label sm:mx-4">
@@ -76,7 +76,7 @@
             <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
           </div>
           <span class="text-gray-700 dark:text-gray-100"> {{ __('Public') }}</span>
-        </label>  
+        </label>
         <button type="submit" class="px-4 py-2 mt-4 font-bold text-white bg-indigo-700 rounded shadow hover:bg-indigo-800 focus:shadow-outline focus:outline-none sm:mx-4 sm:mt-0">
           <i class="fas fa-save"></i> {{ __('Save') }}
         </button>
@@ -90,7 +90,14 @@
       <div class="flex-1">
         <div class="w-full">
           <div class="relative flex items-center justify-center max-w-full overflow-hidden bg-gray-100 rounded shadow dark:bg-asphalt sm:min-h-12">
-            <img src="{{ route('image.show', ['image' => $image->fullname]) }}">
+              @if($image->extension == "mp4")
+                  <video controls autoplay loop>
+                      <source src="{{ route('image.show', ['image' => $image->fullname]) }}" type="video/mp4">
+                      Your browser does not support HTML5 video.
+                  </video>
+              @else
+              <img src="{{ route('image.show', ['image' => $image->fullname]) }}">
+              @endif
           </div>
         </div>
       </div>
@@ -157,25 +164,25 @@
                 <a href="http://www.reddit.com/submit?url={{ URL::current() }}" target="no_follow" class="px-3 py-2 ml-2 transition duration-300 ease-in-out bg-orange-500 rounded-full hover:bg-orange-600 text-gray-50">
                   <i class="fab fa-reddit-alien"></i>
                 </a>
-              </li> 
+              </li>
             </ul>
           </div>
-          @if ($image->user->id == 1)	
-          <a class="flex items-center justify-center pt-6" href="{{ route('register') }}">	
-            <img class="w-10 h-10 mr-4 rounded-full" src="{{ url($image->user->avatar) }}" alt="Anonyme User">	
-            <div class="text-sm">	
-            <p class="leading-none text-gray-900 dark:text-gray-300">Anonyme | Signup Now !</p>	
-            <p class="text-gray-500">{{ $image->created_at->format('d/m/Y') }} ({{ $image->created_at->diffForHumans() }})</p>	
-            </div>	
-          </a>	
-          @else	
-          <a class="flex items-center justify-center pt-6" href="{{ route('user.profile', $image->user->username) }}">	
-            <img class="w-10 h-10 mr-4 rounded-full" src="{{ url($image->user->avatar) }}" alt="{{ $image->user->username }}'s image'">	
-            <div class="text-sm">	
-            <p class="leading-none text-gray-900 dark:text-gray-300">{{ $image->user->username }}</p>	
-            <p class="text-gray-500">{{ $image->created_at->format('d/m/Y') }} ({{ $image->created_at->diffForHumans() }})</p>	
-            </div>	
-          </a>	
+          @if ($image->user->id == 1)
+          <a class="flex items-center justify-center pt-6" href="{{ route('register') }}">
+            <img class="w-10 h-10 mr-4 rounded-full" src="{{ url($image->user->avatar) }}" alt="Anonyme User">
+            <div class="text-sm">
+            <p class="leading-none text-gray-900 dark:text-gray-300">Anonyme | Signup Now !</p>
+            <p class="text-gray-500">{{ $image->created_at->format('d/m/Y') }} ({{ $image->created_at->diffForHumans() }})</p>
+            </div>
+          </a>
+          @else
+          <a class="flex items-center justify-center pt-6" href="{{ route('user.profile', $image->user->username) }}">
+            <img class="w-10 h-10 mr-4 rounded-full" src="{{ url($image->user->avatar) }}" alt="{{ $image->user->username }}'s image'">
+            <div class="text-sm">
+            <p class="leading-none text-gray-900 dark:text-gray-300">{{ $image->user->username }}</p>
+            <p class="text-gray-500">{{ $image->created_at->format('d/m/Y') }} ({{ $image->created_at->diffForHumans() }})</p>
+            </div>
+          </a>
           @endif
         </div>
       </div>

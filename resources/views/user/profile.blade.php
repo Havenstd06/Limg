@@ -71,16 +71,24 @@
                     <div class="h-auto p-4 mx-2 text-left bg-white rounded shadow-xl md:max-w-xl md:p-6 lg:p-8 md:mx-0" @click.away="open = false">
                         <h2 class="text-2xl dark:text-gray-700">ShareX</h2>
                         <textarea id="sharex" cols="60" rows="11" class="w-full p-2 border dark:text-gray-700" spellcheck="false">{
-"Name": "{{ config('app.name') }}",
-"DestinationType": "ImageUploader",
-"RequestURL": "{{ route('api_upload') }}",
-"FileFormName": "file",
-"Arguments": {
-    "key": "{{ auth()->user()->api_token }}",
-    "file": "%guid"
-},
-"URL": "$json:image.url$"
-}</textarea>
+  "Version": "13.1.0",
+  "Name": "{{ config('app.name') }}",
+  "DestinationType": "ImageUploader, FileUploader",
+  "RequestMethod": "POST",
+  "RequestURL": "{{ route('apiv2_upload') }}",
+  "Headers": {
+    "Authorization": "{{ auth()->user()->api_token }}"
+  },
+  "Body": "MultipartFormData",
+  "Arguments": {
+    "file": "%guid",
+    "title": "Screenshot from ShareX"
+  },
+  "FileFormName": "file",
+  "URL": "$json:data.link$",
+  "DeletionURL": "$json:data.delete$"
+}
+                        </textarea>
                         <div class="flex justify-center mt-8">
                             <button onclick=saveShareXFile(sharex.value,'ShareX-{{ config('app.name') }}.sxcu') class="px-4 py-2 text-white bg-gray-600 rounded select-none no-outline focus:shadow-outline">
                                 Download
@@ -133,8 +141,15 @@
                             {{ $img->title ?? '' }}
                         </h2>
                         <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
-                            <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
-                            style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+                            @if($img->extension == "mp4")
+                                <video autoplay loop class="w-full h-48 mx-auto overflow-hidden shadow-lg">
+                                    <source src="{{ route('image.show', ['image' => $img->fullname]) }}" type="video/mp4">
+                                    Your browser does not support HTML5 video.
+                                </video>
+                            @else
+                                <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
+                                     style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+                            @endif
                         </a>
                         <p class="flex justify-end px-2 py-1 mr-2 text-sm font-medium text-gray-800 dark:text-gray-100">
                             {{ $img->created_at->format('d/m/Y') }}
@@ -158,8 +173,15 @@
                             {{ $img->title ?? '' }}
                         </h2>
                         <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
-                            <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
-                            style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+                            @if($img->extension == "mp4")
+                                <video autoplay loop class="w-full h-48 mx-auto overflow-hidden shadow-lg">
+                                    <source src="{{ route('image.show', ['image' => $img->fullname]) }}" type="video/mp4">
+                                    Your browser does not support HTML5 video.
+                                </video>
+                            @else
+                                <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
+                                     style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+                            @endif
                         </a>
                         <p class="flex justify-end px-2 py-1 mr-2 text-sm font-medium text-gray-800 dark:text-gray-100">
                             {{ $img->created_at->format('d/m/Y') }}
@@ -183,8 +205,15 @@
                             {{ $img->title ?? '' }}
                         </h2>
                         <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
-                            <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
-                            style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+                            @if($img->extension == "mp4")
+                                <video autoplay loop class="w-full h-48 mx-auto overflow-hidden shadow-lg">
+                                    <source src="{{ route('image.show', ['image' => $img->fullname]) }}" type="video/mp4">
+                                    Your browser does not support HTML5 video.
+                                </video>
+                            @else
+                                <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
+                                     style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+                            @endif
                         </a>
                         <p class="flex justify-end px-2 py-1 mr-2 text-sm font-medium text-gray-800 dark:text-gray-100">
                             {{ $img->created_at->format('d/m/Y') }}
@@ -208,8 +237,15 @@
                             {{ $img->title ?? '' }}
                         </h2>
                         <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
-                            <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
-                            style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+                            @if($img->extension == "mp4")
+                                <video autoplay loop class="w-full h-48 mx-auto overflow-hidden shadow-lg">
+                                    <source src="{{ route('image.show', ['image' => $img->fullname]) }}" type="video/mp4">
+                                    Your browser does not support HTML5 video.
+                                </video>
+                            @else
+                                <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
+                                     style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+                            @endif
                         </a>
                         <p class="flex justify-end px-2 py-1 mr-2 text-sm font-medium text-gray-800 dark:text-gray-100">
                             {{ $img->created_at->format('d/m/Y') }}

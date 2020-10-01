@@ -62,16 +62,24 @@ https://limg.app/i/1633umO.png"></textarea>
           </div>
           <div x-cloak x-show="tab === 'sharex'">
             <textarea id="sharex" class="w-full p-2 text-sm border border-gray-300 border-dashed rounded-md h-41 bg-gray-50 focus:outline-none dark:bg-transparent dark:text-gray-100" style="resize: none;" spellcheck="false">{
-"Name": "{{ config('app.name') }}",
-"DestinationType": "ImageUploader",
-"RequestURL": "{{ route('api_upload') }}",
-"FileFormName": "file",
-"Arguments": {
-    "key": "@auth{{ auth()->user()->api_token }}@else{{ App\User::findOrFail(1)->api_token }}@endif",
-    "file": "%guid"
-},
-"URL": "$json:image.url$"
-}</textarea>
+  "Version": "13.1.0",
+  "Name": "{{ config('app.name') }}",
+  "DestinationType": "ImageUploader, FileUploader",
+  "RequestMethod": "POST",
+  "RequestURL": "{{ route('apiv2_upload') }}",
+  "Headers": {
+    "Authorization": "@auth{{ auth()->user()->api_token }}@else{{ App\User::findOrFail(1)->api_token }}@endif"
+  },
+  "Body": "MultipartFormData",
+  "Arguments": {
+    "file": "%guid",
+    "title": "Screenshot from ShareX"
+  },
+  "FileFormName": "file",
+  "URL": "$json:data.link$",
+  "DeletionURL": "$json:data.delete$"
+}
+            </textarea>
             <button class="px-4 py-2 transition duration-300 ease-out bg-indigo-600 rounded text-gray-50 hover:bg-indigo-700 focus:outline-none" onclick=saveShareXFile(sharex.value,'ShareX-{{ config('app.name') }}.sxcu')>Download</button>
             <p class="mt-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
               @auth

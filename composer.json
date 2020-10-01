@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "ext-json": "*",
         "backpack/backupmanager": "^3.0",
         "backpack/crud": "4.1.*",
         "backpack/logmanager": "^4.0",
@@ -28,8 +29,7 @@
         "predis/predis": "^1.1",
         "rtconner/laravel-likeable": "~3.0",
         "socialiteproviders/discord": "^2.0",
-        "yoeunes/notify": "^1.0",
-        "ext-json": "*"
+        "yoeunes/notify": "^1.0"
     },
     "require-dev": {
         "backpack/generators": "^3.1",

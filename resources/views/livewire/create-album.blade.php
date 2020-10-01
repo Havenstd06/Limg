@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="pt-5 mt-8 border-t border-gray-200">
-                    <div class="flex justify-end">  
+                    <div class="flex justify-end">
                     <span class="inline-flex ml-3 rounded-md shadow-sm">
                         <button wire:click.prevent="create" type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700">
                             <span wire:loading.remove wire:target="create" data-turbolinks="false">
@@ -83,7 +83,7 @@
                                 Reset
                             </button>
                         </div>
-                        <div>                                
+                        <div>
                             <input wire:model="search" type="text" placeholder="Image Title, User, Date..." class="w-full px-2 py-2 mt-3 leading-normal bg-white border border-gray-300 rounded-lg appearance-none lg:mt-0 focus:outline-none lg:mr-2">
                         </div>
                     </div>
@@ -99,9 +99,17 @@
                                     <h2 class="h-10 pt-2 mx-4 my-4 font-semibold text-gray-800 truncate md:my-0 dark:text-gray-100" title="{{ $img->title }}">
                                         {{ $img->title ?? '' }}
                                     </h2>
-                                    <div class="w-full h-40 mx-auto overflow-hidden bg-center bg-cover shadow-lg" style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+                                    @if($img->extension == "mp4")
+                                        <video autoplay loop class="w-full h-40 mx-auto overflow-hidden shadow-lg">
+                                            <source src="{{ route('image.show', ['image' => $img->fullname]) }}" type="video/mp4">
+                                            Your browser does not support HTML5 video.
+                                        </video>
+                                    @else
+                                        <div class="w-full h-40 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
+                                             style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+                                    @endif
                                     <p class="flex justify-end px-2 py-1 mr-1 text-sm font-medium text-gray-800 dark:text-gray-100">
-                                        {{ $img->created_at->format('d/m/Y') }} 
+                                        {{ $img->created_at->format('d/m/Y') }}
                                         by&nbsp;
                                         <a href="{{ route('user.profile', ['user' => $img->user->username]) }}" class="text-indigo-500 hover:text-indigo-400" data-turbolinks="false">
                                         {{ $img->user->username }}

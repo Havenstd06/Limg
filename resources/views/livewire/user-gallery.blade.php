@@ -77,7 +77,14 @@
                             <a href="{{ route('image.show', ['image' => $image->pageName]) }}">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 w-10 h-auto">
-                                        <img class="w-10 h-auto rounded" src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="" />
+                                        @if($image->extension == "mp4")
+                                            <video autoplay loop class="w-10 h-auto rounded">
+                                                <source src="{{ route('image.show', ['image' => $image->fullname]) }}" type="video/mp4">
+                                                Your browser does not support HTML5 video.
+                                            </video>
+                                        @else
+                                            <img class="w-10 h-auto rounded" src="{{ route('image.show', ['image' => $image->fullname]) }}" alt="" />
+                                        @endif
                                     </div>
                                     <div class="ml-4 text-sm font-medium leading-5 text-gray-900 truncate">{{ $image->title ? $image->title : '' }}</div>
                                 </div>
@@ -104,7 +111,7 @@
                             @if ($confirming === $image->id)
                                 <button wire:click="destroy({{ $image->id }})" class="px-4 py-2 text-sm font-medium leading-5 text-white transition duration-200 ease-in-out bg-red-600 border border-red-300 rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:shadow-outline">
                                     <i class="mr-1 far fa-trash-alt"></i> Sure ?
-                                </button> 
+                                </button>
                             @else
                                 <button wire:click="confirmDestroy({{ $image->id }})" class="px-4 py-2 text-sm font-medium leading-5 text-white transition duration-200 ease-in-out bg-gray-600 border border-gray-300 rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:shadow-outline">
                                     <i class="mr-1 far fa-trash-alt"></i> Delete

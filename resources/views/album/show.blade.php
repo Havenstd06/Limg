@@ -36,7 +36,7 @@
       </div>
     </div>
   </div>
-  @else 
+  @else
   <h3 class="mb-4 text-4xl truncate dark:text-gray-300">{{ $album->name }}</h3>
   <div class="container mx-auto">
     <div class="justify-center justify-between mb-3 lg:flex">
@@ -45,7 +45,7 @@
         @csrf
         <div class="sm:flex sm:items-center">
           <label class="mr-4">
-            <input type="text" name="name" value="{{ $album->name }}" placeholder="Give a name to your Album" 
+            <input type="text" name="name" value="{{ $album->name }}" placeholder="Give a name to your Album"
             class="block w-64 px-4 py-3 leading-tight text-gray-700 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500">
           </label>
           <label class="flex custom-label sm:mx-4">
@@ -54,7 +54,7 @@
               <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
             </div>
             <span class="text-gray-700 dark:text-gray-100"> {{ __('Public') }}</span>
-          </label>  
+          </label>
           <button type="submit" class="px-4 py-2 mt-4 font-bold text-white bg-indigo-700 rounded shadow hover:bg-indigo-800 focus:shadow-outline focus:outline-none sm:mx-4 sm:mt-0">
             <i class="fas fa-save"></i> {{ __('Save') }}
           </button>
@@ -64,12 +64,12 @@
         </div>
       </form>
     @endownsAlbum
-      <a class="flex mt-4 lg:mt-0" href="{{ route('user.profile', $album->user->username) }}">	
-        <img class="w-10 h-10 mr-4 rounded-full" src="{{ url($album->user->avatar) }}" alt="{{ $album->user->username }}'s album'">	
-        <div class="text-sm">	
-        <p class="leading-none text-gray-900 dark:text-gray-300">{{ $album->user->username }}</p>	
-        <p class="text-gray-500">{{ $album->created_at->format('d/m/Y') }} ({{ $album->created_at->diffForHumans() }})</p>	
-        </div>	
+      <a class="flex mt-4 lg:mt-0" href="{{ route('user.profile', $album->user->username) }}">
+        <img class="w-10 h-10 mr-4 rounded-full" src="{{ url($album->user->avatar) }}" alt="{{ $album->user->username }}'s album'">
+        <div class="text-sm">
+        <p class="leading-none text-gray-900 dark:text-gray-300">{{ $album->user->username }}</p>
+        <p class="text-gray-500">{{ $album->created_at->format('d/m/Y') }} ({{ $album->created_at->diffForHumans() }})</p>
+        </div>
       </a>
     </div>
     <div class="gap-4 sm:grid sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3">
@@ -88,11 +88,18 @@
           @endownsAlbum
           </div>
           <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
-            <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
-            style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+              @if($img->extension == "mp4")
+                  <video autoplay loop class="w-full h-48 mx-auto overflow-hidden shadow-lg">
+                      <source src="{{ route('image.show', ['image' => $img->fullname]) }}" type="video/mp4">
+                      Your browser does not support HTML5 video.
+                  </video>
+              @else
+                  <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
+                       style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+              @endif
           </a>
           <p class="flex justify-end px-2 py-1 mr-2 text-sm font-medium text-gray-800 dark:text-gray-100">
-            {{ $img->created_at->format('d/m/Y') }} 
+            {{ $img->created_at->format('d/m/Y') }}
             by&nbsp;
             <a href="{{ route('user.profile', ['user' => $img->user->username]) }}" class="text-indigo-500 hover:text-indigo-400">
               {{ $img->user->username }}
