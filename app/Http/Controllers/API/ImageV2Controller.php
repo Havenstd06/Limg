@@ -26,7 +26,7 @@ class ImageV2Controller extends Controller
         $file = $request->file('file');
         $data = $request->all('title');
 
-        if (!$key) {
+        if (! $key) {
             return response()->json([
                 'success' => false,
                 'error'   => 'Please give a key file to upload.',
@@ -34,7 +34,7 @@ class ImageV2Controller extends Controller
         }
 
         $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
-        if (!in_array($key, $keys)) {
+        if (! in_array($key, $keys)) {
             return response()->json([
                 'success'    => false,
                 'error'      => 'Invalid key!',
@@ -109,7 +109,7 @@ class ImageV2Controller extends Controller
         $key = $request->header('Authorization');
         $image = Image::where('imageName', $imageName)->firstOrFail();
 
-        if (!$key) {
+        if (! $key) {
             return response()->json([
                 'success' => false,
                 'error'   => 'Private image, if you own the image please give your api key to validate.',
@@ -117,7 +117,7 @@ class ImageV2Controller extends Controller
         }
 
         $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
-        if (!in_array($key, $keys)) {
+        if (! in_array($key, $keys)) {
             return response()->json([
                 'success'    => false,
                 'error'      => 'Invalid key!',
