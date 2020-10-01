@@ -120,7 +120,7 @@
             @click="tab = 'public'">
                 <i class="fas fa-images"></i> @if (Auth::check() && (auth()->user()->id == $user->id || auth()->user()->role == 1)) Public @else Images @endif
             </button>
-            @if (Auth::check() && (auth()->user()->id == $user->id || auth()->user()->role == 1)
+            @if (Auth::check() && (auth()->user()->id == $user->id || auth()->user()->role == 1))
             <button class="w-3/4 py-4 mx-10 font-medium leading-5 whitespace-no-wrap border-b-2 md:mx-4 md:w-auto focus:outline-none"
             :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'private', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'private'}"
             @click="tab = 'private'">
