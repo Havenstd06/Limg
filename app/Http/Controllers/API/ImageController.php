@@ -8,6 +8,7 @@ use App\User;
 use DiscordWebhooks\Client;
 use DiscordWebhooks\Embed;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -16,7 +17,7 @@ class ImageController extends Controller
     /**
      * Private image (required api key).
      *
-     * @return \Illuminate\Http\Response
+     * @return string
      */
     public function public(Request $request)
     {
@@ -111,6 +112,52 @@ class ImageController extends Controller
                     ], 401);
                 }
             }
+        }
+    }
+
+    /**
+     * Delete specific image (api_token is required).
+     *
+     * @param \App\Image $image
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Request $request, $id)
+    {
+        $image = Image::where('id', $id)->firstOrFail();
+        $private_key = key($request->query());
+
+        if ($private_key == null) {
+            return response()->json([
+                'success' => false,
+                'error'   => 'Private image, if you own the image please give your api key to validate.',
+            ], 401);
+        }
+
+        $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
+        if (in_array($private_key, $keys)) {
+            $user = User::where('id', $image->user_id)->first();
+
+            if ($private_key == $user->api_token) {
+                if (File::exists($image->fullpath)) {
+                    File::delete($image->fullpath);
+                    $image->delete();
+                }
+
+                return response()->json([
+                    'success' => true,
+                    'info'    => 'Image deleted!',
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'error'   => 'It is not your image!',
+                ], 403);
+            }
+        } else {
+            return response()->json([
+                'success' => false,
+                'error'   => 'Invalid key!',
+            ], 401);
         }
     }
 

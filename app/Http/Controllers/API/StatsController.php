@@ -12,7 +12,7 @@ class StatsController extends Controller
     /**
      * Return global site stats.
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function global()
     {

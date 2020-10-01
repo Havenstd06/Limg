@@ -19,10 +19,16 @@ Route::prefix('/stats')->group(function () {
 // User
 Route::get('/user/{username}', 'API\UserController@user'); // Return user stats
 
-// Image
+// Image OLD
 Route::prefix('/images')->group(function () {
     Route::get('/public', 'API\ImageController@public'); // Show public public images
-  Route::get('/id/{id}', 'API\ImageController@show'); // Show specific image (api_token may required)
+    Route::get('/id/{id}', 'API\ImageController@show'); // Show specific image (api_token may required)
+    Route::get('/delete/{id}', 'API\ImageController@delete')->name('api_image_delete'); // Delete specific image (api_token may required)
+});
+
+Route::prefix('/v2')->group(function () {
+    Route::post('/upload', 'API\ImageV2Controller@store')->name('apiv2_upload');
+    Route::get('/delete/{imageName}', 'API\ImageV2Controller@delete')->name('apiv2_image_delete'); // Delete specific image (api_token is required)
 });
 
 // Upload

@@ -11,7 +11,7 @@ class UserController extends Controller
     /**
      * Return site stats.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function user(Request $request, $username)
     {
@@ -39,14 +39,17 @@ class UserController extends Controller
             'avatar'        => config('app.url').'/'.$user->avatar,
         ];
 
-        $public_images = $user->images()->where('is_public', 1)->orderBy('created_at', 'DESC')->get();
+        $public_images = $user->images()
+            ->where('is_public', 1)
+            ->orderBy('created_at', 'DESC')
+            ->get();
 
         if ($private_key == null) {
-            $data['public_stats'] = $public_stats;
-            $data['public_info'] = $public_info;
-            $data['public_images'] = $public_images;
-
-            return $data;
+            return response()->json([
+                $data['public_stats'] = $public_stats,
+                $data['public_info'] = $public_info,
+                $data['public_images'] = $public_images,
+            ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         }
 
         $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
@@ -81,13 +84,15 @@ class UserController extends Controller
             $private_images = $user->images()->where('is_public', 0)->orderBy('created_at', 'DESC')->get();
             $all_images = $user->images()->orderBy('created_at', 'DESC')->get();
 
-            $data['public_stats'] = $public_stats;
-            $data['private_stats']['images_count'] = $images;
-            $data['private_stats']['albums_count'] = $albums;
-            $data['public_info'] = $public_info;
-            $data['private_info'] = $private_info;
-            $data['all_images'] = $all_images;
-            $data['private_images'] = $private_images;
+            return response()->json([
+                $data['public_stats'] = $public_stats,
+                $data['private_stats']['images_count'] = $images,
+                $data['private_stats']['albums_count'] = $albums,
+                $data['public_info'] = $public_info,
+                $data['private_info'] = $private_info,
+                $data['all_images'] = $all_images,
+                $data['private_images'] = $private_images,
+            ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         } else {
             return response()->json([
                 'success' => false,
