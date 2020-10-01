@@ -23,23 +23,13 @@ class UserController extends Controller
 
         $allImages = Image::where('user_id', '=', $user->id)->orderBy('created_at', 'DESC')->paginate(20);
 
-        $publicImages = Image::where('user_id', '=', $user->id)->where('is_public', '=', 1)->orderBy(
-            'created_at',
-            'DESC'
-        )->paginate(20);
+        $publicImages = Image::where('user_id', '=', $user->id)->where('is_public', '=', 1)->orderBy('created_at', 'DESC')->paginate(20);
 
         $public_images_count = $user->images()->where('is_public', 1)->count();
 
-        $privateImages = Image::where('user_id', '=', $user->id)->where('is_public', '=', 0)->orderBy(
-            'created_at',
-            'DESC'
-        )->paginate(20);
+        $privateImages = Image::where('user_id', '=', $user->id)->where('is_public', '=', 0)->orderBy('created_at', 'DESC')->paginate(20);
 
-        $imagesLiked = Image::whereLikedBy($user->id)->with('likeCounter')->where(
-            'is_public',
-            '=',
-            1
-        )->orderBy('created_at', 'DESC')->paginate(20);
+        $imagesLiked = Image::whereLikedBy($user->id)->with('likeCounter')->where('is_public', '=', 1)->orderBy('created_at', 'DESC')->paginate(20);
 
         return view('user.profile', [
             'user'                 => $user,

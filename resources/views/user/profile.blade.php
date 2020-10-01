@@ -37,7 +37,7 @@
         </div>
         <div class="flex items-center mt-6 md:mt-0">
             <div>
-                @if (Auth::check() && auth()->user()->id == $user->id)
+                @if (Auth::check() && (auth()->user()->id == $user->id || auth()->user()->role == 1))
                     <form action="{{ route('settings.update.profile', ['user' => $user]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="flex items-center">
@@ -60,7 +60,7 @@
                 @endif
             </div>
         </div>
-        @if (Auth::check() && auth()->user()->id == $user->id)
+        @if (Auth::check() && (auth()->user()->id == $user->id || auth()->user()->role == 1))
         <div class="flex items-center justify-center md:justify-start">
             <div class="mt-6" x-data="{ open: false }">
                 <button @click="open = true" class="relative inline-flex items-center px-4 py-2 -ml-px text-lg font-medium leading-5 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
@@ -106,9 +106,9 @@
 </div>
 <div class="pt-6 pb-8 mt-4 bg-gray-100 rounded-lg shadow-md md:px-8 dark:bg-midnight sm:mx-auto sm:w-full">
     @if ($user->images->count() != 0)
-    <div x-data="{ tab: @if (Auth::check() && auth()->user()->id == $user->id) 'all' @else 'public' @endif }">
+    <div x-data="{ tab: @if (Auth::check() && (auth()->user()->id == $user->id || auth()->user()->role == 1)) 'all' @else 'public' @endif }">
         <nav class="mb-2 md:items-center md:flex">
-            @if (Auth::check() && auth()->user()->id == $user->id)
+            @if (Auth::check() && (auth()->user()->id == $user->id || auth()->user()->role == 1))
             <button class="w-3/4 py-4 mx-10 font-medium leading-5 whitespace-no-wrap border-b-2 md:mx-4 md:w-auto focus:outline-none"
             :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'all', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'all'}"
             @click="tab = 'all'">
@@ -118,9 +118,9 @@
             <button class="w-3/4 py-4 mx-10 font-medium leading-5 whitespace-no-wrap border-b-2 md:mx-4 md:w-auto focus:outline-none"
             :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'public', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'public'}"
             @click="tab = 'public'">
-                <i class="fas fa-images"></i> @if (Auth::check() && auth()->user()->id == $user->id) Public @else Images @endif
+                <i class="fas fa-images"></i> @if (Auth::check() && (auth()->user()->id == $user->id || auth()->user()->role == 1)) Public @else Images @endif
             </button>
-            @if (Auth::check() && auth()->user()->id == $user->id)
+            @if (Auth::check() && (auth()->user()->id == $user->id || auth()->user()->role == 1)
             <button class="w-3/4 py-4 mx-10 font-medium leading-5 whitespace-no-wrap border-b-2 md:mx-4 md:w-auto focus:outline-none"
             :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'private', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'private'}"
             @click="tab = 'private'">
