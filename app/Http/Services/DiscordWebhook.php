@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Services;
 
 use DiscordWebhooks\Client;
