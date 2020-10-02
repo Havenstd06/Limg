@@ -36,7 +36,18 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'api_token',
+        'password',
+        'remember_token',
+        'api_token',
+        'webhook_url',
+        'email',
+        'email_verified_at',
+        'domain',
+        'style',
+        'always_public',
+        'always_discover',
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -66,5 +77,10 @@ class User extends Authenticatable
     public function isSocialite()
     {
         return (! $this->password) ? true : false;
+    }
+
+    public function getAvatarAttribute($value)
+    {
+        return config('app.url').'/'.$value;
     }
 }
