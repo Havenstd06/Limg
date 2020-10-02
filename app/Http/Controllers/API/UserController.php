@@ -11,6 +11,46 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
+     * Return user private image
+     *
+     * @param Request $request
+     * @param $username
+     * @return JsonResponse
+     */
+    public function all(Request $request, $username)
+    {
+        $key = $request->header('Authorization');
+        $user = User::where('username', $username)
+            ->with('images')
+            ->first();
+
+        if ($key) { // If private
+            $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
+            if (! in_array($key, $keys)) {
+                if ($user->api_token != $key) {
+                    return response()->json([
+                        'success' => false,
+                        'error'   => 'The given key is not the same as the requested user!',
+                    ], 403);
+                }
+            }
+
+            $all_image = $user->images()
+                ->orderBy('created_at', 'DESC')
+                ->jsonPaginate(100);
+
+            return response()->json([
+                'images' => $all_image,
+                'success' => true,
+                'status'  => 200,
+            ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        }
+        return response()->json([
+            'success' => false,
+            'error'   => "Please enter the API key for user ".$user->username,
+        ], 401);
+    }
+    /**
      * Return user discover image.
      *
      * @param Request $request
@@ -182,20 +222,12 @@ class UserController extends Controller
 
             return response()->json([
                 "stats" => $user_private_stats,
-                "info"  => $user_private_info,
-                //                "images" => [
-                //                    "discover" => $discover_images,
-                //                    "public" => $public_images,
-                //                    "private" => $private_images,
-                //                    ],
+                "info"  => $user_private_info
             ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         } else { // Public
             return response()->json([
                 "stats" => $user_stats,
-                "info"  => $user_info,
-                //                "images" => [
-                //                    "discover" => $discover_images
-                //                ],
+                "info"  => $user_info
             ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         }
     }
