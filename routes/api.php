@@ -26,7 +26,7 @@ Route::get('/user/{username}', [APIUserController::class, 'user']); // Return si
 
 // Image OLD
 Route::prefix('/images')->group(function () {
-    Route::get('/public', [APIImageController::class, 'public']); // Show public public images
+    Route::get('/discover', [APIImageController::class, 'discover']); // Show public public images
     Route::get('/id/{id}', [APIImageController::class, 'show']); // Show specific image (api_token may required)
     Route::get('/delete/{pageName}', [APIImageController::class, 'delete'])->name('api_image_delete'); // Delete specific image (api_token is required)
 });
