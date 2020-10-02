@@ -92,13 +92,17 @@
                         </td>
 
                         <td class="px-6 py-4 text-center whitespace-no-wrap border-b border-gray-200">
-                        @if ($image->is_public)
+                        @if ($image->is_public == \App\Enums\ImageStateType::Public)
                             <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                                Active
+                                Public
                             </span>
-                        @else
+                        @elseif ($image->is_public == \App\Enums\ImageStateType::Discover)
+                            <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
+                                Discover
+                            </span>
+                        @elseif ($image->is_public == \App\Enums\ImageStateType::Private)
                             <span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
-                                Disable
+                                Private
                             </span>
                         @endif
                         </td>

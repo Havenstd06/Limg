@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Enums\ImageStateType;
 use App\Image;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -75,7 +76,7 @@ class ImagesGrid extends Component
     {
         $base = Image::search($this->search)
             ->get()
-            ->where('is_public', '=', '1');
+            ->where('is_public', ImageStateType::Discover);
         if (! empty(trim($this->search))) {
             $this->page = 1;
         }

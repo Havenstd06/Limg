@@ -4,8 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\DiscordWebhook;
+use App\Http\Services\ImageIsPublic;
 use App\Image;
 use App\User;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -17,8 +20,8 @@ class ImageV2Controller extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
+     * @return JsonResponse
+     * @throws Exception
      */
     public function store(Request $request)
     {
@@ -65,6 +68,8 @@ class ImageV2Controller extends Controller
         $new_name = $image_name.'.'.$extension;
         $file->move(('storage/images'), $new_name);
 
+        $is_public = new ImageIsPublic($user, $isApi = 1);
+
         $image = new Image;
         $image->title = $data['title'];
         $image->pageName = $page_name;
@@ -72,7 +77,7 @@ class ImageV2Controller extends Controller
         $image->extension = $extension;
         $image->path = '/i/'.$new_name;
         $image->user_id = $user->id;
-        $image->is_public = (! $user->always_public) ? 0 || $user->always_public : 1;
+        $image->is_public = $is_public->imageState();
         $image->save();
 
         if ($user->webhook_url) {
@@ -87,7 +92,8 @@ class ImageV2Controller extends Controller
                 'type'         => $file->getClientMimeType(),
                 'account_id'   => $user->id,
                 'account_name' => $user->username,
-                'delete'       => route('apiv2_image_delete', ['imageName' => $image->imageName]),
+                'image_state'  => $image->is_public,
+                'delete'       => route('apiv2_image_delete', ['pageName' => $image->pageName]),
                 'page'         => route('image.show', ['image' => $image->pageName]),
                 'link'         => $user->domain.$image->path,
             ],
@@ -100,14 +106,14 @@ class ImageV2Controller extends Controller
      * Delete specific image (api_token is required).
      *
      * @param Request $request
-     * @param $imageName
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
+     * @param $pageName
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function delete(Request $request, $imageName)
+    public function delete(Request $request, $pageName)
     {
         $key = $request->header('Authorization');
-        $image = Image::where('imageName', $imageName)->firstOrFail();
+        $image = Image::where('pageName', $pageName)->firstOrFail();
 
         if (! $key) {
             return response()->json([

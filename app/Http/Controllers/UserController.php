@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ImageStateType;
 use App\Image;
 use App\Rules\MatchOldPassword;
 use App\Rules\ValidDiscordWebhookRule;
@@ -21,19 +22,38 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        $allImages = Image::where('user_id', '=', $user->id)->orderBy('created_at', 'DESC')->paginate(20);
+        $allImages = Image::where('user_id', '=', $user->id)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(20);
 
-        $publicImages = Image::where('user_id', '=', $user->id)->where('is_public', '=', 1)->orderBy('created_at', 'DESC')->paginate(20);
+        $discoverImages = Image::where('user_id', '=', $user->id)
+            ->where('is_public', ImageStateType::Discover)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(20);
 
-        $public_images_count = $user->images()->where('is_public', 1)->count();
+        $publicImages = Image::where('user_id', $user->id)
+            ->where('is_public', ImageStateType::Public || ImageStateType::Discover)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(20);
 
-        $privateImages = Image::where('user_id', '=', $user->id)->where('is_public', '=', 0)->orderBy('created_at', 'DESC')->paginate(20);
+        $public_images_count = $user->images()
+            ->where('is_public', ImageStateType::Public || ImageStateType::Discover)
+            ->count();
 
-        $imagesLiked = Image::whereLikedBy($user->id)->with('likeCounter')->where('is_public', '=', 1)->orderBy('created_at', 'DESC')->paginate(20);
+        $privateImages = Image::where('user_id', $user->id)
+            ->where('is_public', ImageStateType::Private)
+            ->orderBy('created_at', 'DESC')->paginate(20);
+
+        $imagesLiked = Image::whereLikedBy($user->id)
+            ->with('likeCounter')
+            ->where('is_public', ImageStateType::Public || ImageStateType::Discover)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(20);
 
         return view('user.profile', [
             'user'                 => $user,
             'allImages'            => $allImages,
+            'discoverImages'       => $discoverImages,
             'publicImages'         => $publicImages,
             'public_images_count'  => $public_images_count,
             'privateImages'        => $privateImages,
@@ -55,6 +75,7 @@ class UserController extends Controller
         abort_unless($user == $request->user(), 403);
 
         $user->always_public = $request->has('always_public');
+        $user->always_discover = $request->has('always_discover');
         $user->description = $request->input('description');
         $user->save();
 

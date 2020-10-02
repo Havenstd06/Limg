@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Album;
+use App\Http\Services\ImageIsPublic;
 use App\Image;
 use App\Rules\ValidImageUrlRule;
 use App\User;
 use DiscordWebhooks\Client;
 use DiscordWebhooks\Embed;
+use File;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as InterImage;
@@ -22,7 +24,7 @@ class ImageController extends Controller
     /**
      * Show the home page.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function main()
     {
@@ -145,7 +147,7 @@ class ImageController extends Controller
         }
 
         $image->title = $request->input('title');
-        $image->is_public = $request->has('is_public');
+        $image->is_public = $request->input('is_public');
         $image->save();
 
         notify()->success('You have successfully updated your image!');
@@ -160,11 +162,15 @@ class ImageController extends Controller
 
         if (File::exists($image->fullpath)) {
             File::delete($image->fullpath);
-            $image->delete();
+
+            try {
+                $image->delete();
+            } catch (\Exception $e) {
+            }
         }
         notify()->success('You have successfully delete your image!');
 
-        return redirect()->route('home');
+        return redirect(route('user.profile', ['user' => $user->username]));
     }
 
     public function add_to_album(Request $request, Image $image)
@@ -242,12 +248,14 @@ class ImageController extends Controller
 
     public function createImage(User $user, $image, $pageName, $imageName, $newFullName)
     {
+        $is_public = new ImageIsPublic($user, $isApi = 0);
+
         $image->pageName = $pageName;
         $image->imageName = $imageName;
         $image->extension = pathinfo($newFullName, PATHINFO_EXTENSION);
         $image->path = '/i/'.$newFullName;
         $image->user_id = $user->id;
-        $image->is_public = (! $user->always_public) ? 0 || (! Auth::check() || $user->always_public) : 1;
+        $image->is_public = $is_public->imageState();
         $image->save();
 
         $this->sendWebhook($user, $image);

@@ -70,12 +70,23 @@
           <input type="text" name="title" value="{{ $image->title }}" placeholder="Give a title to your image"
           class="block w-64 px-4 py-3 leading-tight text-gray-700 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500">
         </label>
-        <label class="flex custom-label sm:mx-4">
-          <div class="flex items-center justify-center w-6 h-6 p-1 mr-2 bg-white shadow">
-            <input type="checkbox" class="hidden" name="is_public" value="{{ $image->is_public ? '1' : '0' }}" {{ $image->is_public ? 'checked' : '' }}>
-            <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
-          </div>
-          <span class="text-gray-700 dark:text-gray-100"> {{ __('Public') }}</span>
+        <label class="flex items-center custom-label sm:mx-4">
+            <span class="text-gray-700 dark:text-gray-100 mr-2"> {{ __('Status') }}</span>
+            <select name="is_public" class="py-3 block w-full transition duration-150 ease-in-out form-select sm:text-sm sm:leading-5">
+                <option value="{{ $image->is_public }}" selected>
+                    @if($image->is_public == 0)
+                        Private
+                    @elseif ($image->is_public == 1)
+                        Discover
+                    @elseif ($image->is_public == 2)
+                        Public
+                    @endif
+                </option>
+                <option disabled class="bg-gray-50">---------</option>
+                <option value="0">Private</option>
+                <option value="2">Public</option>
+                <option value="1">Discover</option>
+            </select>
         </label>
         <button type="submit" class="px-4 py-2 mt-4 font-bold text-white bg-indigo-700 rounded shadow hover:bg-indigo-800 focus:shadow-outline focus:outline-none sm:mx-4 sm:mt-0">
           <i class="fas fa-save"></i> {{ __('Save') }}

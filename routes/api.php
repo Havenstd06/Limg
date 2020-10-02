@@ -33,7 +33,7 @@ Route::prefix('/images')->group(function () {
 
 Route::prefix('/v2')->group(function () {
     Route::post('/upload', [APIImageV2Controller::class, 'store'])->name('apiv2_upload');
-    Route::get('/delete/{imageName}', [APIImageV2Controller::class, 'delete'])->name('apiv2_image_delete'); // Delete specific image (api_token is required)
+    Route::delete('/delete/{pageName}', [APIImageV2Controller::class, 'delete'])->name('apiv2_image_delete'); // Delete specific image (api_token is required)
 });
 
 // Upload
