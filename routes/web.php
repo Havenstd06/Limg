@@ -22,7 +22,6 @@ Auth::routes();
 Route::get('/login/discord', [AuthLoginController::class, 'redirectToProvider'])->name('login.discord');
 Route::get('/login/discord/callback', [AuthLoginController::class, 'handleProviderCallback']);
 
-
 Route::get('/', [HomeController::class, 'main'])->name('home');
 
 // Profile Route

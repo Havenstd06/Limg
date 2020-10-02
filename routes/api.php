@@ -18,11 +18,11 @@ use App\Http\Controllers\API\StatsController as APIStatsController;
 use App\Http\Controllers\API\UserController as APIUserController;
 
 Route::prefix('/stats')->group(function () {
-    Route::get('/global', [APIStatsController::class, 'global']);// Return site stats
+    Route::get('/global', [APIStatsController::class, 'global']); // Return site stats
 });
 
 // User
-Route::get('/user/{username}', [APIUserController::class, 'user']);// Return site stats
+Route::get('/user/{username}', [APIUserController::class, 'user']); // Return site stats
 
 // Image OLD
 Route::prefix('/images')->group(function () {
