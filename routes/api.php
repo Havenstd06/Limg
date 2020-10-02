@@ -34,8 +34,8 @@ Route::prefix('/user')->group(function () {
 // Image OLD
 Route::prefix('/images')->group(function () {
     Route::get('/discover', [APIImageController::class, 'discover']); // Show public public images
-    Route::get('/id/{id}', [APIImageController::class, 'show']); // Show specific image (api_token may required)
-    Route::get('/delete/{pageName}', [APIImageController::class, 'delete'])->name('api_image_delete'); // Delete specific image (api_token is required)
+    Route::get('/{pageName}', [APIImageController::class, 'show']); // Show specific image (api_token may required)
+    Route::delete('/delete/{pageName}', [APIImageController::class, 'delete'])->name('api_image_delete'); // Delete specific image (api_token is required)
 });
 
 // Upload
