@@ -36,15 +36,17 @@ class UserController extends Controller
             }
 
             $all_image = $user->images()
+                ->with('user')
                 ->orderBy('created_at', 'DESC')
                 ->jsonPaginate(100);
 
             return response()->json([
-                'images' => $all_image,
+                'images'  => $all_image,
                 'success' => true,
                 'status'  => 200,
             ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         }
+
         return response()->json([
             'success' => false,
             'error'   => "Please enter the API key for user ".$user->username,
@@ -69,7 +71,9 @@ class UserController extends Controller
             ->jsonPaginate(100);
 
         return response()->json([
-            $discover_images
+            'images' => $discover_images,
+            'success' => true,
+            'status'  => 200
         ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }
 
@@ -100,15 +104,17 @@ class UserController extends Controller
 
             $public_image = $user->images()
                 ->where('is_public', ImageStateType::Public)
+                ->with('user')
                 ->orderBy('created_at', 'DESC')
                 ->jsonPaginate(100);
 
             return response()->json([
-                'images' => $public_image,
+                'images'  => $public_image,
                 'success' => true,
                 'status'  => 200,
             ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         }
+
         return response()->json([
             'success' => false,
             'error'   => "Please enter the API key for user ".$user->username,
@@ -142,15 +148,17 @@ class UserController extends Controller
 
             $private_image = $user->images()
                 ->where('is_public', ImageStateType::Private)
+                ->with('user')
                 ->orderBy('created_at', 'DESC')
                 ->jsonPaginate(100);
 
             return response()->json([
-                'images' => $private_image,
+                'images'  => $private_image,
                 'success' => true,
                 'status'  => 200,
             ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         }
+
         return response()->json([
             'success' => false,
             'error'   => "Please enter the API key for user ".$user->username,
@@ -196,13 +204,13 @@ class UserController extends Controller
 
             $user_private_stats = [
                 'image' => [
-                    'all'   => $user->images()->count(),
+                    'all'        => $user->images()->count(),
                     'discover'   => $user->images()->where('is_public', ImageStateType::Discover)->count(),
                     'public'     => $user->images()->where('is_public', ImageStateType::Public)->count(),
                     'private'    => $user->images()->where('is_public', ImageStateType::Private)->count(),
                 ],
                 'album' => [
-                    'all'   => $user->albums()->count(),
+                    'all'        => $user->albums()->count(),
                     'public'     => $user->albums()->where('is_public', 1)->count(),
                     'private'    => $user->albums()->where('is_public', 0)->count(),
                 ],
@@ -222,12 +230,12 @@ class UserController extends Controller
 
             return response()->json([
                 "stats" => $user_private_stats,
-                "info"  => $user_private_info
+                "info"  => $user_private_info,
             ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         } else { // Public
             return response()->json([
                 "stats" => $user_stats,
-                "info"  => $user_info
+                "info"  => $user_info,
             ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         }
     }
