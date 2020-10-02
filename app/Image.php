@@ -38,6 +38,11 @@ class Image extends Model
         return storage_path('app/public/images/'.$this->fullname);
     }
 
+    public function getPathAttribute($value)
+    {
+        return config('app.url').$value;
+    }
+
     public static function search($query)
     {
         return static::select('images.*')
