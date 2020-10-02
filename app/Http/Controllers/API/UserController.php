@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
-     * Return user private image
+     * Return user private image.
      *
      * @param Request $request
      * @param $username
@@ -49,9 +49,10 @@ class UserController extends Controller
 
         return response()->json([
             'success' => false,
-            'error'   => "Please enter the API key for user ".$user->username,
+            'error'   => 'Please enter the API key for user '.$user->username,
         ], 401);
     }
+
     /**
      * Return user discover image.
      *
@@ -73,12 +74,12 @@ class UserController extends Controller
         return response()->json([
             'images' => $discover_images,
             'success' => true,
-            'status'  => 200
+            'status'  => 200,
         ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }
 
     /**
-     * Return user public image
+     * Return user public image.
      *
      * @param Request $request
      * @param $username
@@ -117,12 +118,12 @@ class UserController extends Controller
 
         return response()->json([
             'success' => false,
-            'error'   => "Please enter the API key for user ".$user->username,
+            'error'   => 'Please enter the API key for user '.$user->username,
         ], 401);
     }
 
     /**
-     * Return user private image
+     * Return user private image.
      *
      * @param Request $request
      * @param $username
@@ -161,9 +162,10 @@ class UserController extends Controller
 
         return response()->json([
             'success' => false,
-            'error'   => "Please enter the API key for user ".$user->username,
+            'error'   => 'Please enter the API key for user '.$user->username,
         ], 401);
     }
+
     /**
      * Return site stats.
      *
@@ -229,13 +231,13 @@ class UserController extends Controller
             ];
 
             return response()->json([
-                "stats" => $user_private_stats,
-                "info"  => $user_private_info,
+                'stats' => $user_private_stats,
+                'info'  => $user_private_info,
             ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         } else { // Public
             return response()->json([
-                "stats" => $user_stats,
-                "info"  => $user_info,
+                'stats' => $user_stats,
+                'info'  => $user_info,
             ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         }
     }

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Enums\ImageStateType;
 use Conner\Likeable\Likeable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +16,7 @@ class Image extends Model
     protected $appends = [
         'link',
         'delete',
-        'page'
+        'page',
     ];
 
     public function user()
