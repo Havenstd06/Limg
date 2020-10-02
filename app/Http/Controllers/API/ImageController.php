@@ -31,7 +31,7 @@ class ImageController extends Controller
         $discover = Image::where('is_public', ImageStateType::Discover)
             ->with('user')
             ->orderBy('created_at', 'DESC')
-            ->jsonPaginate(3);
+            ->jsonPaginate(100);
 
 
         return $discover->toJson(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
