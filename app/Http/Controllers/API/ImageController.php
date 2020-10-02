@@ -12,8 +12,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -27,7 +25,6 @@ class ImageController extends Controller
      */
     public function discover()
     {
-        /** @var LengthAwarePaginator $discover */
         $discover = Image::where('is_public', ImageStateType::Discover)
             ->with('user')
             ->orderBy('created_at', 'DESC')
@@ -138,12 +135,14 @@ class ImageController extends Controller
     public function delete(Request $request, $pageName)
     {
         $key = $request->header('Authorization');
-        $image = Image::where('pageName', $pageName)->firstOrFail();
+        $image = Image::where('pageName', $pageName)
+            ->with('user')
+            ->firstOrFail();
 
         if (! $key) {
             return response()->json([
                 'success' => false,
-                'error'   => 'Private image, if you own the image please give your api key to validate.',
+                'error'   => 'Please give a key file to delete.',
             ], 401);
         }
 
@@ -159,7 +158,7 @@ class ImageController extends Controller
         if ($key != $user->api_token) {
             return response()->json([
                 'success' => false,
-                'error'   => 'It is not your image!',
+                'error'   => 'You do not own the image.',
             ], 403);
         }
 
@@ -181,39 +180,52 @@ class ImageController extends Controller
      * @param $id
      * @return Image|Builder|Model|JsonResponse
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $pageName)
     {
-        $image = Image::where('id', $id)->firstOrFail();
-        $private_key = key($request->query());
+        $key = $request->header('Authorization');
+        $image = Image::where('pageName', $pageName)
+            ->with('user')
+            ->firstOrFail();
 
-        if ($image->is_public == 0) { // Private
-            if ($private_key == null) {
-                return response()->json([
-                    'success' => false,
-                    'error'   => 'Private image, if you own the image please give your api key to validate.',
-                ], 401);
-            }
-
-            $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
-            if (in_array($private_key, $keys)) {
-                $user = User::where('id', $image->user_id)->first();
-
-                if ($private_key == $user->api_token) {
-                    return $image;
-                } else {
-                    return response()->json([
-                        'success' => false,
-                        'error'   => 'It is not your image!',
-                    ], 403);
-                }
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'error'   => 'Invalid key!',
-                ], 401);
-            }
-        } else {
-            return $image;
+        if ($image->is_public == ImageStateType::Discover)
+        {
+            return response()->json([
+                'data' => [
+                    $image
+                ],
+                'success' => true,
+                'status'  => 200,
+            ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         }
+        if (! $key) {
+            return response()->json([
+                'success' => false,
+                'error'   => 'The image is private if you own the image, enter your API key.',
+            ], 401);
+        }
+
+        $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
+        if (! in_array($key, $keys)) {
+            return response()->json([
+                'success'    => false,
+                'error'      => 'Invalid key!',
+            ], 401);
+        }
+
+        $user = User::where('id', $image->user_id)->first();
+        if ($key != $user->api_token) {
+            return response()->json([
+                'success' => false,
+                'error'   => 'You do not own the image.',
+            ], 403);
+        }
+
+        return response()->json([
+            'data' => [
+                $image
+            ],
+            'success' => true,
+            'status'  => 200,
+        ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }
 }
