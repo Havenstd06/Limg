@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Enums\ImageStateType;
 use Conner\Likeable\Likeable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +13,12 @@ class Image extends Model
     protected $guarded = [];
 
     protected $fillable = ['title', 'is_public'];
+
+    protected $appends = [
+        'link',
+        'delete',
+        'page'
+    ];
 
     public function user()
     {
@@ -38,9 +45,24 @@ class Image extends Model
         return storage_path('app/public/images/'.$this->fullname);
     }
 
-    public function getPathAttribute($value)
+//    public function getPathAttribute($value)
+//    {
+//        return config('app.url').$value;
+//    }
+
+    public function getLinkAttribute()
     {
-        return config('app.url').$value;
+        return config('app.url').$this->path;
+    }
+
+    public function getDeleteAttribute()
+    {
+        return route('api_image_delete', ['pageName' => $this->pageName]);
+    }
+
+    public function getPageAttribute()
+    {
+        return route('image.show', ['image' => $this->pageName]);
     }
 
     public static function search($query)
