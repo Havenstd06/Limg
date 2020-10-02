@@ -13,7 +13,6 @@
 
 // Stats
 use App\Http\Controllers\API\ImageController as APIImageController;
-use App\Http\Controllers\API\ImageV2Controller as APIImageV2Controller;
 use App\Http\Controllers\API\StatsController as APIStatsController;
 use App\Http\Controllers\API\UserController as APIUserController;
 
@@ -29,7 +28,6 @@ Route::prefix('/user')->group(function () {
     Route::get('/{username}/images/public', [APIUserController::class, 'public']); // Return public user image
     Route::get('/{username}/images/private', [APIUserController::class, 'private']); // Return private user image
 });
-
 
 // Image OLD
 Route::prefix('/images')->group(function () {

@@ -30,7 +30,6 @@ class ImageController extends Controller
             ->orderBy('created_at', 'DESC')
             ->jsonPaginate(100);
 
-
         return response()->json([
             'images' => $discover,
             'success' => true,
@@ -187,11 +186,10 @@ class ImageController extends Controller
             ->with('user')
             ->firstOrFail();
 
-        if ($image->is_public == ImageStateType::Discover)
-        {
+        if ($image->is_public == ImageStateType::Discover) {
             return response()->json([
                 'data' => [
-                    $image
+                    $image,
                 ],
                 'success' => true,
                 'status'  => 200,
@@ -222,7 +220,7 @@ class ImageController extends Controller
 
         return response()->json([
             'data' => [
-                $image
+                $image,
             ],
             'success' => true,
             'status'  => 200,

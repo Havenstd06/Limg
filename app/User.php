@@ -47,7 +47,7 @@ class User extends Authenticatable
         'always_public',
         'always_discover',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     /**
