@@ -22,7 +22,13 @@ Route::prefix('/stats')->group(function () {
 });
 
 // User
-Route::get('/user/{username}', [APIUserController::class, 'user']); // Return site stats
+Route::prefix('/user')->group(function () {
+    Route::get('/{username}', [APIUserController::class, 'user']); // Return user stats & info
+    Route::get('/{username}/images/discover', [APIUserController::class, 'discover']); // Return discover user image
+    Route::get('/{username}/images/public', [APIUserController::class, 'public']); // Return public user image
+    Route::get('/{username}/images/private', [APIUserController::class, 'private']); // Return private user image
+});
+
 
 // Image OLD
 Route::prefix('/images')->group(function () {

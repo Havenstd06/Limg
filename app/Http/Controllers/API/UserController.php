@@ -11,6 +11,112 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
+     * Return user discover image.
+     *
+     * @param Request $request
+     * @param $username
+     * @return JsonResponse
+     */
+    public function discover(Request $request, $username)
+    {
+        $user = User::where('username', $username)
+            ->with('images')
+            ->first();
+
+        $discover_images = $user->images()
+            ->where('is_public', ImageStateType::Discover)
+            ->orderBy('created_at', 'DESC')
+            ->jsonPaginate(100);
+
+        return response()->json([
+            $discover_images
+        ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    }
+
+    /**
+     * Return user public image
+     *
+     * @param Request $request
+     * @param $username
+     * @return JsonResponse
+     */
+    public function public(Request $request, $username)
+    {
+        $key = $request->header('Authorization');
+        $user = User::where('username', $username)
+            ->with('images')
+            ->first();
+
+        if ($key) { // If private
+            $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
+            if (! in_array($key, $keys)) {
+                if ($user->api_token != $key) {
+                    return response()->json([
+                        'success' => false,
+                        'error'   => 'The given key is not the same as the requested user!',
+                    ], 403);
+                }
+            }
+
+            $public_image = $user->images()
+                ->where('is_public', ImageStateType::Public)
+                ->orderBy('created_at', 'DESC')
+                ->jsonPaginate(100);
+
+            return response()->json([
+                'images' => $public_image,
+                'success' => true,
+                'status'  => 200,
+            ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        }
+        return response()->json([
+            'success' => false,
+            'error'   => "Please enter the API key for user ".$user->username,
+        ], 401);
+    }
+
+    /**
+     * Return user private image
+     *
+     * @param Request $request
+     * @param $username
+     * @return JsonResponse
+     */
+    public function private(Request $request, $username)
+    {
+        $key = $request->header('Authorization');
+        $user = User::where('username', $username)
+            ->with('images')
+            ->first();
+
+        if ($key) { // If private
+            $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
+            if (! in_array($key, $keys)) {
+                if ($user->api_token != $key) {
+                    return response()->json([
+                        'success' => false,
+                        'error'   => 'The given key is not the same as the requested user!',
+                    ], 403);
+                }
+            }
+
+            $private_image = $user->images()
+                ->where('is_public', ImageStateType::Private)
+                ->orderBy('created_at', 'DESC')
+                ->jsonPaginate(100);
+
+            return response()->json([
+                'images' => $private_image,
+                'success' => true,
+                'status'  => 200,
+            ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        }
+        return response()->json([
+            'success' => false,
+            'error'   => "Please enter the API key for user ".$user->username,
+        ], 401);
+    }
+    /**
      * Return site stats.
      *
      * @param Request $request
