@@ -24,11 +24,11 @@ class ImageIsPublic
     {
         $imageState = ImageStateType::Public;
 
-        if ((Auth::check() || $this->isApi) && (!$this->user->always_public && !$this->user->always_discover)) {
+        if ((Auth::check() || $this->isApi) && (! $this->user->always_public && ! $this->user->always_discover)) {
             $imageState = ImageStateType::Private;
         }
 
-        if ((Auth::check() || $this->isApi) && ($this->user->always_public && !$this->user->always_discover)) {
+        if ((Auth::check() || $this->isApi) && ($this->user->always_public && ! $this->user->always_discover)) {
             $imageState = ImageStateType::Public;
         }
 
