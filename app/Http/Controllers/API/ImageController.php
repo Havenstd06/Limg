@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Enums\ImageStateType;
 use App\Http\Controllers\Controller;
 use App\Http\Services\DiscordWebhook;
 use App\Http\Services\ImageIsPublic;
 use App\Image;
 use App\User;
-use DiscordWebhooks\Client;
-use DiscordWebhooks\Embed;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -25,11 +25,16 @@ class ImageController extends Controller
      *
      * @return string
      */
-    public function public()
+    public function discover()
     {
-        $images = Image::where('is_public', 1)->orderBy('created_at', 'DESC')->get();
+        /** @var LengthAwarePaginator $discover */
+        $discover = Image::where('is_public', ImageStateType::Discover)
+            ->with('user')
+            ->orderBy('created_at', 'DESC')
+            ->jsonPaginate(3);
 
-        return $images->toJson(JSON_PRETTY_PRINT);
+
+        return $discover->toJson(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }
 
     /**
