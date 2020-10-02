@@ -48,13 +48,23 @@
                                 <span>Save</span>
                             </button>
                         </div>
-                        <label for="always_public" class="flex items-center justify-center pt-6 pb-3 cursor-pointer">
+                        <label for="always_public" class="flex items-center pt-6 cursor-pointer">
                             <div class="relative">
                                 <input name="always_public" id="always_public" type="checkbox" class="hidden" value="{{ $user->always_public ? '1' : '0' }}" {{ $user->always_public ? 'checked' : '' }} onChange="form.submit()"/>
                                 <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner toggle__line"></div>
                                 <div class="absolute inset-y-0 left-0 w-6 h-6 bg-white rounded-full shadow toggle__dot"></div>
                             </div>
                             <span class="pl-4 text-sm font-bold text-gray-700 md:text-base dark:text-gray-300">Always Upload Image in public</span>
+                        </label>
+                        <label for="always_discover" class="flex items-center justify-center pt-3 pb-3 cursor-pointer">
+                            <div class="relative">
+                                <input name="always_discover" id="always_discover" type="checkbox" class="hidden" value="{{ $user->always_discover ? '1' : '0' }}" {{ $user->always_discover ? 'checked' : '' }} onChange="form.submit()"/>
+                                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner toggle__line"></div>
+                                <div class="absolute inset-y-0 left-0 w-6 h-6 bg-white rounded-full shadow toggle__dot"></div>
+                            </div>
+                            <span class="pl-4 text-sm font-bold text-gray-700 md:text-base dark:text-gray-300">
+                                Always Upload Image in <a href="{{ route('image.main') }}" class="text-purple-400 hover:text-purple-500 transition ease-out duration-150">Discover</a>
+                            </span>
                         </label>
                     </form>
                 @endif
@@ -109,25 +119,30 @@
     <div x-data="{ tab: @if (Auth::check() && (auth()->user()->id == $user->id || auth()->user()->role == 1)) 'all' @else 'public' @endif }">
         <nav class="mb-2 md:items-center md:flex">
             @if (Auth::check() && (auth()->user()->id == $user->id || auth()->user()->role == 1))
-            <button class="w-3/4 py-4 mx-10 font-medium leading-5 whitespace-no-wrap border-b-2 md:mx-4 md:w-auto focus:outline-none"
+            <button class="w-3/4 py-4 mx-10 transition ease-out duration-150 font-medium leading-5 whitespace-no-wrap border-b-2 md:mx-4 md:w-auto focus:outline-none"
             :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'all', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'all'}"
             @click="tab = 'all'">
                 <i class="fas fa-globe"></i> All
             </button>
             @endif
-            <button class="w-3/4 py-4 mx-10 font-medium leading-5 whitespace-no-wrap border-b-2 md:mx-4 md:w-auto focus:outline-none"
-            :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'public', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'public'}"
-            @click="tab = 'public'">
-                <i class="fas fa-images"></i> @if (Auth::check() && (auth()->user()->id == $user->id || auth()->user()->role == 1)) Public @else Images @endif
+            <button class="w-3/4 py-4 mx-10 transition ease-out duration-150 font-medium leading-5 whitespace-no-wrap border-b-2 md:mx-4 md:w-auto focus:outline-none"
+                    :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'discover', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'discover'}"
+                    @click="tab = 'discover'">
+                <i class="fas fa-search"></i> Discover
             </button>
             @if (Auth::check() && (auth()->user()->id == $user->id || auth()->user()->role == 1))
-            <button class="w-3/4 py-4 mx-10 font-medium leading-5 whitespace-no-wrap border-b-2 md:mx-4 md:w-auto focus:outline-none"
+            <button class="w-3/4 py-4 mx-10 transition ease-out duration-150 font-medium leading-5 whitespace-no-wrap border-b-2 md:mx-4 md:w-auto focus:outline-none"
+                    :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'public', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'public'}"
+                    @click="tab = 'public'">
+                <i class="fas fa-images"></i> Public
+            </button>
+            <button class="w-3/4 py-4 mx-10 transition ease-out duration-150 font-medium leading-5 whitespace-no-wrap border-b-2 md:mx-4 md:w-auto focus:outline-none"
             :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'private', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'private'}"
             @click="tab = 'private'">
                 <i class="fas fa-user-lock"></i> Private
             </button>
             @endif
-            <button class="w-3/4 py-4 mx-10 font-medium leading-5 whitespace-no-wrap border-b-2 md:mx-4 md:w-auto focus:outline-none"
+            <button class="w-3/4 py-4 mx-10 transition ease-out duration-150 font-medium leading-5 whitespace-no-wrap border-b-2 md:mx-4 md:w-auto focus:outline-none"
             :class="{'dark:text-gray-300 text-gray-700 border-transparent hover:text-gray-500 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab !== 'liked', 'text-indigo-500 border-indigo-400 focus:text-indigo-500 focus:border-indigo-600': tab === 'liked'}"
             @click="tab = 'liked'">
                 <i class="far fa-thumbs-up"></i> Liked
@@ -163,6 +178,38 @@
             </div>
             <div class="pt-5 text-center">
                 {{ $allImages->links() }}
+            </div>
+        </div>
+        <div x-show="tab === 'discover'">
+            <div class="gap-4 sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+                @foreach ($discoverImages as $img)
+                    <div class="rounded-lg dark:bg-forest bg-gray-50">
+                        <h2 class="h-10 pt-2 mx-4 my-4 font-semibold text-gray-800 truncate md:my-0 dark:text-gray-100" title="{{ $img->title }}">
+                            {{ $img->title ?? '' }}
+                        </h2>
+                        <a href="{{ route('image.show', ['image' => $img->pageName]) }}">
+                            @if($img->extension == "mp4")
+                                <video autoplay loop class="w-full h-48 mx-auto overflow-hidden shadow-lg">
+                                    <source src="{{ route('image.show', ['image' => $img->fullname]) }}" type="video/mp4">
+                                    Your browser does not support HTML5 video.
+                                </video>
+                            @else
+                                <div class="w-full h-48 mx-auto overflow-hidden bg-center bg-cover shadow-lg"
+                                     style="background-image: url({{ route('image.show', ['image' => $img->fullname]) }})"></div>
+                            @endif
+                        </a>
+                        <p class="flex justify-end px-2 py-1 mr-2 text-sm font-medium text-gray-800 dark:text-gray-100">
+                            {{ $img->created_at->format('d/m/Y') }}
+                            by&nbsp;
+                            <a href="{{ route('user.profile', ['user' => $img->user->username]) }}" class="text-indigo-500 hover:text-indigo-400">
+                            {{ $img->user->username }}
+                            </a>
+                        </p>
+                    </div>
+                @endforeach
+            </div>
+            <div class="pt-5 text-center">
+                {{ $discoverImages->links() }}
             </div>
         </div>
         <div x-show="tab === 'public'">
