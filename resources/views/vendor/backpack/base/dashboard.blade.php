@@ -23,9 +23,9 @@
           'class'       => 'card mb-2',
           'value'       => App\Image::count(),
           'description' => 'Images',
-          'progress'    => App\Image::count() * 100 / 1000, // integer
+          'progress'    => App\Image::count() * 100 / 5000, // integer
           'progressClass' => 'progress-bar bg-warning',
-          'hint'        => 1000 - App\Image::count() . ' more until 1000 images!',
+          'hint'        => 5000 - App\Image::count() . ' more until 5000 images!',
         ],
         [
           'type'        => 'progress_white',

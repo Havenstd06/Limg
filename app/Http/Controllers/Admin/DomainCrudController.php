@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\DomainRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 
 /**
  * Class DomainCrudController.
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class DomainCrudController extends CrudController
 {
@@ -19,8 +20,8 @@ class DomainCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Models\Domain');
-        $this->crud->setRoute(config('backpack.base.route_prefix').'/domain');
+        $this->crud->setModel('App\Models\CrudDomain');
+        $this->crud->setRoute(config('backpack.base.route_prefix').'/crud-domain');
         $this->crud->setEntityNameStrings('domain', 'domains');
     }
 

@@ -1,28 +1,32 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\User;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
 {
     /**
-     * Auto generated seed file.
+     * Run the database seeders.
      *
      * @return void
      */
     public function run()
     {
-        factory(App\User::class)->create([
+        User::factory()->create([
             'username' => 'Anonymous',
             'email'    => 'anonymous@example.com',
             'password' => bcrypt(env('ANON_PASSWORD')),
         ])->save();
 
-        factory(App\User::class)->create([
+        User::factory()->create([
             'username' => 'Havens',
             'email'    => 'me@hvs.cx',
             'role'     => 1,
         ])->save();
 
-        factory(App\User::class, 3)->create();
+
+        User::factory(3)->create();
     }
 }
