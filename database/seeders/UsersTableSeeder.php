@@ -26,7 +26,6 @@ class UsersTableSeeder extends Seeder
             'role'     => 1,
         ])->save();
 
-
         User::factory(3)->create();
     }
 }
