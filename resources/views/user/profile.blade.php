@@ -85,7 +85,7 @@
   "Name": "{{ config('app.name') }}",
   "DestinationType": "ImageUploader, FileUploader",
   "RequestMethod": "POST",
-  "RequestURL": "{{ route('apiv2_upload') }}",
+  "RequestURL": "{{ route('api_upload') }}",
   "Headers": {
     "Authorization": "{{ auth()->user()->api_token }}"
   },

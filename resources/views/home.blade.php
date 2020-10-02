@@ -66,7 +66,8 @@ https://limg.app/i/1633umO.png"></textarea>
   "Name": "{{ config('app.name') }}",
   "DestinationType": "ImageUploader, FileUploader",
   "RequestMethod": "POST",
-  "RequestURL": "{{ route('apiv2_upload') }}",
+  "RequestURL": "{{ route('api_upload') }}",
+  "RequestURL": "{{ route('api_upload') }}",
   "Headers": {
     "Authorization": "@auth{{ auth()->user()->api_token }}@else{{ App\User::findOrFail(1)->api_token }}@endif"
   },

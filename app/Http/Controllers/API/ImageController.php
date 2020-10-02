@@ -9,8 +9,11 @@ use App\Image;
 use App\User;
 use DiscordWebhooks\Client;
 use DiscordWebhooks\Embed;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -22,7 +25,7 @@ class ImageController extends Controller
      *
      * @return string
      */
-    public function public(Request $request)
+    public function public()
     {
         $images = Image::where('is_public', 1)->orderBy('created_at', 'DESC')->get();
 
@@ -34,7 +37,7 @@ class ImageController extends Controller
      *
      * @param Request $request
      * @return JsonResponse
-     * @throws Exception
+     * @throws Exception|\Exception
      */
     public function store(Request $request)
     {
@@ -106,7 +109,7 @@ class ImageController extends Controller
                 'account_id'   => $user->id,
                 'account_name' => $user->username,
                 'image_state'  => $image->is_public,
-                'delete'       => route('apiv2_image_delete', ['pageName' => $image->pageName]),
+                'delete'       => route('api_image_delete', ['pageName' => $image->pageName]),
                 'page'         => route('image.show', ['image' => $image->pageName]),
                 'link'         => $user->domain.$image->path,
             ],
@@ -121,7 +124,7 @@ class ImageController extends Controller
      * @param Request $request
      * @param $pageName
      * @return JsonResponse
-     * @throws Exception
+     * @throws Exception|\Exception
      */
     public function delete(Request $request, $pageName)
     {
@@ -165,8 +168,9 @@ class ImageController extends Controller
     /**
      * Show specific image (api_token may required).
      *
-     * @param \App\Image $image
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return Image|Builder|Model|JsonResponse
      */
     public function show(Request $request, $id)
     {
