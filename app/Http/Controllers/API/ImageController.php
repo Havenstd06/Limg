@@ -138,8 +138,7 @@ class ImageController extends Controller
             ->with('user')
             ->firstOrFail();
 
-        if ($image->user->id == 1)
-        {
+        if ($image->user->id == 1) {
             return response()->json([
                 'success' => false,
                 'error'   => 'You cannot delete an image owned by the anonymous user.',
