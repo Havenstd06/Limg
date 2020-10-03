@@ -138,6 +138,14 @@ class ImageController extends Controller
             ->with('user')
             ->firstOrFail();
 
+        if ($image->user->id == 1)
+        {
+            return response()->json([
+                'success' => false,
+                'error'   => 'You cannot delete an image owned by the anonymous user.',
+            ], 401);
+        }
+
         if (! $key) {
             return response()->json([
                 'success' => false,
@@ -158,7 +166,7 @@ class ImageController extends Controller
             return response()->json([
                 'success' => false,
                 'error'   => 'You do not own the image.',
-            ], 403);
+            ], 401);
         }
 
         if (File::exists($image->fullpath)) {
