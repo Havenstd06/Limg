@@ -178,6 +178,7 @@ return [
         \SocialiteProviders\Manager\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Yoeunes\Notify\NotifyServiceProvider::class,
+        Spatie\JsonApiPaginate\JsonApiPaginateServiceProvider::class,
     ],
 
     /*

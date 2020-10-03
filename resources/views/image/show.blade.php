@@ -74,18 +74,18 @@
             <span class="text-gray-700 dark:text-gray-100 mr-2"> {{ __('Status') }}</span>
             <select name="is_public" class="py-3 block w-full transition duration-150 ease-in-out form-select sm:text-sm sm:leading-5">
                 <option value="{{ $image->is_public }}" selected>
-                    @if($image->is_public == 0)
+                    @if($image->is_public == \App\Enums\ImageStateType::Private)
                         Private
-                    @elseif ($image->is_public == 1)
+                    @elseif ($image->is_public == \App\Enums\ImageStateType::Discover)
                         Discover
-                    @elseif ($image->is_public == 2)
+                    @elseif ($image->is_public == \App\Enums\ImageStateType::Public)
                         Public
                     @endif
                 </option>
                 <option disabled class="bg-gray-50">---------</option>
-                <option value="0">Private</option>
-                <option value="2">Public</option>
-                <option value="1">Discover</option>
+                <option value="{{ \App\Enums\ImageStateType::Private }}">Private</option>
+                <option value="{{ \App\Enums\ImageStateType::Public }}">Public</option>
+                <option value="{{ \App\Enums\ImageStateType::Discover }}">Discover</option>
             </select>
         </label>
         <button type="submit" class="px-4 py-2 mt-4 font-bold text-white bg-indigo-700 rounded shadow hover:bg-indigo-800 focus:shadow-outline focus:outline-none sm:mx-4 sm:mt-0">

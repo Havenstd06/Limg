@@ -1,7 +1,7 @@
 # Limg
 ## An open source image hosting service powered by Laravel
   
-<img src="https://limg.app/i/gQHOGpS.png/500">
+<img src="https://limg.app/i/gQHOGpS.png/500" alt="limg logo">
   
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
@@ -50,27 +50,32 @@
 ### API endpoint
 `https://limg.app/api`
 
+### Authorization Header
+For some page (with sensitive information) an API key is necessary, you must add:  
+`Authorization:` `{UserApiToken}`
+
 ### Stats
 * `/stats/global` - Return the number of images, albums and users.
 
 ### User
 * `/user/{Username}` - Return the user's public information.
-* `/user/{Username}?{UserApiToken}` - Return the user's private information (api key required).
+* `/user/{Username}` (with "Authorization") - Return the user's private information.
+* `/user/{Username}/images/discover` - Returns all the user's "discover" images.
+* `/user/{Username}/images/all` (with "Authorization") - Return all user images.
+* `/user/{Username}/images/public` (with "Authorization") - Returns all the user's "public" images.
+* `/user/{Username}/images/private` (with "Authorization") - Returns all the user's "private" images.
 
 ### Images
-* `/images/public` - Return all public images. 
-* `/images/id?{ImageID}` - Return the image of the specified id (If public).  
-* `/images/id?{ImageID}?{UserApiToken}` - Return the image of the specified id (If private) (api key required).
+* `/images/discover` - Return all "discover" images. 
+* `/images/{pageName}` - Return the image of the specified image "pageName" (If public).  
+* `/images/{pageName}` (with "Authorization") - Return the image of the specified image "pageName" (If private).
+* `/images/delete/{pageName}` (with "Authorization") - Delete the image, only if you own the image (does not work with anonymous user images).
 
 ### Upload
 * `/upload` - ShareX Compatible API.
 
 ## Backpack Admin Panel
 This software uses Backpack for Laravel as a dependency. So when you use this in production, you'll need a Backpack license. You can get a free non-commercial license here, but if your project is for commercial purposes you need to pay 69 EUR for a license.
-
-<hr>  
-
-If you have any problem or request open an issue.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

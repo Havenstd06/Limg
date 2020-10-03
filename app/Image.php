@@ -13,6 +13,12 @@ class Image extends Model
 
     protected $fillable = ['title', 'is_public'];
 
+    protected $appends = [
+        'link',
+        'delete',
+        'page',
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -36,6 +42,26 @@ class Image extends Model
     public function getFullPathAttribute()
     {
         return storage_path('app/public/images/'.$this->fullname);
+    }
+
+//    public function getPathAttribute($value)
+//    {
+//        return config('app.url').$value;
+//    }
+
+    public function getLinkAttribute()
+    {
+        return config('app.url').$this->path;
+    }
+
+    public function getDeleteAttribute()
+    {
+        return route('api_image_delete', ['pageName' => $this->pageName]);
+    }
+
+    public function getPageAttribute()
+    {
+        return route('image.show', ['image' => $this->pageName]);
     }
 
     public static function search($query)
