@@ -81,13 +81,12 @@
                     <div class="h-auto p-4 mx-2 text-left bg-white rounded shadow-xl md:max-w-xl md:p-6 lg:p-8 md:mx-0" @click.away="open = false">
                         <h2 class="text-2xl dark:text-gray-700">ShareX</h2>
                         <textarea id="sharex" cols="60" rows="11" class="w-full p-2 border dark:text-gray-700" spellcheck="false">{
-  "Version": "13.1.0",
   "Name": "{{ config('app.name') }}",
   "DestinationType": "ImageUploader, FileUploader",
   "RequestMethod": "POST",
   "RequestURL": "{{ route('api_upload') }}",
   "Headers": {
-    "Authorization": "{{ auth()->user()->api_token }}"
+    "Authorization": "{{ $user->api_token }}"
   },
   "Body": "MultipartFormData",
   "Arguments": {

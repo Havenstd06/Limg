@@ -62,11 +62,9 @@ https://limg.app/i/1633umO.png"></textarea>
           </div>
           <div x-cloak x-show="tab === 'sharex'">
             <textarea id="sharex" class="w-full p-2 text-sm border border-gray-300 border-dashed rounded-md h-41 bg-gray-50 focus:outline-none dark:bg-transparent dark:text-gray-100" style="resize: none;" spellcheck="false">{
-  "Version": "13.1.0",
   "Name": "{{ config('app.name') }}",
   "DestinationType": "ImageUploader, FileUploader",
   "RequestMethod": "POST",
-  "RequestURL": "{{ route('api_upload') }}",
   "RequestURL": "{{ route('api_upload') }}",
   "Headers": {
     "Authorization": "@auth{{ auth()->user()->api_token }}@else{{ App\User::findOrFail(1)->api_token }}@endif"
