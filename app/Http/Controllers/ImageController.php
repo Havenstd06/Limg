@@ -110,23 +110,36 @@ class ImageController extends Controller
 
     public function get(Request $request, $image)
     {
-        if (strpos($image, '.') !== false) { // Afficher la page avec l'extension
+        if (strpos($image, '.')) { // Afficher la page avec l'extension
             $imageLink = Image::where('path', '/i/'.$image)->firstOrFail();
 
             return response()->download($imageLink->fullpath, null, [], null);
-        } else { // Afficher le view image
 
+        } else { // Afficher le view image
             $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
-            $pageImage = Image::where('pageName', pathinfo($image, PATHINFO_FILENAME))->firstOrFail();
+
+            $imagePath = Image::where('pageName', $image)
+                ->orWhere('imageName', $image)
+                ->firstOrFail();
+
+            if ($imagePath->imageName === $image)
+            {
+                return redirect()->route('image.show', ['image' => $imagePath->pageName]);
+            }
 
             $userAlbums = Album::where('user_id', '=', $user->id)->get();
 
             return view('image.show', [
                 'user'   => $user,
-                'image'  => $pageImage,
+                'image'  => $imagePath,
                 'albums' => $userAlbums,
             ]);
         }
+    }
+
+    public function redirectToPageName($pageName)
+    {
+        return redirect()->route('image.show', ['pageName' => $pageName]);
     }
 
     public function infos(Request $request, Image $image)
