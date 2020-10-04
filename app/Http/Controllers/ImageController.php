@@ -135,11 +135,6 @@ class ImageController extends Controller
         }
     }
 
-    public function redirectToPageName($pageName)
-    {
-        return redirect()->route('image.show', ['pageName' => $pageName]);
-    }
-
     public function infos(Request $request, Image $image)
     {
         $user = $request->user();
