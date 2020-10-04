@@ -31,7 +31,7 @@ class ImageController extends Controller
             ->jsonPaginate(100);
 
         return response()->json([
-            'images' => $discover,
+            'images'  => $discover,
             'success' => true,
             'status'  => 200,
         ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);

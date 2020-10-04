@@ -114,7 +114,6 @@ class ImageController extends Controller
             $imageLink = Image::where('path', '/i/'.$image)->firstOrFail();
 
             return response()->download($imageLink->fullpath, null, [], null);
-
         } else { // Afficher le view image
             $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
 
@@ -122,8 +121,7 @@ class ImageController extends Controller
                 ->orWhere('imageName', $image)
                 ->firstOrFail();
 
-            if ($imagePath->imageName === $image)
-            {
+            if ($imagePath->imageName === $image) {
                 return redirect()->route('image.show', ['image' => $imagePath->pageName]);
             }
 

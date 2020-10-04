@@ -72,7 +72,7 @@ class UserController extends Controller
             ->jsonPaginate(100);
 
         return response()->json([
-            'images' => $discover_images,
+            'images'  => $discover_images,
             'success' => true,
             'status'  => 200,
         ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
