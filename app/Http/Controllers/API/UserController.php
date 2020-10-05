@@ -38,7 +38,7 @@ class UserController extends Controller
             $all_image = $user->images()
                 ->with('user')
                 ->orderBy('created_at', 'DESC')
-                ->jsonPaginate(100);
+                ->jsonPaginate(10);
 
             return response()->json([
                 'images'  => $all_image,
@@ -69,7 +69,7 @@ class UserController extends Controller
         $discover_images = $user->images()
             ->where('is_public', ImageStateType::Discover)
             ->orderBy('created_at', 'DESC')
-            ->jsonPaginate(100);
+            ->jsonPaginate(10);
 
         return response()->json([
             'images'  => $discover_images,
@@ -107,7 +107,7 @@ class UserController extends Controller
                 ->where('is_public', ImageStateType::Public)
                 ->with('user')
                 ->orderBy('created_at', 'DESC')
-                ->jsonPaginate(100);
+                ->jsonPaginate(10);
 
             return response()->json([
                 'images'  => $public_image,
@@ -151,7 +151,7 @@ class UserController extends Controller
                 ->where('is_public', ImageStateType::Private)
                 ->with('user')
                 ->orderBy('created_at', 'DESC')
-                ->jsonPaginate(100);
+                ->jsonPaginate(10);
 
             return response()->json([
                 'images'  => $private_image,

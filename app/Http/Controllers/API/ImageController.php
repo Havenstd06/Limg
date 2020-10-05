@@ -28,7 +28,7 @@ class ImageController extends Controller
         $discover = Image::where('is_public', ImageStateType::Discover)
             ->with('user')
             ->orderBy('created_at', 'DESC')
-            ->jsonPaginate(100);
+            ->jsonPaginate(10);
 
         return response()->json([
             'images'  => $discover,
