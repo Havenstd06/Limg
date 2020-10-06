@@ -24,15 +24,13 @@ class UserController extends Controller
             ->with('images')
             ->first();
 
-        if ($key) { // If private
+        if ($key) { // If header "Authorization"
             $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
-            if (! in_array($key, $keys)) {
-                if ($user->api_token != $key) {
-                    return response()->json([
-                        'success' => false,
-                        'error'   => 'The given key is not the same as the requested user!',
-                    ], 403);
-                }
+            if (in_array($key, $keys) && $user->api_token != $key) {
+                return response()->json([
+                    'success' => false,
+                    'error'   => 'The given key is not the same as the requested user!',
+                ], 403);
             }
 
             $all_image = $user->images()
@@ -94,13 +92,11 @@ class UserController extends Controller
 
         if ($key) { // If private
             $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
-            if (! in_array($key, $keys)) {
-                if ($user->api_token != $key) {
-                    return response()->json([
-                        'success' => false,
-                        'error'   => 'The given key is not the same as the requested user!',
-                    ], 403);
-                }
+            if (in_array($key, $keys) && $user->api_token != $key) {
+                return response()->json([
+                    'success' => false,
+                    'error'   => 'The given key is not the same as the requested user!',
+                ], 403);
             }
 
             $public_image = $user->images()
@@ -138,13 +134,11 @@ class UserController extends Controller
 
         if ($key) { // If private
             $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
-            if (! in_array($key, $keys)) {
-                if ($user->api_token != $key) {
-                    return response()->json([
-                        'success' => false,
-                        'error'   => 'The given key is not the same as the requested user!',
-                    ], 403);
-                }
+            if (in_array($key, $keys) && $user->api_token != $key) {
+                return response()->json([
+                    'success' => false,
+                    'error'   => 'The given key is not the same as the requested user!',
+                ], 403);
             }
 
             $private_image = $user->images()
@@ -195,13 +189,11 @@ class UserController extends Controller
 
         if ($key) { // If private
             $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
-            if (! in_array($key, $keys)) {
-                if ($user->api_token != $key) {
-                    return response()->json([
-                        'success' => false,
-                        'error'   => 'The given key is not the same as the requested user!',
-                    ], 403);
-                }
+            if (in_array($key, $keys) && $user->api_token != $key) {
+                return response()->json([
+                    'success' => false,
+                    'error'   => 'The given key is not the same as the requested user!',
+                ], 403);
             }
 
             $user_private_stats = [
