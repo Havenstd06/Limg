@@ -189,7 +189,7 @@ class UserController extends Controller
 
         if ($key) { // If private
             $keys = User::all()->makeVisible('api_token')->pluck('api_token')->toArray();
-            if (in_array($key, $keys) && $user->api_token != $key) {
+            if (! in_array($key, $keys) && $user->api_token != $key) {
                 return response()->json([
                     'success' => false,
                     'error'   => 'The given key is not the same as the requested user!',
