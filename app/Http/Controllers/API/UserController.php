@@ -180,7 +180,7 @@ class UserController extends Controller
             'public_albums_count'   => $user->albums()->where('is_public', 1)->count(),
         ];
 
-        $user_info = [
+        $user_data = [
             'username'      => $user->username,
             'description'   => $user->description,
             'role'          => $user->role,
@@ -210,7 +210,7 @@ class UserController extends Controller
                 ],
             ];
 
-            $user_private_info = [
+            $user_private_data = [
                 'username'             => $user->username,
                 'description'          => $user->description,
                 'role'                 => $user->role,
@@ -224,12 +224,12 @@ class UserController extends Controller
 
             return response()->json([
                 'stats' => $user_private_stats,
-                'info'  => $user_private_info,
+                'data'  => $user_private_data,
             ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         } else { // Public
             return response()->json([
                 'stats' => $user_stats,
-                'info'  => $user_info,
+                'info'  => $user_data,
             ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         }
     }
