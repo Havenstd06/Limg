@@ -211,6 +211,7 @@ class UserController extends Controller
             ];
 
             $user_private_data = [
+                'id'                   => $user->id,
                 'username'             => $user->username,
                 'description'          => $user->description,
                 'role'                 => $user->role,
