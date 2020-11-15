@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
 use App\Unique;
 use App\User;
 use Illuminate\Http\Request;
@@ -20,8 +19,7 @@ class UniqueController extends Controller
             $uniqueLink = Unique::where('path', '/u/'.$unique)->firstOrFail();
 
             return response()->download($uniqueLink->fullpath, null, [], null);
-        }
-        else {
+        } else {
             $user = (auth()->user()) ? auth()->user() : User::findOrFail(1);
             $uniqueLink = Unique::where('name', $unique)
                 ->orWhere('shareName', $unique)
@@ -38,7 +36,8 @@ class UniqueController extends Controller
         }
     }
 
-    public function upload(Request $request) {
+    public function upload(Request $request)
+    {
         $rules = [
             'image' => 'required | mimes:jpeg,jpg,png,gif | max:15000',
         ];
