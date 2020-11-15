@@ -30,6 +30,10 @@
             :class="{ 'text-indigo-700 bg-indigo-100 focus:text-indigo-800 focus:bg-indigo-200': tab === 'url', 'dark:text-gray-300 dark-hover:text-gray-400 text-gray-600 hover:text-gray-900 focus:text-indigo-600 focus:bg-indigo-50': tab !== 'url' }">
               URL
             </button>
+            <button @click="tab = 'unique'" class="px-3 py-2 ml-4 text-sm font-medium leading-5 rounded-md focus:outline-none"
+            :class="{ 'text-indigo-700 bg-indigo-100 focus:text-indigo-800 focus:bg-indigo-200': tab === 'unique', 'dark:text-gray-300 dark-hover:text-gray-400 text-gray-600 hover:text-gray-900 focus:text-indigo-600 focus:bg-indigo-50': tab !== 'unique' }">
+              Unique
+            </button>
             <button @click="tab = 'sharex'" class="px-3 py-2 ml-4 text-sm font-medium leading-5 rounded-md focus:outline-none"
             :class="{ 'text-indigo-700 bg-indigo-100 focus:text-indigo-800 focus:bg-indigo-200': tab === 'sharex', 'dark:text-gray-300 dark-hover:text-gray-400 text-gray-600 hover:text-gray-900 focus:text-indigo-600 focus:bg-indigo-50': tab !== 'sharex' }">
               ShareX
@@ -58,6 +62,20 @@ https://limg.app/i/1633umO.png"></textarea>
             </form>
             <p class="mt-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
               Paste image links to start uploading images. 15 MB per image.
+            </p>
+          </div>
+          <div x-cloak x-show="tab === 'unique'">
+              @auth
+                  <form action="{{ route('unique_upload') }}" method="POST" enctype="multipart/form-data" id="unique-dropzone" class="text-lg font-medium border border-gray-300 border-dashed rounded-md cursor-pointer dark:bg-transparent dark:text-gray-100 dropzone">
+                      @csrf
+                  </form>
+              @else
+                  <h3 class="mt-1 text-lg leading-relaxed text-gray-600 dark:text-gray-400 h-41">
+                      You must authenticate yourself to use this feature.
+                  </h3>
+              @endauth
+            <p class="mt-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                Upload different images that have the same link all the time.
             </p>
           </div>
           <div x-cloak x-show="tab === 'sharex'">
@@ -102,6 +120,22 @@ https://limg.app/i/1633umO.png"></textarea>
     paramName: "image",
     maxFilesize: 15,
     maxFiles: 10,
+    acceptedFiles: 'image/*',
+    init: function() {
+      myDropzone = this;
+      this.on('success', function(file, response) {
+        file.previewElement.addEventListener("click", function () {
+            window.location.replace(response);
+        });
+      })
+    }
+  };
+
+  Dropzone.options.uniqueDropzone = {
+    dictDefaultMessage: '<i class="mb-1 text-gray-900 dark:text-gray-300 far fa-file-image fa-3x"></i> <p class="mt-1 text-sm text-gray-800 dark:text-gray-300"> <span class="font-medium text-indigo-500 transition duration-150 ease-in-out hover:text-indigo-400 focus:outline-none focus:underline">Upload a file</span> or drag and drop </p> <p class="mt-1 text-xs text-gray-800 dark:text-gray-300">PNG, JPG, GIF up to 15MB</p> ',
+    paramName: "image",
+    maxFilesize: 15,
+    maxFiles: 1,
     acceptedFiles: 'image/*',
     init: function() {
       myDropzone = this;
