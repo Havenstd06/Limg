@@ -33,7 +33,8 @@ class Unique extends Model
         return storage_path('app/public/uniques/'.$this->fullname);
     }
 
-    public function getShareLinkAttribute() {
+    public function getShareLinkAttribute()
+    {
         return route('unique.show', ['unique' => $this->shareName]);
     }
 }
