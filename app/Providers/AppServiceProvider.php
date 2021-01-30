@@ -43,10 +43,6 @@ class AppServiceProvider extends ServiceProvider
             return auth()->user() && (auth()->user()->id == $image->user->id || auth()->user()->role == 1);
         });
 
-        Blade::if('ownsUnique', function ($unique) {
-            return auth()->user() && (auth()->user()->id == $unique->user->id || auth()->user()->role == 1);
-        });
-
         Blade::if('ownsAlbum', function ($album) {
             return auth()->user() && (auth()->user()->id == $album->user->id || auth()->user()->role == 1);
         });

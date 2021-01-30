@@ -69,11 +69,6 @@ class User extends Authenticatable
         return $this->hasMany('App\Image');
     }
 
-    public function uniques()
-    {
-        return $this->hasMany('App\Unique');
-    }
-
     public function albums()
     {
         return $this->hasMany('App\Album');

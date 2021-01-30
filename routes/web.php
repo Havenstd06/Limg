@@ -15,7 +15,6 @@ use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
-use App\Http\Controllers\UniqueController;
 use App\Http\Controllers\UserController;
 
 Auth::routes();
@@ -59,20 +58,6 @@ Route::prefix('/i')->group(function () {
         Route::get('/addtoalbum', [ImageController::class, 'add_to_album'])->name('image.add_to_album');
         Route::get('/download', [ImageController::class, 'download'])->name('image.download');
         Route::get('/{size}', [ImageController::class, 'build']);
-    });
-});
-
-// Unique Route
-Route::post('/u/upload', [UniqueController::class, 'upload'])->name('unique_upload');
-
-Route::prefix('/u')->group(function () {
-    Route::prefix('/{unique}')->group(function () {
-        Route::get('/', [UniqueController::class, 'show'])->name('unique.show');
-
-        Route::post('/updates', [UniqueController::class, 'infos'])->name('unique.infos');
-        Route::get('/delete', [UniqueController::class, 'delete'])->name('unique.delete');
-        Route::get('/download', [UniqueController::class, 'download'])->name('unique.download');
-        Route::get('/{size}', [UniqueController::class, 'build']);
     });
 });
 
