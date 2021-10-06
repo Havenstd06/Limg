@@ -3,11 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Album;
-use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -57,11 +55,10 @@ class UserAlbums extends Component
     /**
      * Paginate collection.
      *
-     * @param array|Collection $items
-     * @param int $perPage
-     * @param int $page
-     * @param array $options
-     *
+     * @param  array|Collection  $items
+     * @param  int  $perPage
+     * @param  int  $page
+     * @param  array  $options
      * @return LengthAwarePaginator
      */
     public function paginate($items, $perPage = 20, $page = null, $options = [])
