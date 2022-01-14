@@ -13,7 +13,7 @@ class UserController extends Controller
     /**
      * Return user private image.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $username
      * @return JsonResponse
      */
@@ -54,7 +54,7 @@ class UserController extends Controller
     /**
      * Return user discover image.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $username
      * @return JsonResponse
      */
@@ -79,7 +79,7 @@ class UserController extends Controller
     /**
      * Return user public image.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $username
      * @return JsonResponse
      */
@@ -121,7 +121,7 @@ class UserController extends Controller
     /**
      * Return user private image.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $username
      * @return JsonResponse
      */
@@ -163,7 +163,7 @@ class UserController extends Controller
     /**
      * Return site stats.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $username
      * @return array|JsonResponse
      */
