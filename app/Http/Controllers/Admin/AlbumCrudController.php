@@ -8,6 +8,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 
 /**
  * Class CrudAlbumCrudController.
+ *
  * @property-read CrudPanel $crud
  */
 class AlbumCrudController extends CrudController
