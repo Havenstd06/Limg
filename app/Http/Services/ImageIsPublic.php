@@ -18,6 +18,7 @@ class ImageIsPublic
 
     /**
      * @return int
+     *
      * @throws \Exception
      */
     public function imageState()
