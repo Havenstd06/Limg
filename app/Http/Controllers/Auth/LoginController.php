@@ -92,14 +92,14 @@ class LoginController extends Controller
 
         Auth::login($foundUser, true);
 
-        notify()->success('Login Successfully With Discord!');
+        flash()->addSuccess('Login Successfully With Discord!');
 
         return redirect($this->redirectPath());
     }
 
     protected function authenticated(Request $request)
     {
-        notify()->success('Login Successfully!');
+        flash()->addSuccess('Login Successfully!');
 
         return Redirect::back();
     }
@@ -145,7 +145,7 @@ class LoginController extends Controller
     {
         Auth::logout();
 
-        notify()->success('Logout Successfully!');
+        flash()->addSuccess('Logout Successfully!');
 
         return Redirect::route('home');
     }

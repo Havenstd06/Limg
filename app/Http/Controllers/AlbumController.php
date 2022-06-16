@@ -67,7 +67,7 @@ class AlbumController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            notify()->error('The name must contain maximum 50 characters!');
+            flash()->addError('The name must contain maximum 50 characters!');
 
             return back();
         }
@@ -76,7 +76,7 @@ class AlbumController extends Controller
         $album->is_public = $request->has('is_public');
         $album->save();
 
-        notify()->success('You have successfully updated your image!');
+        flash()->addSuccess('You have successfully updated your image!');
 
         return redirect(route('album.show', ['album' => $album->slug]));
     }
@@ -89,7 +89,7 @@ class AlbumController extends Controller
         $album->images()->detach();
         $album->delete();
 
-        notify()->success('You have successfully delete your album!');
+        flash()->addSuccess('You have successfully delete your album!');
 
         return redirect()->route('album.main');
     }
@@ -104,7 +104,7 @@ class AlbumController extends Controller
         } else {
             $album->images()->detach($image);
 
-            notify()->success('You have successfully remove this image from this album!');
+            flash()->addSuccess('You have successfully remove this image from this album!');
         }
 
         return redirect()->back();

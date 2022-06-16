@@ -65,7 +65,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        notify()->success('Thanks for signing up!');
+        flash()->addSuccess('Thanks for signing up!');
 
         return User::create([
             'username'  => $data['username'],

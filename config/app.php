@@ -177,7 +177,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         \SocialiteProviders\Manager\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Yoeunes\Notify\NotifyServiceProvider::class,
         Spatie\JsonApiPaginate\JsonApiPaginateServiceProvider::class,
     ],
 

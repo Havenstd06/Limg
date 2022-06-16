@@ -31,7 +31,7 @@ class ResetPasswordController extends Controller
 
     public function redirectTo()
     {
-        notify()->success('Password Reset Successfully!');
+        flash()->addSuccess('Password Reset Successfully!');
 
         return $redirectTo = RouteServiceProvider::HOME;
     }
