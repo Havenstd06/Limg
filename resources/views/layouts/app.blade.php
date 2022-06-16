@@ -46,7 +46,6 @@
 
         <!-- Styles -->
         <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-        @notify_css
         @livewireStyles
     </head>
 
@@ -65,12 +64,10 @@
             </div>
         @endif
         @yield('content')
-    </div> 
+    </div>
     @include('layouts.footer')
 
     <!-- Scripts -->
-    @notify_js
-    @notify_render
     @livewireScripts
     @yield('javascripts')
 

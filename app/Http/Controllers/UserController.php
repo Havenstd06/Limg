@@ -79,7 +79,7 @@ class UserController extends Controller
         $user->description = $request->input('description');
         $user->save();
 
-        notify()->success('You have successfully update your profile!');
+        flash()->addSuccess('You have successfully update your profile!');
 
         return back();
     }
@@ -91,7 +91,7 @@ class UserController extends Controller
         $user->style = $request->has('style');
         $user->save();
 
-        notify()->success('You have successfully update your style!');
+        flash()->addSuccess('You have successfully update your style!');
 
         return back();
     }
@@ -108,7 +108,7 @@ class UserController extends Controller
             'password' => Hash::make($request->new_password),
         ]);
 
-        notify()->success('You have successfully update your passsword!');
+        flash()->addSuccess('You have successfully update your passsword!');
 
         return back();
     }
@@ -119,7 +119,7 @@ class UserController extends Controller
             'api_token' => Str::random(20),
         ]);
 
-        notify()->success('You have successfully update your token!');
+        flash()->addSuccess('You have successfully update your token!');
 
         return back();
     }
@@ -135,13 +135,13 @@ class UserController extends Controller
         ]);
 
         if ($v->fails()) {
-            notify()->error('Domain must be valid!');
+            flash()->addError('Domain must be valid!');
 
             return redirect()->back();
         }
         $user->save();
 
-        notify()->success('You have successfully update your domain!');
+        flash()->addSuccess('You have successfully update your domain!');
 
         return back();
     }
@@ -157,14 +157,14 @@ class UserController extends Controller
         ]);
 
         if ($v->fails()) {
-            notify()->error('Webbook must be valid!');
+            flash()->addError('Webbook must be valid!');
 
             return redirect()->back();
         }
 
         $user->save();
 
-        notify()->success('You have successfully update your Discord Webhook URL!');
+        flash()->addSuccess('You have successfully update your Discord Webhook URL!');
 
         return back();
     }
@@ -180,7 +180,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            notify()->error('Image must be filled!');
+            flash()->addError('Image must be filled!');
 
             return back();
         }
@@ -208,7 +208,7 @@ class UserController extends Controller
                 InterImage::make($avatar)->resize(150, 150)->save($location);
             }
         } else {
-            notify()->error('Your avatar is too large, max file size: 2 MB');
+            flash()->addError('Your avatar is too large, max file size: 2 MB');
 
             return back();
         }
@@ -216,7 +216,7 @@ class UserController extends Controller
         $user->avatar = 'storage/avatars/'.$avatarName;
         $user->save();
 
-        notify()->success('You have successfully upload avatar.');
+        flash()->addSuccess('You have successfully upload avatar.');
 
         return back();
     }

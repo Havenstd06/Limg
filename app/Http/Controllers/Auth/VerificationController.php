@@ -30,7 +30,7 @@ class VerificationController extends Controller
 
     public function redirectTo()
     {
-        notify()->success('E-Mail Verification Successfully!');
+        flash()->addSuccess('E-Mail Verification Successfully!');
 
         return $redirectTo = RouteServiceProvider::HOME;
     }

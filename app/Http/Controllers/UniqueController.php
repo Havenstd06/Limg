@@ -45,7 +45,7 @@ class UniqueController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            notify()->error($validator->errors());
+            flash()->addError($validator->errors());
 
             return back();
         }
@@ -85,7 +85,7 @@ class UniqueController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            notify()->error('The title must contain maximum 50 characters!');
+            flash()->addError('The title must contain maximum 50 characters!');
 
             return back();
         }
@@ -93,7 +93,7 @@ class UniqueController extends Controller
         $unique->title = $request->input('title');
         $unique->save();
 
-        notify()->success('You have successfully updated your image!');
+        flash()->addSuccess('You have successfully updated your image!');
 
         return redirect(route('unique.show', ['unique' => $unique->name]));
     }

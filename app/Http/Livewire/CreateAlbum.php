@@ -128,7 +128,7 @@ class CreateAlbum extends Component
 
         $album->images()->attach($result);
 
-        notify()->success('Album successfully created!');
+        flash()->addSuccess('Album successfully created!');
 
         return redirect()->route('album.show', ['album' => $album->slug]);
     }

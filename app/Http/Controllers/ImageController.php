@@ -40,7 +40,7 @@ class ImageController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            notify()->error($validator->errors());
+            flash()->addError($validator->errors());
 
             return back();
         }
@@ -70,7 +70,7 @@ class ImageController extends Controller
         ];
 
         if (count($textAr) >= 10) {
-            notify()->error('Maximum 10 URL!');
+            flash()->addError('Maximum 10 URL!');
 
             return back();
         }
@@ -82,7 +82,7 @@ class ImageController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            notify()->error('Incorrect URL!');
+            flash()->addError('Incorrect URL!');
 
             return back();
         }
@@ -103,7 +103,7 @@ class ImageController extends Controller
             $this->createImage($user, $image, $pageName, $imageName, $newFullName);
         }
 
-        notify()->success('You have successfully upload image via URL! Go to your profile to see them!');
+        flash()->addSuccess('You have successfully upload image via URL! Go to your profile to see them!');
 
         return back();
     }
@@ -147,7 +147,7 @@ class ImageController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            notify()->error('The title must contain maximum 50 characters!');
+            flash()->addError('The title must contain maximum 50 characters!');
 
             return back();
         }
@@ -156,7 +156,7 @@ class ImageController extends Controller
         $image->is_public = $request->input('is_public');
         $image->save();
 
-        notify()->success('You have successfully updated your image!');
+        flash()->addSuccess('You have successfully updated your image!');
 
         return redirect(route('image.show', ['image' => $image->pageName]));
     }
@@ -174,7 +174,7 @@ class ImageController extends Controller
             } catch (\Exception $e) {
             }
         }
-        notify()->success('You have successfully delete your image!');
+        flash()->addSuccess('You have successfully delete your image!');
 
         return redirect(route('user.profile', ['user' => $user->username]));
     }
@@ -189,14 +189,14 @@ class ImageController extends Controller
         abort_unless(Auth::check() && $user->id == $album->user->id, 403);
 
         if ($album->images()->where('image_id', $image->id)->exists()) {
-            notify()->error('This image is already on the selected album!');
+            flash()->addError('This image is already on the selected album!');
 
             return back();
         }
 
         $image->album()->attach($selectValue);
 
-        notify()->success('You have successfully add this image to your album!');
+        flash()->addSuccess('You have successfully add this image to your album!');
 
         return redirect()->route('album.show', ['album' => $album->slug]);
     }
@@ -207,7 +207,7 @@ class ImageController extends Controller
 
         $image->like($user->id);
 
-        notify()->success('You have successfully like this image!');
+        flash()->addSuccess('You have successfully like this image!');
 
         return redirect()->back();
     }
@@ -218,7 +218,7 @@ class ImageController extends Controller
 
         $image->unlike($user->id);
 
-        notify()->success('You have successfully unlike this image!');
+        flash()->addSuccess('You have successfully unlike this image!');
 
         return redirect()->back();
     }
