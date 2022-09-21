@@ -34,7 +34,7 @@ class ImageController extends Controller
     public function upload(Request $request)
     {
         $rules = [
-            'image' => 'required | mimes:jpeg,jpg,png,svg,gif,bmp,tiff | max:15000',
+            'image' => 'required | mimes:jpeg,jpg,png,svg,gif,bmp,tiff,wepb | max:15000',
         ];
 
         $validator = Validator::make($request->all(), $rules);
