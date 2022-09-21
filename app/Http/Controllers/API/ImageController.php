@@ -69,7 +69,7 @@ class ImageController extends Controller
             $request->all(),
             [
                 'title' => 'max:50', //  max 100mb
-                'file'  => 'mimes:jpeg,jpg,png,svg,gif,bmp,tiff,mp4,mov,ogg,qt | required | max:200000', //  max 200mb
+                'file'  => 'mimes:jpeg,jpg,png,wepb,svg,gif,bmp,tiff,mp4,mov,ogg,qt | required | max:200000', //  max 200mb
             ]
         );
 
