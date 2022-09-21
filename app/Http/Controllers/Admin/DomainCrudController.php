@@ -8,6 +8,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 
 /**
  * Class DomainCrudController.
+ *
  * @property-read CrudPanel $crud
  */
 class DomainCrudController extends CrudController
