@@ -56,11 +56,10 @@ class ImagesGrid extends Component
     /**
      * Paginate collection.
      *
-     * @param array|Collection $items
-     * @param int $perPage
-     * @param int $page
-     * @param array $options
-     *
+     * @param  array|Collection  $items
+     * @param  int  $perPage
+     * @param  int  $page
+     * @param  array  $options
      * @return LengthAwarePaginator
      */
     public function paginate($items, $perPage = 20, $page = null, $options = [])
