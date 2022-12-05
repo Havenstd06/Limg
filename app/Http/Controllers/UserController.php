@@ -9,7 +9,6 @@ use App\Rules\ValidDiscordWebhookRule;
 use App\Rules\ValidImageDomainRule;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
