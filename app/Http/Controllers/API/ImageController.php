@@ -40,8 +40,9 @@ class ImageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
+     *
      * @throws Exception|\Exception
      */
     public function store(Request $request)
@@ -126,9 +127,10 @@ class ImageController extends Controller
     /**
      * Delete specific image (api_token is required).
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $pageName
      * @return JsonResponse
+     *
      * @throws Exception|\Exception
      */
     public function delete(Request $request, $pageName)
@@ -182,7 +184,7 @@ class ImageController extends Controller
     /**
      * Show specific image (api_token may required).
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $id
      * @return Image|Builder|Model|JsonResponse
      */
