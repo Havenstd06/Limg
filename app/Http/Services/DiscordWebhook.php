@@ -18,6 +18,7 @@ class DiscordWebhook
 
     /**
      * @return void
+     *
      * @throws \Exception
      */
     public function sendWebhook()
